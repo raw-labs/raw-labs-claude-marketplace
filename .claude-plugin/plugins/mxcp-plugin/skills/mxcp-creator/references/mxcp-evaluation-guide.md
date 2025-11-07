@@ -38,6 +38,152 @@ mxcp evals --model gpt-4-turbo      # Override model
 mxcp evals --json-output            # CI/CD format
 ```
 
+## Configuring Models for Evaluations
+
+**Before running evaluations, configure the LLM models in your config file.**
+
+### Configuration Location
+
+Model configuration goes in `~/.mxcp/config.yml` (the user config file, not the project config). You can override this location using the `MXCP_CONFIG` environment variable:
+
+```bash
+export MXCP_CONFIG=/path/to/custom/config.yml
+mxcp evals
+```
+
+### Complete Model Configuration Structure
+
+```yaml
+# ~/.mxcp/config.yml
+mxcp: 1
+
+models:
+  default: gpt-4o  # Model used when not explicitly specified
+  models:
+    # OpenAI Configuration
+    gpt-4o:
+      type: openai
+      api_key: ${OPENAI_API_KEY}  # Environment variable
+      base_url: https://api.openai.com/v1  # Optional: custom endpoint
+      timeout: 60  # Request timeout in seconds
+      max_retries: 3  # Retry attempts on failure
+
+    # Anthropic Configuration
+    claude-4-sonnet:
+      type: claude
+      api_key: ${ANTHROPIC_API_KEY}  # Environment variable
+      timeout: 60
+      max_retries: 3
+
+# You can also have projects and profiles in this file
+projects:
+  your-project-name:
+    profiles:
+      default: {}
+```
+
+### Setting Up API Keys
+
+**Option 1 - Environment Variables (Recommended)**:
+```bash
+export OPENAI_API_KEY="sk-..."
+export ANTHROPIC_API_KEY="sk-ant-..."
+mxcp evals
+```
+
+**Option 2 - Direct in Config (Not Recommended)**:
+```yaml
+models:
+  models:
+    gpt-4o:
+      type: openai
+      api_key: "sk-..."  # Avoid hardcoding secrets
+```
+
+**Best Practice**: Use environment variables for API keys to keep secrets out of configuration files.
+
+### Verifying Configuration
+
+After configuring models, verify by running:
+```bash
+mxcp evals --model gpt-4o  # Test with OpenAI
+mxcp evals --model claude-4-sonnet  # Test with Anthropic
+```
+
+## Evaluation File Reference
+
+### Valid Top-Level Fields
+
+Evaluation files (`evals/*.yml`) support ONLY these top-level fields:
+
+```yaml
+mxcp: 1  # Required: Version identifier
+suite: suite_name  # Required: Test suite name
+description: "Purpose of this test suite"  # Required: Summary
+model: claude-3-opus  # Optional: Override default model for entire suite
+tests: [...]  # Required: Array of test cases
+```
+
+### Invalid Fields (Common Mistakes)
+
+These fields are **NOT supported** in evaluation files:
+
+- ❌ `project:` - Projects are configured in config.yml, not eval files
+- ❌ `profile:` - Profiles are specified via --profile flag, not in eval files
+- ❌ `expected_tool:` - Use `assertions.must_call` instead
+- ❌ `tools:` - Evals test existing tools, don't define new ones
+- ❌ `resources:` - Evals are for tools only
+
+**If you add unsupported fields, MXCP will ignore them or raise validation errors.**
+
+### Test Case Structure
+
+Each test in the `tests:` array has this structure:
+
+```yaml
+tests:
+  - name: test_identifier  # Required: Unique test name
+    description: "What this test validates"  # Required: Test purpose
+    prompt: "Question for the LLM"  # Required: Natural language prompt
+    user_context:  # Optional: For policy testing
+      role: analyst
+      permissions: ["read_data"]
+      custom_field: "value"
+    assertions:  # Required: What to verify
+      must_call: [...]  # Optional: Tools that MUST be called
+      must_not_call: [...]  # Optional: Tools that MUST NOT be called
+      answer_contains: [...]  # Optional: Text that MUST appear in response
+      answer_not_contains: [...]  # Optional: Text that MUST NOT appear
+```
+
+## How Evaluations Work
+
+### Execution Model
+
+When you run `mxcp evals`, the following happens:
+
+1. **MXCP starts an internal MCP server** in the background with your project configuration
+2. **For each test**, MXCP sends the `prompt` to the configured LLM model
+3. **The LLM receives** the prompt along with the list of available tools from your server
+4. **The LLM decides** which tools to call (if any) and executes them via the MCP server
+5. **The LLM generates** a final answer based on tool results
+6. **MXCP validates** the LLM's behavior against your assertions:
+   - Did it call the right tools? (`must_call` / `must_not_call`)
+   - Did the answer contain expected content? (`answer_contains` / `answer_not_contains`)
+7. **Results are reported** as pass/fail for each test
+
+**Key Point**: Evaluations test the **LLM's ability to use your tools**, not the tools themselves. Use `mxcp test` to verify tool correctness.
+
+### Why Evals Are Different From Tests
+
+| Aspect | `mxcp test` | `mxcp evals` |
+|--------|-------------|--------------|
+| **Tests** | Tool implementation correctness | LLM's ability to use tools |
+| **Execution** | Direct tool invocation with arguments | LLM receives prompt, chooses tools |
+| **Deterministic** | Yes - same inputs = same outputs | No - LLM may vary responses |
+| **Purpose** | Verify tools work correctly | Verify tools are usable by LLMs |
+| **Requires LLM** | No | Yes - requires API keys |
+
 ## Creating Effective Evaluations
 
 ### Step 1: Understand Evaluation Purpose
@@ -206,15 +352,59 @@ tests:
 
 Verifies LLM calls specific tools with expected arguments.
 
+**Format 1 - Check Tool Was Called (Any Arguments)**:
+```yaml
+must_call:
+  - tool: search_products
+    args: {}  # Empty = just verify tool was called, ignore arguments
+```
+
+**Use when**: You want to verify the LLM chose the right tool, but don't care about exact argument values.
+
+**Format 2 - Check Tool Was Called With Specific Arguments**:
 ```yaml
 must_call:
   - tool: search_products
     args:
-      category: "electronics"
+      category: "electronics"  # Verify this specific argument value
       max_results: 10
 ```
 
-**Partial matching**: Arguments are checked, but LLM can pass additional args.
+**Use when**: You want to verify both the tool AND specific argument values.
+
+**Important Notes**:
+- **Partial matching**: Specified arguments are checked, but LLM can pass additional args not listed
+- **String matching**: Argument values must match exactly (case-sensitive)
+- **Type checking**: Arguments must match expected types (string, integer, etc.)
+
+**Format 3 - Check Tool Was Called (Shorthand)**:
+```yaml
+must_call:
+  - get_customer  # Tool name only = just verify it was called
+```
+
+**Use when**: Simplest form - just verify the tool was called, ignore all arguments.
+
+### Choosing Strict vs Relaxed Assertions
+
+**Relaxed (Recommended for most tests)**:
+```yaml
+must_call:
+  - tool: analyze_sales
+    args: {}  # Just check the tool was called
+```
+**When to use**: When the LLM's tool selection is what matters, not exact argument values.
+
+**Strict (Use sparingly)**:
+```yaml
+must_call:
+  - tool: get_customer
+    args:
+      customer_id: "CUST_12345"  # Exact value required
+```
+**When to use**: When specific argument values are critical (e.g., testing that LLM extracted the right ID from prompt).
+
+**Trade-off**: Strict assertions are more likely to fail due to minor variations in LLM behavior (e.g., "CUST_12345" vs "cust_12345"). Use relaxed assertions unless exact values matter.
 
 ### `must_not_call`
 
@@ -463,6 +653,103 @@ When evaluations fail:
 3. **Check safety**: Did LLM avoid destructive operations?
    - If no: Add clearer hints in tool descriptions
    - Consider restricting dangerous tools
+
+## Understanding Eval Results
+
+### Why Evals Fail (Even With Good Tools)
+
+**Evaluations are not deterministic** - LLMs may behave differently on each run. Here are common reasons why evaluations fail:
+
+**1. LLM Answered From Memory**
+- **What happens**: LLM provides a plausible answer without calling tools
+- **Example**: Prompt: "What's the capital of France?" → LLM answers "Paris" without calling `search_facts` tool
+- **Solution**: Make prompts require actual data from your tools (e.g., "What's the total revenue from customer CUST_12345?")
+
+**2. LLM Chose a Different (Valid) Approach**
+- **What happens**: LLM calls a different tool that also accomplishes the goal
+- **Example**: You expected `get_customer_details`, but LLM called `search_customers` + `get_customer_orders`
+- **Solution**: Either adjust assertions to accept multiple valid approaches, or improve tool descriptions to guide toward preferred approach
+
+**3. Prompt Didn't Require Tools**
+- **What happens**: The question can be answered without tool calls
+- **Example**: "Should I analyze customer data?" → LLM answers "Yes" without calling tools
+- **Solution**: Phrase prompts as direct data requests (e.g., "Which customers have the highest lifetime value?")
+
+**4. Tool Parameters Missing Defaults**
+- **What happens**: LLM doesn't provide all parameters, tool fails because defaults aren't applied
+- **Example**: Tool has `limit` parameter with `default: 100`, but LLM omits it and tool receives `null`
+- **Root cause**: MXCP passes parameters as LLM provides them; defaults in tool definitions don't automatically apply when LLM omits parameters
+- **Solution**:
+  - Make tools handle missing/null parameters gracefully in Python/SQL
+  - Use SQL patterns like `WHERE $limit IS NULL OR LIMIT $limit`
+  - Document default values in parameter descriptions so LLM knows they're optional
+
+**5. Generic SQL Tools Preferred Over Custom Tools**
+- **What happens**: If generic SQL tools (`execute_sql_query`) are enabled, LLMs may prefer them over custom tools
+- **Example**: You expect LLM to call `get_customer_orders`, but it calls `execute_sql_query` with a custom SQL query instead
+- **Reason**: LLMs often prefer flexible tools over specific ones
+- **Solution**:
+  - If you want LLMs to use custom tools, disable generic SQL tools (`sql_tools.enabled: false` in mxcp-site.yml)
+  - If generic SQL tools are enabled, write eval assertions that accept both approaches
+
+### Common Error Messages
+
+#### "Expected call not found"
+
+**What it means**: The LLM did not call the tool specified in `must_call` assertion.
+
+**Possible reasons**:
+1. Tool description is unclear - LLM didn't understand when to use it
+2. Prompt doesn't clearly require this tool
+3. LLM chose a different (possibly valid) tool instead
+4. LLM answered from memory without using tools
+
+**How to fix**:
+- Check if LLM called any tools at all (see full eval output with `--debug`)
+- If no tools called: Make prompt more specific or improve tool descriptions
+- If different tools called: Evaluate if the alternative approach is valid
+- Consider using relaxed assertions (`args: {}`) instead of strict ones
+
+#### "Tool called with unexpected arguments"
+
+**What it means**: The LLM called the right tool, but with different arguments than expected in `must_call` assertion.
+
+**Possible reasons**:
+1. Assertions are too strict (checking exact values)
+2. LLM interpreted the prompt differently
+3. Parameter names or types don't match tool definition
+
+**How to fix**:
+- Use relaxed assertions (`args: {}`) unless exact argument values matter
+- Check if the LLM's argument values are reasonable (even if different)
+- Verify parameter descriptions clearly explain valid values
+
+#### "Answer does not contain expected text"
+
+**What it means**: The LLM's response doesn't include text specified in `answer_contains` assertion.
+
+**Possible reasons**:
+1. Tool returned correct data, but LLM phrased response differently
+2. Tool failed or returned empty results
+3. Assertions are too strict (expecting exact phrases)
+
+**How to fix**:
+- Check actual LLM response in eval output
+- Use flexible matching (e.g., "customer" instead of "customer details for ABC")
+- Verify tool returns the data you expect (`mxcp test`)
+
+### Improving Eval Results Over Time
+
+**Iterative improvement workflow**:
+
+1. **Run initial evals**: `mxcp evals --debug` to see full output
+2. **Identify patterns**: Which tests fail consistently? Which tools are never called?
+3. **Improve tool descriptions**: Add examples, clarify when to use each tool
+4. **Adjust assertions**: Make relaxed where possible, strict only where necessary
+5. **Re-run evals**: Track improvements
+6. **Iterate**: Repeat to continuously improve
+
+**Focus on critical workflows first** - Prioritize the most common and important use cases.
 
 ## Integration with MXCP Workflow
 

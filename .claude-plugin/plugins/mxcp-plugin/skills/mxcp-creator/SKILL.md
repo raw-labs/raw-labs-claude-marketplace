@@ -718,15 +718,66 @@ sql_tools:
   enabled: true
 ```
 
-**Important**: Generic SQL tools (`list_tables`, `get_table_schema`, `execute_sql_query`) are only available when the MCP server is running via `mxcp serve`. They **cannot** be tested using `mxcp run tool <name>` because they are dynamically generated at runtime and don't exist as static tool definitions in the `tools/` directory.
+### Understanding Generic SQL Tools
 
-To test generic SQL tools:
+**When They Are Available**:
+- ✅ **Runtime only** - Available when MCP server is running (`mxcp serve`)
+- ✅ **Can be tested with `mxcp evals`** - Evaluations connect to running server
+- ❌ **Cannot be tested with `mxcp run tool <name>`** - They don't exist as static tool definitions in `tools/` directory
+- ❌ **Cannot be tested with `mxcp test`** - These are for static tool definitions only
+
+**How LLMs Choose Between Generic vs Custom Tools**:
+
+LLMs often **prefer generic SQL tools** (`execute_sql_query`) over custom tools because:
+- Generic tools offer more flexibility (arbitrary SQL queries)
+- LLMs can construct queries tailored to the specific question
+- LLMs don't need to find the "right" custom tool
+
+**When to use generic SQL tools**:
+- Exploratory data analysis scenarios
+- When users ask unpredictable questions
+- When building a general-purpose data assistant
+- For prototyping before creating custom tools
+
+**When to disable generic SQL tools**:
+- When you want LLMs to use specific custom tools
+- For production systems with strict query control
+- When custom tools provide better documentation/safety
+- To enforce specific data access patterns
+
+**Testing considerations**:
 ```bash
-# Start the server
-mxcp serve
+# To test generic SQL tools
+mxcp serve  # Start server with sql_tools.enabled: true
 
-# Connect from Claude Desktop or another MCP client
-# The generic SQL tools will be available in the tool list
+# Then run evals that test LLM's ability to use generic SQL tools
+mxcp evals data_exploration
+
+# Generic SQL tools will be available to the LLM during evaluation
+```
+
+**Evaluation strategy with generic SQL tools**:
+
+If generic SQL tools are enabled, write eval assertions that accept both approaches:
+
+```yaml
+# Allow either custom tool OR generic SQL tool
+tests:
+  - name: get_customer_data
+    prompt: "Show me customer CUST_12345"
+    assertions:
+      # Don't strictly require custom tool
+      # Instead, verify answer quality
+      answer_contains:
+        - "CUST_12345"
+        - "customer"
+```
+
+Or disable generic SQL tools to force custom tool usage:
+```yaml
+# mxcp-site.yml
+sql_tools:
+  enabled: false  # LLMs must use custom tools
 ```
 
 See **assets/project-templates/covid_owid/** for complete example and **references/cli-reference.md** for security considerations.
@@ -1068,6 +1119,11 @@ python scripts/validate_yaml.py --all
 
 **Evaluations are the ultimate quality measure** - they test whether LLMs can accomplish real tasks using your tools.
 
+**Before running evaluations**:
+1. **Configure models** in `~/.mxcp/config.yml` with API keys for OpenAI/Anthropic
+2. Set environment variables: `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`
+3. Verify configuration: `mxcp evals --model gpt-4o`
+
 **Create evaluations that**:
 - Test critical workflows (most common use cases)
 - Verify safety (LLMs don't call destructive operations inappropriately)
@@ -1081,6 +1137,7 @@ python scripts/validate_yaml.py --all
 mxcp: 1
 suite: customer_analysis
 description: "Test LLM's ability to analyze customer data"
+model: gpt-4o  # Optional: override default model
 
 tests:
   - name: churn_risk_assessment
@@ -1091,12 +1148,28 @@ tests:
     assertions:
       must_call:
         - tool: analyze_customer_churn_risk
+          args: {}  # Empty = just check tool was called
       answer_contains:
         - "risk"
         - "recommend"
 ```
 
-See **references/mxcp-evaluation-guide.md** for complete evaluation design guidelines.
+**Important considerations**:
+- **Evaluations are not deterministic** - LLMs may behave differently on each run
+- **LLMs may answer from memory** - Choose prompts that require actual data from your tools
+- **LLMs may choose alternative valid approaches** - Use relaxed assertions when multiple tool paths are acceptable
+- **Parameter defaults** don't automatically apply when LLMs omit them - design tools to handle missing/null parameters gracefully
+
+**Common eval issues**:
+- LLMs may prefer generic SQL tools (`execute_sql_query`) over custom tools if enabled
+- LLMs may answer questions without calling tools if they know the answer
+- Strict assertions (`args: {param: "exact_value"}`) are more likely to fail than relaxed ones (`args: {}`)
+
+See **references/mxcp-evaluation-guide.md** for:
+- **Configuring Models for Evaluations** - Complete config.yml setup with API keys
+- **Evaluation File Reference** - Valid fields and common mistakes
+- **How Evaluations Work** - Internal execution model explained
+- **Understanding Eval Results** - Why evals fail, common errors, improving results over time
 
 **Security validation checklist:**
 - [ ] All SQL queries use parameterized variables (`$param`)
