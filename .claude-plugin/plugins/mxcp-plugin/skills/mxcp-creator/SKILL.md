@@ -1,11 +1,13 @@
 ---
 name: mxcp-creator
-description: This skill should be used when users want to create, build, initialize, or set up MXCP servers or projects. MXCP is an enterprise-grade MCP (Model Context Protocol) framework for building production AI applications with SQL and Python endpoints, security, audit trails, policy enforcement, and comprehensive testing. Also use this skill for configuring MCP tools/resources/prompts, implementing endpoints, setting up authentication/policies, or troubleshooting MXCP applications.
+description: This skill should be used when users want to create, build, initialize, set up, or edit MXCP servers or projects. MXCP is an enterprise-grade MCP (Model Context Protocol) framework for building production AI applications with SQL and Python endpoints, security, audit trails, policy enforcement, and comprehensive testing. Use this skill when creating new MXCP projects, editing existing projects (adding/removing/modifying tools, updating configurations, changing implementations), configuring MCP tools/resources/prompts, implementing endpoints, setting up authentication/policies, debugging validation errors, or troubleshooting MXCP applications.
 ---
 
 # MXCP: Enterprise MCP Framework
 
 MXCP is an enterprise-grade MCP (Model Context Protocol) framework for building production AI applications with SQL and Python. This skill provides comprehensive guidance for working with MXCP projects.
+
+**This skill supports both creating new and editing existing MXCP projects.** Use this skill whether you're starting a new project from scratch or modifying an existing MXCP server (adding/removing tools, updating configurations, changing implementations, fixing validation errors, etc.).
 
 ## Scope: Technical Implementation Only
 
@@ -29,12 +31,15 @@ This skill focuses on **how to implement** MCP servers using MXCP, not **what to
 ## Quick Reference
 
 **When to use this skill:**
-- Creating or initializing MXCP projects
-- Defining MCP tools, resources, or prompts
-- Implementing SQL queries or Python endpoints
-- Configuring authentication, policies, or audit logging
-- Setting up dbt integration for data transformation
+- Creating or initializing new MXCP projects
+- Editing existing MXCP projects (adding, removing, or modifying any components)
+- Defining or modifying MCP tools, resources, or prompts
+- Implementing or updating SQL queries or Python endpoints
+- Configuring or changing authentication, policies, or audit logging
+- Setting up or modifying dbt integration for data transformation
 - Testing, validating, or debugging MXCP endpoints
+- Fixing validation errors from `mxcp validate`, `mxcp test`, or `mxcp lint`
+- Refactoring or restructuring MXCP project files
 - Deploying MXCP servers to production
 
 **New to MXCP? Quick navigation:**
