@@ -253,7 +253,8 @@ CREATE INDEX idx_customer ON sales(customer_id)
 
 **Environment variable** for custom path:
 ```bash
-export MXCP_DUCKDB_PATH="/path/to/data.duckdb"
+# Default database path is data/db-default.duckdb
+export MXCP_DUCKDB_PATH="/path/to/data/db-default.duckdb"
 mxcp serve
 ```
 
@@ -459,8 +460,8 @@ parameters:
 
 **Backup**:
 ```bash
-# DuckDB is a single file - just copy it
-cp data.duckdb data.duckdb.backup
+# DuckDB is a single file - just copy it (default: data/db-default.duckdb)
+cp data/db-default.duckdb data/db-default.duckdb.backup
 ```
 
 **Export to SQL**:

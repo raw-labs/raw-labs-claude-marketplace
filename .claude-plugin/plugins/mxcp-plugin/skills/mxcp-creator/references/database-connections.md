@@ -308,7 +308,7 @@ my_project:
     # Hybrid: use DuckDB for local, Postgres for source
     hybrid:
       type: duckdb
-      path: "{{ env_var('MXCP_DUCKDB_PATH', 'data.duckdb') }}"
+      path: "{{ env_var('MXCP_DUCKDB_PATH', 'data/db-default.duckdb') }}"
   target: hybrid
 ```
 

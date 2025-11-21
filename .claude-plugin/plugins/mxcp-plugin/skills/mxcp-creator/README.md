@@ -45,18 +45,24 @@ mxcp-creator/
 │       └── common-types-schema-1.json      # Common type definitions
 ├── scripts/                                # Utility scripts
 │   └── validate_yaml.py                    # YAML validation script
-└── references/                             # Detailed documentation
+└── references/                             # Detailed documentation (23 files)
+    ├── tool-templates.md                   # Ready-to-use YAML templates for tools/resources/prompts
     ├── project-selection-guide.md          # Decision tree and template selection
-    ├── dbt-core-guide.md                   # Essential dbt knowledge (seeds, models, schema)
+    ├── dbt-core-guide.md                   # Essential dbt knowledge (seeds, models, Python models)
     ├── duckdb-essentials.md                # DuckDB features and SQL extensions
     ├── endpoint-patterns.md                # Complete endpoint examples
     ├── python-api.md                       # Python runtime API reference
     ├── policies.md                         # Policy enforcement guide
-    ├── testing-guide.md                    # Comprehensive testing guide
+    ├── comprehensive-testing-guide.md      # Complete testing strategies
+    ├── debugging-guide.md                  # Systematic debugging workflows
+    ├── error-handling-guide.md             # Python error handling patterns
     ├── dbt-patterns.md                     # Advanced dbt integration patterns
+    ├── database-connections.md             # PostgreSQL, MySQL, SQLite, SQL Server
+    ├── excel-integration.md                # Excel file handling with pandas and dbt
     ├── claude-desktop.md                   # Claude Desktop setup guide
     ├── cli-reference.md                    # Complete CLI documentation
-    └── type-system.md                      # Type validation reference
+    ├── type-system.md                      # Type validation reference
+    └── ...                                 # 8 more specialized guides
 ```
 
 ## When This Skill is Used

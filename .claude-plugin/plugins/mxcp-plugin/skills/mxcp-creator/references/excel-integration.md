@@ -178,9 +178,103 @@ mxcp run tool query_excel_data --param table_name="test"
 # 5. All validations must pass before deployment
 ```
 
-### Pattern 2: Excel → dbt seed → Analytics
+### Pattern 2: Excel → dbt Python Model → Analytics
+
+**User request**: "Process this Excel file with complex formatting and transform the data"
+
+**RECOMMENDED for complex Excel processing** - Use dbt Python models when:
+- Excel has complex formatting or multiple sheets
+- Need pandas operations (pivoting, melting, complex string manipulation)
+- Data cleaning requires Python logic
+
+**Implementation**:
+
+1. **Create dbt Python model** (`models/process_excel.py`):
+```python
+import pandas as pd
+
+def model(dbt, session):
+    # Read Excel file
+    df = pd.read_excel('data/sales_data.xlsx', sheet_name='Sales')
+
+    # Clean data
+    df = df.dropna(how='all')  # Remove empty rows
+    df = df.dropna(axis=1, how='all')  # Remove empty columns
+
+    # Normalize column names
+    df.columns = df.columns.str.lower().str.replace(' ', '_')
+
+    # Complex transformations using pandas
+    df['sale_date'] = pd.to_datetime(df['sale_date'])
+    df['month'] = df['sale_date'].dt.to_period('M').astype(str)
+
+    # Aggregate
+    result = df.groupby(['region', 'month']).agg({
+        'amount': 'sum',
+        'quantity': 'sum'
+    }).reset_index()
+
+    return result  # Returns DataFrame that becomes a DuckDB table
+```
+
+2. **Create schema** (`models/schema.yml`):
+```yaml
+version: 2
+
+models:
+  - name: process_excel
+    description: "Processed sales data from Excel"
+    config:
+      materialized: table
+    columns:
+      - name: region
+        tests: [not_null]
+      - name: month
+        tests: [not_null]
+      - name: amount
+        tests: [not_null]
+```
+
+3. **Run the Python model**:
+```bash
+dbt run --select process_excel
+dbt test --select process_excel
+```
+
+4. **Create MXCP tool**:
+```yaml
+# tools/sales_analytics.yml
+mxcp: 1
+tool:
+  name: sales_analytics
+  description: "Get processed sales data from Excel"
+  parameters:
+    - name: region
+      type: string
+      default: null
+  return:
+    type: array
+  source:
+    code: |
+      SELECT * FROM process_excel
+      WHERE $region IS NULL OR region = $region
+      ORDER BY month DESC
+```
+
+5. **Validate**:
+```bash
+mxcp validate
+mxcp test tool sales_analytics
+```
+
+### Pattern 3: Excel → dbt seed → Analytics
 
 **User request**: "Analyze this Excel file with aggregations"
+
+**Use this approach for simpler Excel files** - Convert to CSV first when:
+- Excel file is simple with standard formatting
+- Want version control for the data (CSV in git)
+- Data is static and doesn't change
 
 **Implementation**:
 
@@ -288,7 +382,7 @@ mxcp run tool sales_analytics --param region="North"
 # All checks must pass before deployment
 ```
 
-### Pattern 3: Multi-Sheet Excel Processing
+### Pattern 4: Multi-Sheet Excel Processing
 
 **User request**: "My Excel has multiple sheets, process them all"
 

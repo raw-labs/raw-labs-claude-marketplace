@@ -32,9 +32,13 @@ mxcp dbt seed               # Load via MXCP
 
 ### 2. Models
 
-**Models are SQL SELECT statements** that transform data. Each `.sql` file in `models/` becomes a table or view.
+**Models transform data** using either SQL or Python. Each `.sql` or `.py` file in `models/` becomes a table or view.
 
-**Basic model** (`models/customer_summary.sql`):
+#### SQL Models
+
+**SQL models are SELECT statements** that transform data. Best for standard transformations, aggregations, and joins.
+
+**Basic SQL model** (`models/customer_summary.sql`):
 ```sql
 {{ config(materialized='table') }}
 
@@ -46,9 +50,36 @@ FROM {{ ref('orders') }}
 GROUP BY customer_id
 ```
 
-**Materialization types**:
+#### Python Models
+
+**Python models use pandas** for complex data processing. Best for Excel files, ML preprocessing, and complex transformations.
+
+**Basic Python model** (`models/process_data.py`):
+```python
+import pandas as pd
+
+def model(dbt, session):
+    # Load data from dbt ref or read files
+    # df = dbt.ref('source_table').to_pandas()  # From dbt source
+    df = pd.read_excel('data/input.xlsx')  # From file
+
+    # Transform using pandas
+    df = df.dropna(how='all')
+    df['new_column'] = df['amount'] * 1.1
+
+    return df  # Returns DataFrame that becomes a table
+```
+
+**When to use Python models:**
+- Processing Excel files with complex formatting
+- Data cleaning requiring pandas operations (pivoting, melting, etc.)
+- ML feature engineering or preprocessing
+- Complex string manipulation or regex operations
+- Integration with Python libraries (sklearn, numpy, etc.)
+
+**Materialization types** (for both SQL and Python models):
 - `table` - Creates a table (fast queries, slower builds)
-- `view` - Creates a view (slow queries, instant builds)
+- `view` - Creates a view (slow queries, instant builds) - Not available for Python models
 - `incremental` - Appends new data only (best for large datasets)
 
 ### 3. Schema Files (schema.yml)
@@ -249,6 +280,79 @@ SELECT * FROM {{ source('raw_data', 'transactions') }}
          ORDER BY month DESC
    ```
 
+### Pattern 3: Excel Processing with Python Models
+
+**User request**: "Process this Excel file with multiple sheets and complex formatting"
+
+1. **Create Python model** (`models/process_excel.py`):
+   ```python
+   import pandas as pd
+
+   def model(dbt, session):
+       # Read Excel file
+       df = pd.read_excel('data/sales_data.xlsx', sheet_name='Sales')
+
+       # Clean data
+       df = df.dropna(how='all')  # Remove empty rows
+       df = df.dropna(axis=1, how='all')  # Remove empty columns
+
+       # Normalize column names
+       df.columns = df.columns.str.lower().str.replace(' ', '_')
+
+       # Complex transformations using pandas
+       df['sale_date'] = pd.to_datetime(df['sale_date'])
+       df['month'] = df['sale_date'].dt.to_period('M').astype(str)
+
+       # Aggregate data
+       result = df.groupby(['region', 'month']).agg({
+           'amount': 'sum',
+           'quantity': 'sum'
+       }).reset_index()
+
+       return result
+   ```
+
+2. **Create schema** (`models/schema.yml`):
+   ```yaml
+   version: 2
+
+   models:
+     - name: process_excel
+       description: "Processed sales data from Excel"
+       config:
+         materialized: table
+       columns:
+         - name: region
+           tests: [not_null]
+         - name: month
+           tests: [not_null]
+         - name: amount
+           tests: [not_null]
+   ```
+
+3. **Run the Python model**:
+   ```bash
+   dbt run --select process_excel
+   dbt test --select process_excel
+   ```
+
+4. **Create MXCP tool** to query:
+   ```yaml
+   mxcp: 1
+   tool:
+     name: get_sales_by_region
+     description: "Get sales data processed from Excel"
+     parameters:
+       - name: region
+         type: string
+         default: null
+     source:
+       code: |
+         SELECT * FROM process_excel
+         WHERE $region IS NULL OR region = $region
+         ORDER BY month DESC
+   ```
+
 ## Project Structure
 
 ```
@@ -354,7 +458,7 @@ my_project:
   outputs:
     dev:
       type: duckdb
-      path: "{{ env_var('MXCP_DUCKDB_PATH', 'data.duckdb') }}"
+      path: "{{ env_var('MXCP_DUCKDB_PATH', 'data/db-default.duckdb') }}"
   target: dev
 ```
 

@@ -756,9 +756,9 @@ profiles:
         parameters:
           env_var: API_TOKEN
 
-    # Database configuration (optional)
+    # Database configuration (optional, default is data/db-default.duckdb)
     database:
-      path: "data.duckdb"
+      path: "data/db-default.duckdb"
 
     # Authentication (if needed)
     auth:

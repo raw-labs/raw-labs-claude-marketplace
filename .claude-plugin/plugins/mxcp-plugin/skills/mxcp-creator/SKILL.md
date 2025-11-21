@@ -190,100 +190,19 @@ mxcp validate  # ✅ Fix errors NOW
 
 ## Quick Start: Tool Templates
 
-**Copy these templates to avoid syntax errors:**
+**Copy ready-to-use templates to avoid syntax errors:**
 
-### Python Tool Template
+- **Python Tool Template** - For custom logic, API calls, complex processing
+- **SQL Tool Template** - For database queries and data retrieval
+- **Resource Template** - For static or dynamic data resources
+- **Prompt Template** - For LLM instruction prompts
 
-```yaml
-mxcp: 1
-tool:
-  name: YOUR_TOOL_NAME
-  description: |
-    Clear description of what this tool does and when to use it.
-    Explain the purpose and expected behavior.
-  language: python
-  parameters:
-    # Required parameter (no default)
-    - name: required_param
-      type: string
-      description: "What this parameter is for"
+**See references/tool-templates.md** for complete templates with examples.
 
-    # Optional parameter (with null default)
-    - name: optional_param
-      type: string
-      description: "What this optional parameter is for"
-      default: null
-
-    # Optional parameter (with specific default)
-    - name: limit
-      type: integer
-      description: "Maximum number of results"
-      default: 100
-  return:
-    type: object
-    description: "Description of what gets returned"
-    properties:
-      status: { type: string, description: "Operation status" }
-      data: { type: array, description: "Result data" }
-  source:
-    file: ../python/your_module.py
-  tests:
-    - name: "basic_test"
-      arguments:
-        - key: required_param
-          value: "test_value"
-      result:
-        status: "success"
-```
-
-**After copying this template:**
-1. Replace `YOUR_TOOL_NAME` with the actual tool name
-2. Update the `description` to explain what the tool does
-3. Update the `parameters` section
-4. Update the `return` type
-5. Update the `source.file` path
-6. 🛑 **RUN `mxcp validate` IMMEDIATELY** 🛑
-
-### SQL Tool Template
-
-```yaml
-mxcp: 1
-tool:
-  name: YOUR_TOOL_NAME
-  description: |
-    Clear description of what this SQL query does.
-  parameters:
-    - name: filter_value
-      type: string
-      description: "Filter criteria (optional)"
-      default: null
-  return:
-    type: array
-    items:
-      type: object
-      properties:
-        id: { type: integer }
-        name: { type: string }
-  source:
-    code: |
-      SELECT
-        id,
-        name,
-        other_column
-      FROM your_table
-      WHERE $filter_value IS NULL OR column = $filter_value
-      ORDER BY id
-      LIMIT 100
-  tests:
-    - name: "test_query"
-      arguments: []
-      # Add expected results if known
-```
-
-**After copying this template:**
-1. Replace `YOUR_TOOL_NAME` with the actual tool name
-2. Update the SQL query in `source.code`
-3. Update parameters and return types
+**Quick template workflow**:
+1. Copy appropriate template from references/tool-templates.md
+2. Replace `YOUR_TOOL_NAME` with actual name
+3. Update description, parameters, and return types
 4. 🛑 **RUN `mxcp validate` IMMEDIATELY** 🛑
 
 ## Core Principles
@@ -401,7 +320,7 @@ See **references/project-selection-guide.md** (Configuration Management section)
 
 ### What is MXCP?
 
-MXCP provides a **structured methodology** for building production MCP servers:
+Use MXCP's **structured methodology** for building production MCP servers:
 
 1. **Data Quality First**: Start with dbt models and data contracts
 2. **Service Design**: Define types, security policies, and API contracts
@@ -411,9 +330,11 @@ MXCP provides a **structured methodology** for building production MCP servers:
 
 ### Implementation Languages
 
-- **SQL**: Best for data queries, aggregations, joins, filtering
-- **Python**: Best for complex logic, ML models, API calls, async operations
-- **Both**: Can be combined in the same project
+Choose the appropriate language for each task:
+
+- **SQL**: Use for data queries, aggregations, joins, filtering
+- **Python**: Use for complex logic, ML models, API calls, async operations
+- **Both**: Combine in the same project as needed
 
 ### Project Structure
 
@@ -531,9 +452,17 @@ Consult **references/project-selection-guide.md** for:
 
 **CRITICAL: Always use `uv` for Python environment management.**
 
+**IMPORTANT: Project directory location**:
+- If the user specifies a project name or wants a new directory, create a new directory
+- If the user is already in an empty directory or wants to initialize in the current location, use the current working directory
+- When in doubt, ask the user whether to create a new directory or use the current directory
+
 ```bash
-# 1. Create project directory
+# Option A: Create new project in a new directory (if user specified a project name)
 mkdir my-mxcp-project && cd my-mxcp-project
+
+# Option B: Use current working directory (if already in desired location)
+# Skip the mkdir and cd commands, proceed directly to step 2
 
 # 2. Create virtual environment with uv
 uv venv
@@ -891,15 +820,24 @@ cp config.yml ~/.mxcp/
 Combine dbt transformations with MXCP endpoints:
 
 1. **For CSV files**: Use dbt seeds to load data with schema validation
-2. **For transformations**: Create dbt models to transform data
+2. **For transformations**: Create dbt models (SQL or Python) to transform data
 3. **Run dbt**: Execute `dbt seed` and `dbt run` to materialize tables
 4. **Query from MXCP**: Create tools that query dbt tables
 
 **Essential dbt concepts for MXCP:**
 - **Seeds** - CSV files loaded as tables (best for user-provided data)
-- **Models** - SQL transformations that create new tables/views
+- **Models** - SQL or Python transformations that create new tables/views
+  - **SQL models** - Best for standard transformations, aggregations, joins
+  - **Python models** - Best for complex data processing, Excel files, pandas operations, ML preprocessing
 - **Schema.yml** - ALWAYS create for seeds and models (defines types, tests, docs)
 - **Tests** - Data quality validation (unique, not_null, etc.)
+
+**When to use Python models:**
+- Processing Excel files with complex formatting or multiple sheets
+- Data cleaning that requires pandas operations (pivoting, melting, complex string manipulation)
+- ML feature engineering or preprocessing
+- Complex data transformations that are difficult to express in SQL
+- Integration with Python libraries for data processing
 
 **Example workflow (CSV → MCP tool)**:
 ```bash
@@ -929,10 +867,55 @@ dbt test
 # source: SELECT * FROM user_data WHERE id = $user_id
 ```
 
+**Example workflow (Excel → dbt Python model → MCP tool)**:
+```bash
+# 1. Create Python model to process Excel file
+# models/process_excel.py
+cat > models/process_excel.py <<EOF
+import pandas as pd
+
+def model(dbt, session):
+    # Read Excel file with pandas
+    df = pd.read_excel('data/sales_data.xlsx', sheet_name='Sales')
+
+    # Clean and transform data
+    df = df.dropna(how='all')  # Remove empty rows
+    df.columns = df.columns.str.lower().str.replace(' ', '_')
+
+    # Complex transformation using pandas
+    df['month'] = pd.to_datetime(df['date']).dt.to_period('M')
+    df_grouped = df.groupby(['region', 'month']).agg({
+        'sales': 'sum',
+        'quantity': 'sum'
+    }).reset_index()
+
+    return df_grouped
+EOF
+
+# 2. Configure the Python model
+# models/schema.yml
+cat > models/schema.yml <<EOF
+version: 2
+models:
+  - name: process_excel
+    description: "Processed sales data from Excel file"
+    config:
+      materialized: table
+EOF
+
+# 3. Run the Python model
+dbt run --select process_excel
+
+# 4. Create MXCP tool to query the result
+# tools/get_sales.yml
+# source: SELECT * FROM process_excel WHERE region = $region
+```
+
 See:
 - **references/dbt-core-guide.md** - Essential dbt knowledge for MXCP (MUST READ for CSV/data projects)
-- **references/dbt-patterns.md** - Advanced dbt integration patterns
+- **references/dbt-patterns.md** - Advanced dbt integration patterns (includes Python models)
 - **references/duckdb-essentials.md** - DuckDB features and SQL extensions
+- **references/excel-integration.md** - Excel file handling (mentions dbt Python models as an option)
 
 ## Agent-Centric Design
 
@@ -1467,6 +1450,63 @@ mxcp validate --debug
 
 **Minimal Working Examples**:
 - **references/minimal-working-examples.md** - Guaranteed-to-work code snippets
+
+### How to Find Reference Files
+
+**With 23 reference files, use these grep patterns to quickly locate relevant information:**
+
+**Validation & Testing Issues**:
+```bash
+# Find validation error solutions
+grep -n "True is not of type\|field required\|Expected.*got" references/debugging-guide.md
+
+# Find testing patterns
+grep -n "mock\|test.*pattern\|pytest" references/comprehensive-testing-guide.md
+
+# Find YAML validation issues
+grep -n "schema\|validation\|YAML" references/debugging-guide.md
+```
+
+**Database & Data Issues**:
+```bash
+# Find database connection patterns
+grep -n "PostgreSQL\|MySQL\|SQLite\|ATTACH" references/database-connections.md
+
+# Find dbt seed/model patterns
+grep -n "seed\|model\|schema.yml" references/dbt-core-guide.md
+
+# Find DuckDB features
+grep -n "read_csv\|read_json\|GENERATE_SERIES" references/duckdb-essentials.md
+```
+
+**Implementation Patterns**:
+```bash
+# Find Python endpoint patterns
+grep -n "async\|httpx\|pandas\|def.*return" references/python-api.md
+
+# Find tool/resource examples
+grep -n "tool:\|resource:\|prompt:" references/endpoint-patterns.md
+
+# Find Excel processing
+grep -n "Excel\|openpyxl\|.xlsx" references/excel-integration.md
+```
+
+**Error & Authentication**:
+```bash
+# Find error handling patterns
+grep -n "try.*except\|error.*return\|structured error" references/error-handling-guide.md
+
+# Find authentication setup
+grep -n "OAuth\|token\|auth:" references/project-selection-guide.md
+```
+
+**Quick reference lookup**:
+- **Validation errors** → references/debugging-guide.md
+- **Testing strategies** → references/comprehensive-testing-guide.md
+- **Database connections** → references/database-connections.md
+- **dbt workflows** → references/dbt-core-guide.md
+- **Python patterns** → references/python-api.md
+- **Tool templates** → references/tool-templates.md
 
 ### Critical References (Read First)
 
