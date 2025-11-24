@@ -67,14 +67,18 @@ mxcp-expert/
 
 ## When This Skill is Used
 
-Claude will automatically use this skill when you:
+Claude will automatically use this skill for ANY mention or reference to MXCP, including when you:
 
-- Ask to create or work with MXCP projects
-- Define MCP tools, resources, or prompts
-- Implement SQL queries or Python endpoints
-- Configure authentication, policies, or audit logging
-- Set up dbt integration
-- Test, validate, or debug MXCP endpoints
+- Mention "MXCP", "mxcp", "MXCP server", "MXCP project" in any context
+- Ask questions about MXCP or its features
+- Create, initialize, build, or set up MXCP projects
+- Edit or modify MXCP files (mxcp-site.yml, config.yml, tools/resources/prompts)
+- Define or work with MCP tools, resources, or prompts using MXCP
+- Implement SQL queries or Python endpoints for MXCP
+- Configure MXCP features (authentication, policies, audit logging, dbt integration)
+- Run MXCP commands (mxcp validate, mxcp test, mxcp serve, mxcp init, mxcp lint)
+- Test, validate, lint, or debug MXCP endpoints
+- Fix MXCP validation errors or troubleshoot issues
 - Deploy MXCP servers to production
 
 ## Quick Start Examples
