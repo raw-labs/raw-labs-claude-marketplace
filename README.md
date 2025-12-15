@@ -1,6 +1,11 @@
-# Claude Code Marketplace
+# RAW Labs Marketplace for Claude
 
-Community-driven marketplace for Claude Code plugins.
+RAW Labs Marketplace for Claude plugins.
+
+Community-driven marketplace, so feel free to use and contribute!
+
+List of plugins:
+- [MXCP](#mxcp-plugin)
 
 ## Getting Started
 
@@ -22,7 +27,7 @@ irm https://claude.ai/install.ps1 | iex
 /plugin marketplace add raw-labs/claude-code-marketplace
 ```
 
-### Install MXCP Plugin
+## MXCP Plugin
 
 ```bash
 /plugin install mxcp-plugin@claude-code-marketplace
@@ -38,23 +43,11 @@ Interactive mode lets you browse, install, and manage plugins and marketplaces.
 
 **⚠️ Important: Restart Claude Code after installing the plugin for changes to take effect.**
 
-### Update
-
-Update marketplace:
-```bash
-/plugin marketplace update claude-code-marketplace
-```
-
-Update plugin:
-```bash
-/plugin update mxcp-plugin
-```
-
-## Usage Example - Excel Files
+### Usage Example - Excel Files
 
 The `mxcp-plugin` helps you build Model Context Protocol (MCP) servers. Here's a real workflow for turning Excel data into a queryable MXCP server.
 
-### Step 1: Build Context About the Excel File
+#### Step 1: Build Context About the Excel File
 
 Before asking Claude to build anything, it needs to understand what's in your Excel file. You have two approaches:
 
@@ -69,7 +62,7 @@ Read the Excel file at ./data/report.xlsx and tell me what it contains.
 
 **The solution - use screenshots:** Since Claude is multimodal, you can provide a screenshot of the Excel file. This lets Claude see the visual layout the same way you do, making it much easier to understand files with complex formatting, merged cells, or unconventional structures.
 
-### Step 2: Specify What You Want Built
+#### Step 2: Specify What You Want Built
 
 Once Claude understands the data, tell it to create an MXCP server. The key steps are:
 
@@ -95,7 +88,7 @@ Make these generic so any similar analytical question works, not just these
 exact queries.
 ```
 
-### Step 3: Stay Engaged During Implementation
+#### Step 3: Stay Engaged During Implementation
 
 The plugin already instructs Claude to validate the server, write tests for both dbt and MXCP, and follow best practices. But the process is interactive - watch what Claude does and intervene when needed.
 
@@ -137,7 +130,20 @@ Any additional context you provide during the process helps - the more Claude un
 - Mention related files in your codebase
 - Point to specific functions or modules
 
+## Update
+
+Update marketplace:
+```bash
+/plugin marketplace update claude-code-marketplace
+```
+
+Update plugin:
+```bash
+/plugin update mxcp-plugin
+```
+
 ## Resources
 
+- [RAW Labs](https://www.raw-labs.com/)
 - [Claude Code Documentation](https://www.claude.com/product/claude-code)
 - [Plugin Marketplace Docs](https://docs.claude.com/id/docs/claude-code/plugin-marketplaces)
