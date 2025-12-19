@@ -1,0 +1,61 @@
+# MXCP Documentation URLs
+# Note: All documentation is also available locally in the references/ folder
+
+## Getting Started
+https://raw.githubusercontent.com/raw-labs/mxcp/refs/heads/main/docs/getting-started/introduction.md
+https://raw.githubusercontent.com/raw-labs/mxcp/refs/heads/main/docs/getting-started/quickstart.md
+https://raw.githubusercontent.com/raw-labs/mxcp/refs/heads/main/docs/getting-started/glossary.md
+
+## Concepts
+https://raw.githubusercontent.com/raw-labs/mxcp/refs/heads/main/docs/concepts/endpoints.md
+https://raw.githubusercontent.com/raw-labs/mxcp/refs/heads/main/docs/concepts/type-system.md
+https://raw.githubusercontent.com/raw-labs/mxcp/refs/heads/main/docs/concepts/project-structure.md
+https://raw.githubusercontent.com/raw-labs/mxcp/refs/heads/main/docs/concepts/production-methodology.md
+
+## Tutorials
+https://raw.githubusercontent.com/raw-labs/mxcp/refs/heads/main/docs/tutorials/hello-world.md
+https://raw.githubusercontent.com/raw-labs/mxcp/refs/heads/main/docs/tutorials/sql-endpoints.md
+https://raw.githubusercontent.com/raw-labs/mxcp/refs/heads/main/docs/tutorials/python-endpoints.md
+
+## Schemas (YAML Reference)
+https://raw.githubusercontent.com/raw-labs/mxcp/refs/heads/main/docs/schemas/tool.md
+https://raw.githubusercontent.com/raw-labs/mxcp/refs/heads/main/docs/schemas/resource.md
+https://raw.githubusercontent.com/raw-labs/mxcp/refs/heads/main/docs/schemas/prompt.md
+https://raw.githubusercontent.com/raw-labs/mxcp/refs/heads/main/docs/schemas/site-config.md
+https://raw.githubusercontent.com/raw-labs/mxcp/refs/heads/main/docs/schemas/user-config.md
+
+## Quality
+https://raw.githubusercontent.com/raw-labs/mxcp/refs/heads/main/docs/quality/validation.md
+https://raw.githubusercontent.com/raw-labs/mxcp/refs/heads/main/docs/quality/testing.md
+https://raw.githubusercontent.com/raw-labs/mxcp/refs/heads/main/docs/quality/linting.md
+https://raw.githubusercontent.com/raw-labs/mxcp/refs/heads/main/docs/quality/evals.md
+
+## Security
+https://raw.githubusercontent.com/raw-labs/mxcp/refs/heads/main/docs/security/authentication.md
+https://raw.githubusercontent.com/raw-labs/mxcp/refs/heads/main/docs/security/policies.md
+https://raw.githubusercontent.com/raw-labs/mxcp/refs/heads/main/docs/security/auditing.md
+
+## Operations
+https://raw.githubusercontent.com/raw-labs/mxcp/refs/heads/main/docs/operations/configuration.md
+https://raw.githubusercontent.com/raw-labs/mxcp/refs/heads/main/docs/operations/deployment.md
+https://raw.githubusercontent.com/raw-labs/mxcp/refs/heads/main/docs/operations/monitoring.md
+https://raw.githubusercontent.com/raw-labs/mxcp/refs/heads/main/docs/operations/drift-detection.md
+https://raw.githubusercontent.com/raw-labs/mxcp/refs/heads/main/docs/operations/audit-cleanup.md
+https://raw.githubusercontent.com/raw-labs/mxcp/refs/heads/main/docs/operations/admin-socket.md
+
+## Integrations
+https://raw.githubusercontent.com/raw-labs/mxcp/refs/heads/main/docs/integrations/claude-desktop.md
+https://raw.githubusercontent.com/raw-labs/mxcp/refs/heads/main/docs/integrations/dbt.md
+https://raw.githubusercontent.com/raw-labs/mxcp/refs/heads/main/docs/integrations/duckdb.md
+
+## Reference
+https://raw.githubusercontent.com/raw-labs/mxcp/refs/heads/main/docs/reference/cli.md
+https://raw.githubusercontent.com/raw-labs/mxcp/refs/heads/main/docs/reference/common-tasks.md
+https://raw.githubusercontent.com/raw-labs/mxcp/refs/heads/main/docs/reference/python.md
+https://raw.githubusercontent.com/raw-labs/mxcp/refs/heads/main/docs/reference/sql.md
+https://raw.githubusercontent.com/raw-labs/mxcp/refs/heads/main/docs/reference/plugins.md
+
+## Examples
+https://raw.githubusercontent.com/raw-labs/mxcp/refs/heads/main/docs/examples/analytics.md
+https://raw.githubusercontent.com/raw-labs/mxcp/refs/heads/main/docs/examples/customer-service.md
+https://raw.githubusercontent.com/raw-labs/mxcp/refs/heads/main/docs/examples/data-management.md

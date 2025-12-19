@@ -1,0 +1,8 @@
+{
+    "name": "mxcp-expert",
+    "description": "A Claude plugin for MXCP",
+    "version": "1.0.0",
+    "author": {
+        "name": "RAW Labs"
+    }
+}
