@@ -24,13 +24,13 @@ irm https://claude.ai/install.ps1 | iex
 ### Add This Marketplace
 
 ```bash
-/plugin marketplace add raw-labs/claude-code-marketplace
+/plugin marketplace add raw-labs/raw-labs-claude-marketplace
 ```
 
 ## MXCP Expert Plugin
 
 ```bash
-/plugin install mxcp-expert@claude-code-marketplace
+/plugin install mxcp-expert@raw-labs-claude-marketplace
 ```
 
 Or use interactive mode:
@@ -134,12 +134,12 @@ Any additional context you provide during the process helps - the more Claude un
 
 Update marketplace:
 ```bash
-/plugin marketplace update claude-code-marketplace
+/plugin marketplace update raw-labs-claude-marketplace
 ```
 
 Update plugin:
 ```bash
-/plugin update mxcp-expert@claude-code-marketplace
+/plugin update mxcp-expert@raw-labs-claude-marketplace
 ```
 
 ## Resources
