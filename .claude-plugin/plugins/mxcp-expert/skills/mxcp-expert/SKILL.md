@@ -64,12 +64,13 @@ MXCP (Model Context Protocol eXtension Platform) is an enterprise-grade framewor
 
 **This skill prioritizes:**
 
-1. **Use uv for environments** - Always create venv with `uv venv` and activate before running mxcp
-2. **Security First** - Use parameterized queries, validate inputs, implement authentication and policies
-3. **Validation Always** - Run `mxcp validate` after every change, fix errors immediately
-4. **Test Everything** - Write tests for all endpoints, run `mxcp test` before proceeding
-5. **Quality Checks** - Use `mxcp lint` to improve LLM understanding of tools
-6. **Incremental Development** - Build one tool at a time, validate before adding the next
+1. **Use Built-in Features First** - ALWAYS use MXCP's built-in capabilities before writing custom code. Never implement manually what MXCP provides (authentication, policies, user context, external API access). If unsure, check the documentation first
+2. **Use uv for environments** - Always create venv with `uv venv` and activate before running mxcp
+3. **Security First** - Use parameterized queries, validate inputs, implement authentication and policies
+4. **Validation Always** - Run `mxcp validate` after every change, fix errors immediately
+5. **Test Everything** - Write tests for all endpoints, run `mxcp test` before proceeding
+6. **Quality Checks** - Use `mxcp lint` to improve LLM understanding of tools
+7. **Incremental Development** - Build one tool at a time, validate before adding the next
 
 **Environment setup (required before any mxcp command):**
 ```bash
@@ -460,9 +461,79 @@ def analyze_data(dataset: str) -> dict:
 
 ## Security Features
 
-For security implementation details, see:
-- [Policies](references/security/policies.md) - Access control with CEL expressions
-- [Authentication](references/security/authentication.md) - OAuth setup (GitHub, Google, etc.)
+**CRITICAL: Use MXCP built-in security features. NEVER write custom Python authentication code.**
+
+### Authentication (Built-in OAuth)
+
+MXCP has built-in OAuth 2.0 support. Configure in `~/.mxcp/config.yml`, NOT in Python:
+
+```yaml
+# ~/.mxcp/config.yml - CORRECT way to add authentication
+mxcp: 1
+projects:
+  my-project:
+    profiles:
+      default:
+        auth:
+          provider: github  # or: google, atlassian, salesforce, keycloak
+          github:
+            client_id: "${GITHUB_CLIENT_ID}"
+            client_secret: "${GITHUB_CLIENT_SECRET}"
+            callback_path: /callback
+            auth_url: https://github.com/login/oauth/authorize
+            token_url: https://github.com/login/oauth/access_token
+            scope: "read:user user:email"
+```
+
+**Supported providers:** GitHub, Google, Atlassian (Jira/Confluence), Salesforce, Keycloak
+
+### Access Control (Built-in Policies)
+
+Use CEL policies in YAML, NOT Python if/else checks:
+
+```yaml
+# In tool definition - CORRECT way to control access
+policies:
+  input:
+    - condition: "!user.email.endsWith('@company.com')"
+      action: deny
+      reason: "Company email required"
+    - condition: "user.role != 'admin'"
+      action: deny
+      reason: "Admin role required"
+```
+
+### User Context (Built-in SQL Functions)
+
+Access user info in SQL, NOT by passing tokens manually:
+
+```sql
+-- Built-in functions for user context
+SELECT get_username() as username;
+SELECT get_user_email() as email;
+SELECT get_user_provider() as provider;
+SELECT get_user_external_token() as oauth_token;
+```
+
+### External API Calls (Built-in Token Access)
+
+Call external APIs using the user's OAuth token in SQL:
+
+```sql
+-- CORRECT: Use built-in token function for authenticated API calls
+SELECT * FROM read_json_auto(
+    'https://api.github.com/user/repos',
+    headers = MAP {
+        'Authorization': 'Bearer ' || get_user_external_token(),
+        'User-Agent': 'MXCP'
+    }
+);
+```
+
+### Reference Documentation
+
+- [Authentication](references/security/authentication.md) - Full OAuth setup guide
+- [Policies](references/security/policies.md) - CEL policy expressions
 - [Auditing](references/security/auditing.md) - Operation tracking
 
 ## CLI Quick Reference
