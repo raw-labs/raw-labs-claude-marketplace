@@ -5,6 +5,25 @@ sidebar:
   order: 6
 ---
 
+## Table of Contents
+
+- [Complete Example](#complete-example)
+- [Root Fields](#root-fields)
+- [Projects Configuration](#projects-configuration)
+- [Secrets Configuration](#secrets-configuration)
+- [Authentication Configuration](#authentication-configuration)
+- [Vault Configuration](#vault-configuration)
+- [1Password Configuration](#1password-configuration)
+- [Models Configuration](#models-configuration)
+- [Transport Configuration](#transport-configuration)
+- [Logging Configuration](#logging-configuration)
+- [Telemetry Configuration](#telemetry-configuration)
+- [Environment Variables](#environment-variables)
+- [Configuration Reload](#configuration-reload)
+- [File Location](#file-location)
+- [Validation](#validation)
+- [Security Best Practices](#security-best-practices)
+
 > **Related Topics:** [Configuration](/operations/configuration) (configuration guide) | [Authentication](/security/authentication) (OAuth setup) | [Site Configuration](/schemas/site-config) (project config)
 
 This reference documents the complete YAML schema for the user configuration file at `~/.mxcp/config.yml`.

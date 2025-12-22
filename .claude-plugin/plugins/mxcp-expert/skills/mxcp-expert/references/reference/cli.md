@@ -5,6 +5,19 @@ sidebar:
   order: 2
 ---
 
+## Table of Contents
+
+- [Quick Reference](#quick-reference)
+- [Project Structure](#project-structure)
+- [Common Options](#common-options)
+- [Development Commands](#development-commands)
+- [Quality Commands](#quality-commands)
+- [Operations Commands](#operations-commands)
+- [dbt Integration Commands](#dbt-integration-commands)
+- [Output Formats](#output-formats)
+- [Environment Variables](#environment-variables)
+- [Error Handling](#error-handling)
+
 > **Related Topics:** [Quickstart](/getting-started/quickstart) (first commands) | [Common Tasks](/reference/common-tasks) (quick how-to) | [Quality](/quality/) (validation, testing, linting)
 
 Complete reference for all MXCP command-line interface commands.

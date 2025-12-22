@@ -5,7 +5,7 @@ RAW Labs Marketplace for Claude plugins.
 Community-driven marketplace, so feel free to use and contribute!
 
 List of plugins:
-- [MXCP](#mxcp-plugin)
+- [MXCP Expert](#mxcp-expert-plugin)
 
 ## Getting Started
 
@@ -27,10 +27,10 @@ irm https://claude.ai/install.ps1 | iex
 /plugin marketplace add raw-labs/claude-code-marketplace
 ```
 
-## MXCP Plugin
+## MXCP Expert Plugin
 
 ```bash
-/plugin install mxcp-plugin@claude-code-marketplace
+/plugin install mxcp-expert@claude-code-marketplace
 ```
 
 Or use interactive mode:
@@ -45,7 +45,7 @@ Interactive mode lets you browse, install, and manage plugins and marketplaces.
 
 ### Usage Example - Excel Files
 
-The `mxcp-plugin` helps you build Model Context Protocol (MCP) servers. Here's a real workflow for turning Excel data into a queryable MXCP server.
+The `mxcp-expert` plugin helps you build Model Context Protocol (MCP) servers. Here's a real workflow for turning Excel data into a queryable MXCP server.
 
 #### Step 1: Build Context About the Excel File
 
@@ -139,11 +139,13 @@ Update marketplace:
 
 Update plugin:
 ```bash
-/plugin update mxcp-plugin
+/plugin update mxcp-expert@claude-code-marketplace
 ```
 
 ## Resources
 
 - [RAW Labs](https://www.raw-labs.com/)
-- [Claude Code Documentation](https://www.claude.com/product/claude-code)
-- [Plugin Marketplace Docs](https://docs.claude.com/id/docs/claude-code/plugin-marketplaces)
+- [MXCP Quickstart](https://mxcp.dev/getting-started/quickstart/)
+- [MXCP Documentation](https://mxcp.dev)
+- [Claude Code Documentation](https://docs.anthropic.com/en/docs/claude-code)
+- [Plugin Marketplace Docs](https://docs.anthropic.com/en/docs/claude-code/plugins)

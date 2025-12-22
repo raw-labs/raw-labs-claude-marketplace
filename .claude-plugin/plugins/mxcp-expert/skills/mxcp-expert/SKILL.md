@@ -60,6 +60,90 @@ MXCP (Model Context Protocol eXtension Platform) is an enterprise-grade framewor
 - [Customer Service](references/examples/customer-service.md) - Support tools
 - [Data Management](references/examples/data-management.md) - Data operations
 
+## Core Principles
+
+**This skill prioritizes:**
+
+1. **Use uv for environments** - Always create venv with `uv venv` and activate before running mxcp
+2. **Security First** - Use parameterized queries, validate inputs, implement authentication and policies
+3. **Validation Always** - Run `mxcp validate` after every change, fix errors immediately
+4. **Test Everything** - Write tests for all endpoints, run `mxcp test` before proceeding
+5. **Quality Checks** - Use `mxcp lint` to improve LLM understanding of tools
+6. **Incremental Development** - Build one tool at a time, validate before adding the next
+
+**Environment setup (required before any mxcp command):**
+```bash
+uv venv && source .venv/bin/activate
+uv pip install mxcp
+```
+
+## Mandatory Workflow
+
+**Follow this workflow for every MXCP project:**
+
+1. **Create** → `mxcp validate` → Fix any errors
+2. **Implement** → `mxcp validate` → Fix any errors
+3. **Add tests** → `mxcp test` → All tests must pass
+4. **Check quality** → `mxcp lint` → Address warnings
+5. **Verify manually** → `mxcp run tool NAME` → Confirm expected output
+
+**When using dbt, also run:**
+- `mxcp dbt test` → Verify data quality (not_null, unique, relationships)
+- Add schema tests in `models/schema.yml` for all models
+
+**Definition of Done:** A project is complete ONLY when:
+- `mxcp validate` passes with no errors
+- `mxcp test` passes with all tests green
+- `mxcp dbt test` passes (if using dbt)
+- `mxcp lint` shows no critical issues
+- Manual verification confirms expected behavior
+
+**Never skip validation or testing steps.**
+
+## Testing Requirements
+
+**MXCP endpoint tests must verify:**
+- ✓ Correct results for valid inputs
+- ✓ Edge cases (empty data, nulls, boundaries)
+- ✓ Error handling for invalid inputs
+- ✓ Query logic produces expected output
+
+**dbt data tests must verify:**
+- ✓ Required columns are `not_null`
+- ✓ Primary keys are `unique`
+- ✓ Foreign keys have valid `relationships`
+- ✓ Data values are within expected ranges (`accepted_values`)
+
+Example dbt schema tests:
+```yaml
+# models/schema.yml
+models:
+  - name: customers
+    columns:
+      - name: id
+        tests: [not_null, unique]
+      - name: email
+        tests: [not_null, unique]
+      - name: status
+        tests:
+          - accepted_values:
+              values: ['active', 'inactive', 'pending']
+```
+
+Example MXCP endpoint tests with edge cases:
+```yaml
+tests:
+  - name: valid_user
+    arguments: [{key: user_id, value: 1}]
+    result_contains: {id: 1}
+  - name: user_not_found
+    arguments: [{key: user_id, value: 99999}]
+    result: null
+  - name: handles_zero
+    arguments: [{key: user_id, value: 0}]
+    result: null
+```
+
 ## Critical: Use the Default Database
 
 **MXCP automatically creates and manages a DuckDB database.** Do not configure a custom database path unless the user explicitly asks for it.
@@ -374,79 +458,12 @@ def analyze_data(dataset: str) -> dict:
     return {"count": len(results), "data": results}
 ```
 
-## Adding Tests
-
-Add tests directly in the tool YAML:
-
-```yaml
-tests:
-  - name: basic_test
-    description: Test basic functionality
-    arguments:
-      - key: user_id
-        value: 1
-    result_contains:
-      id: 1
-      name: "Alice"
-
-  - name: not_found
-    arguments:
-      - key: user_id
-        value: 99999
-    result: null
-```
-
-Run tests:
-
-```bash
-mxcp test                    # All tests
-mxcp test tool my_tool       # Specific tool
-```
-
 ## Security Features
 
-### Policies (Access Control)
-
-```yaml
-policies:
-  input:
-    - condition: "user.role != 'admin'"
-      action: deny
-      reason: "Admin access required"
-  output:
-    - condition: "user.role != 'hr'"
-      action: filter_fields
-      fields: ["salary", "ssn"]
-```
-
-### Sensitive Fields
-
-```yaml
-return:
-  type: object
-  properties:
-    ssn:
-      type: string
-      sensitive: true  # Filtered by filter_sensitive_fields policy
-```
-
-### Authentication
-
-Configure in `~/.mxcp/config.yml`:
-
-```yaml
-projects:
-  my-project:
-    profiles:
-      default:
-        auth:
-          provider: github
-          github:
-            client_id: your_client_id
-            client_secret: your_client_secret
-```
-
-See [Authentication](references/security/authentication.md) for OAuth setup.
+For security implementation details, see:
+- [Policies](references/security/policies.md) - Access control with CEL expressions
+- [Authentication](references/security/authentication.md) - OAuth setup (GitHub, Google, etc.)
+- [Auditing](references/security/auditing.md) - Operation tracking
 
 ## CLI Quick Reference
 
@@ -476,43 +493,13 @@ mxcp log --since 1h          # Query audit logs
 
 ## Troubleshooting
 
-### Validation fails
-
 ```bash
-mxcp validate --debug        # Detailed error output
-```
-
-Check:
-- YAML syntax and indentation
-- Required fields (name, description, source)
-- Valid types and formats
-- File paths exist
-
-### Tool not found
-
-```bash
+mxcp validate --debug        # Detailed validation errors
+mxcp run tool NAME --debug   # Debug tool execution
 mxcp list                    # See available endpoints
 ```
 
-Check:
-- File is in `tools/` directory
-- `enabled: true` (default)
-- Valid YAML structure
-
-### Python import errors
-
-```bash
-source .venv/bin/activate    # Ensure venv active
-mxcp run tool NAME --debug   # Debug output
-```
-
-### Policy denials
-
-```bash
-mxcp run tool NAME --user-context '{"role": "admin"}' --debug
-```
-
-Check policy conditions match user context.
+Common issues: YAML syntax, missing required fields, invalid types, file paths.
 
 ## Project Templates
 

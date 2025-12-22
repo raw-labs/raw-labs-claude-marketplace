@@ -5,6 +5,23 @@ sidebar:
   order: 3
 ---
 
+## Table of Contents
+
+- [Defining Tests](#defining-tests)
+- [Running Tests](#running-tests)
+- [Test Structure](#test-structure)
+- [Argument Specification](#argument-specification)
+- [Assertion Types](#assertion-types)
+- [Testing Resources](#testing-resources)
+- [Testing Complex Types](#testing-complex-types)
+- [Policy Testing](#policy-testing)
+- [Error Testing](#error-testing)
+- [Test Output](#test-output)
+- [Test Data Setup](#test-data-setup)
+- [CI/CD Integration](#cicd-integration)
+- [Best Practices](#best-practices)
+- [Complete Example](#complete-example)
+
 > **Related Topics:** [Validation](/quality/validation) (check syntax before testing) | [Policies](/security/policies) (test access control) | [Evals](/quality/evals) (AI behavior testing) | [Common Tasks](/reference/common-tasks#how-do-i-add-tests-to-an-endpoint) (quick how-to)
 
 MXCP provides built-in testing capabilities to verify endpoint functionality. Tests are defined directly in endpoint YAML files and run with `mxcp test`.

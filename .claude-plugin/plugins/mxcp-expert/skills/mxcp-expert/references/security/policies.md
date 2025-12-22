@@ -5,6 +5,25 @@ sidebar:
   order: 3
 ---
 
+## Table of Contents
+
+- [How It Works](#how-it-works)
+- [Policy Types](#policy-types)
+- [Basic Policy Structure](#basic-policy-structure)
+- [Policy Conditions](#policy-conditions)
+- [CEL Expression Examples](#cel-expression-examples)
+- [Input Policy Actions](#input-policy-actions)
+- [Output Policy Actions](#output-policy-actions)
+- [Field Filtering and Masking Behavior](#field-filtering-and-masking-behavior)
+- [Complete Examples](#complete-examples)
+- [Using Policies with Different Commands](#using-policies-with-different-commands)
+- [Testing Policies](#testing-policies)
+- [Policy Evaluation Order](#policy-evaluation-order)
+- [SQL User Functions](#sql-user-functions)
+- [Best Practices](#best-practices)
+- [Advanced Examples](#advanced-examples)
+- [Troubleshooting](#troubleshooting)
+
 > **Related Topics:** [Authentication](/security/authentication) (user context source) | [Auditing](/security/auditing) (log policy decisions) | [Testing](/quality/testing) (test policies) | [Common Tasks](/reference/common-tasks#how-do-i-restrict-access-to-a-tool) (quick how-to)
 
 MXCP's policy engine provides fine-grained access control for your endpoints. Policies can control who can call endpoints (input policies) and what data they can see (output policies).

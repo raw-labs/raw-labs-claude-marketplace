@@ -5,6 +5,25 @@ sidebar:
   order: 4
 ---
 
+## Table of Contents
+
+- [Goal](#goal)
+- [Prerequisites](#prerequisites)
+- [Step 1: Basic Python Tool](#step-1-basic-python-tool)
+- [Step 2: Database Access](#step-2-database-access)
+- [Step 3: Configuration and Secrets](#step-3-configuration-and-secrets)
+- [Step 4: Async Operations](#step-4-async-operations)
+- [Step 5: Lifecycle Hooks](#step-5-lifecycle-hooks)
+- [Step 6: Combining SQL and Python](#step-6-combining-sql-and-python)
+- [Step 7: Error Handling](#step-7-error-handling)
+- [Verification](#verification)
+- [Step 8: Dynamic Database Reload](#step-8-dynamic-database-reload)
+- [Step 9: Plugin Access](#step-9-plugin-access)
+- [Step 10: Code Organization](#step-10-code-organization)
+- [Best Practices](#best-practices)
+- [Performance Considerations](#performance-considerations)
+- [Migration from SQL](#migration-from-sql)
+
 > **Related Topics:** [Python Runtime Reference](/reference/python) (API details) | [Type System](/concepts/type-system) (parameter types) | [Plugins](/reference/plugins) (custom UDFs) | [SQL Endpoints](/tutorials/sql-endpoints) (when to use SQL instead)
 
 Python endpoints let you build tools with complex logic, API integrations, and ML models. In this tutorial, you'll learn to use MXCP's Python runtime features effectively.

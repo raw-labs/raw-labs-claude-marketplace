@@ -5,6 +5,26 @@ sidebar:
   order: 2
 ---
 
+## Table of Contents
+
+- [How It Works](#how-it-works)
+- [Supported Providers](#supported-providers)
+- [Configuration Overview](#configuration-overview)
+- [GitHub Authentication](#github-authentication)
+- [Atlassian Authentication](#atlassian-authentication)
+- [Salesforce Authentication](#salesforce-authentication)
+- [Google Authentication](#google-authentication)
+- [Keycloak Authentication](#keycloak-authentication)
+- [Token Persistence](#token-persistence)
+- [User Context](#user-context)
+- [Stateless Mode](#stateless-mode)
+- [Reverse Proxy Configuration](#reverse-proxy-configuration)
+- [Testing Authentication](#testing-authentication)
+- [Troubleshooting](#troubleshooting)
+- [Security Best Practices](#security-best-practices)
+- [Advanced Features](#advanced-features)
+- [Production Checklist](#production-checklist)
+
 > **Related Topics:** [Policies](/security/policies) (use user context for access control) | [Configuration](/operations/configuration) (secrets management) | [Common Tasks](/reference/common-tasks#how-do-i-add-authentication) (quick setup)
 
 MXCP supports OAuth 2.0 authentication to control who can access your MCP server. This guide covers configuring various OAuth providers.

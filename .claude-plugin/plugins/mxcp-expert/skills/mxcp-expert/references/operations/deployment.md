@@ -5,6 +5,27 @@ sidebar:
   order: 3
 ---
 
+## Table of Contents
+
+- [Deployment Options](#deployment-options)
+- [Local Development (stdio)](#local-development-stdio)
+- [Multiple Environments](#multiple-environments)
+- [Prerequisites](#prerequisites)
+- [Production Checklist](#production-checklist)
+- [Resource Requirements](#resource-requirements)
+- [Docker Deployment](#docker-deployment)
+- [systemd Service](#systemd-service)
+- [Signal Handling](#signal-handling)
+- [Kubernetes Deployment](#kubernetes-deployment)
+- [Stateless Mode](#stateless-mode)
+- [Reverse Proxy Configuration](#reverse-proxy-configuration)
+- [Admin Socket Health Checks](#admin-socket-health-checks)
+- [Scaling Considerations](#scaling-considerations)
+- [Backup Strategy](#backup-strategy)
+- [Security Hardening](#security-hardening)
+- [Environment Variables Reference](#environment-variables-reference)
+- [Troubleshooting](#troubleshooting)
+
 > **Related Topics:** [Configuration](/operations/configuration) (profiles, secrets) | [Monitoring](/operations/monitoring) (observability) | [Admin Socket](/operations/admin-socket) (health checks)
 
 This guide covers deploying MXCP to production environments.

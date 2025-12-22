@@ -5,6 +5,21 @@ sidebar:
   order: 6
 ---
 
+## Table of Contents
+
+- [Overview](#overview)
+- [Configuration](#configuration)
+- [REST API Endpoints](#rest-api-endpoints)
+- [System Metrics Endpoints](#system-metrics-endpoints)
+- [Audit Log Endpoints](#audit-log-endpoints)
+- [Error Responses](#error-responses)
+- [Client Examples](#client-examples)
+- [OpenAPI Documentation](#openapi-documentation)
+- [Docker Integration](#docker-integration)
+- [systemd Integration](#systemd-integration)
+- [Security Considerations](#security-considerations)
+- [Troubleshooting](#troubleshooting)
+
 > **Related Topics:** [Monitoring](/operations/monitoring) (telemetry) | [Deployment](/operations/deployment) (production setup) | [Auditing](/security/auditing) (audit logs)
 
 The Admin Socket provides a local REST API over Unix socket for server administration. It enables health checks, status monitoring, system metrics, and configuration reload without network exposure.

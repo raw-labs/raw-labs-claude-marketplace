@@ -5,6 +5,25 @@ sidebar:
   order: 3
 ---
 
+## Table of Contents
+
+- [Why dbt?](#why-dbt)
+- [The dbt + MXCP Workflow](#the-dbt--mxcp-workflow)
+- [Configuration](#configuration)
+- [Commands](#commands)
+- [Project Structure](#project-structure)
+- [Creating Models](#creating-models)
+- [Materialization](#materialization)
+- [Advanced Configuration](#advanced-configuration)
+- [Data Quality Tests](#data-quality-tests)
+- [Documentation](#documentation)
+- [MXCP Integration](#mxcp-integration)
+- [Python Models](#python-models)
+- [Performance Optimization](#performance-optimization)
+- [CI/CD Integration](#cicd-integration)
+- [Best Practices](#best-practices)
+- [Troubleshooting](#troubleshooting)
+
 > **Related Topics:** [Configuration](/operations/configuration) (enable dbt) | [SQL Endpoints](/tutorials/sql-endpoints) (query dbt models) | [DuckDB Integration](/integrations/duckdb) (database engine) | [Common Tasks](/reference/common-tasks#how-do-i-integrate-with-dbt) (quick how-to)
 >
 > **Official Documentation:** [dbt Docs](https://docs.getdbt.com) | [dbt-duckdb Adapter](https://docs.getdbt.com/docs/core/connect-data-platform/duckdb-setup)

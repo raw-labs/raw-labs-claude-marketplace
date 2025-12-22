@@ -5,6 +5,19 @@ sidebar:
   order: 4
 ---
 
+## Table of Contents
+
+- [Overview](#overview)
+- [Extensions](#extensions)
+- [Data Sources](#data-sources)
+- [Secret Management](#secret-management)
+- [MXCP Integration](#mxcp-integration)
+- [Performance Optimization](#performance-optimization)
+- [Common Patterns](#common-patterns)
+- [Troubleshooting](#troubleshooting)
+- [Configuration Reference](#configuration-reference)
+- [Best Practices](#best-practices)
+
 > **Related Topics:** [SQL Endpoints](/tutorials/sql-endpoints) (tutorial) | [SQL Reference](/reference/sql) (built-in functions) | [Configuration](/operations/configuration) (extensions setup) | [Common Tasks](/reference/common-tasks#how-do-i-use-duckdb-extensions) (quick how-to)
 >
 > **Official Documentation:** [DuckDB Docs](https://duckdb.org/docs/stable/) | [Extensions](https://duckdb.org/docs/extensions/overview) | [SQL Reference](https://duckdb.org/docs/sql/introduction)

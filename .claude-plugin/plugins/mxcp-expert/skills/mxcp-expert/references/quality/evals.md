@@ -5,6 +5,24 @@ sidebar:
   order: 5
 ---
 
+## Table of Contents
+
+- [Why Evals?](#why-evals)
+- [How Evals Work](#how-evals-work)
+- [Running Evals](#running-evals)
+- [Configuration](#configuration)
+- [Eval Suite Definition](#eval-suite-definition)
+- [Test Structure](#test-structure)
+- [Assertion Types](#assertion-types)
+- [Permission Testing](#permission-testing)
+- [Complete Example](#complete-example)
+- [Data Governance Example](#data-governance-example)
+- [Eval Output](#eval-output)
+- [Best Practices](#best-practices)
+- [CI/CD Integration](#cicd-integration)
+- [Troubleshooting](#troubleshooting)
+- [Supported Models](#supported-models)
+
 > **Related Topics:** [Testing](/quality/testing) (functional tests) | [Configuration](/operations/configuration#model-configuration) (model setup) | [Policies](/security/policies) (safety enforcement)
 
 MXCP evals test how AI models interact with your endpoints. This ensures AI uses your tools correctly and safely in production.
