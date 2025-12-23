@@ -7,6 +7,18 @@ description: Expert guidance for building production MCP servers using MXCP (Mod
 
 MXCP (Model Context Protocol eXtension Platform) is an enterprise-grade framework for building production-ready AI tools with SQL and Python.
 
+## MXCP Capabilities
+
+| Category | Features | When to Use |
+|----------|----------|-------------|
+| **Endpoints** | Tools, Resources, Prompts | Tools=actions/queries, Resources=data by URI, Prompts=message templates |
+| **Languages** | SQL, Python | SQL=database/simple, Python=complex logic/APIs |
+| **Data Access** | DuckDB (local files, HTTP, S3, PostgreSQL, MySQL, SQLite) | Connect to any data source via DuckDB extensions |
+| **Data Transform** | dbt (seeds, SQL models, Python models) | Clean, test, materialize static data |
+| **Security** | OAuth, CEL policies, audit logs | Authentication + authorization |
+| **Quality** | validate, test, lint, evals | Ensure correctness and LLM usability |
+| **Deployment** | stdio, streamable-http | Local dev (stdio), production (HTTP) |
+
 ## Reference Documentation
 
 | Category | Key References |
@@ -24,13 +36,28 @@ MXCP (Model Context Protocol eXtension Platform) is an enterprise-grade framewor
 
 **This skill prioritizes:**
 
-1. **Use Built-in Features First** - ALWAYS use MXCP's built-in capabilities before writing custom code. Never implement manually what MXCP provides (authentication, policies, user context, external API access). If unsure, check the documentation first
+1. **Use Built-in Features First** - ALWAYS use MXCP's built-in capabilities before writing custom code. If unsure, check the documentation first
 2. **Use uv for environments** - Always create venv with `uv venv` and activate before running mxcp
 3. **Security First** - Use parameterized queries, validate inputs, implement authentication and policies
 4. **Validation Always** - Run `mxcp validate` after every change, fix errors immediately
 5. **Test Everything** - Write tests for all endpoints, run `mxcp test` before proceeding
 6. **Quality Checks** - Use `mxcp lint` to improve LLM understanding of tools
 7. **Incremental Development** - Build one tool at a time, validate before adding the next
+
+**NEVER implement these manually - MXCP provides them. Read the linked docs before implementing:**
+
+| Category | WRONG (custom code) | RIGHT (built-in) | Docs |
+|----------|---------------------|------------------|------|
+| **Authentication** | API keys, token validation, login endpoints | OAuth in config, `get_username()` in SQL | [authentication.md](references/security/authentication.md) |
+| **Authorization** | Python if/else role checks, permission tables | CEL policies in YAML (`user.role`, `user.email`) | [policies.md](references/security/policies.md) |
+| **External API auth** | Store/manage tokens, refresh logic | `get_user_external_token()` in SQL | [authentication.md](references/security/authentication.md) |
+| **Database setup** | Create DuckDB manually, custom path | Auto-created at `data/db-default.duckdb` | [configuration.md](references/operations/configuration.md) |
+| **Data ingestion** | Python scripts to load CSV/Excel | dbt seeds, Python models, DuckDB `read_*` | [dbt.md](references/integrations/dbt.md) |
+| **File reading** | Python open/pandas in tools | `read_csv_auto()`, `read_parquet()` | [duckdb.md](references/integrations/duckdb.md) |
+| **HTTP requests** | - | SQL: `read_json_auto()` for simple fetches; Python endpoint for complex API logic | [duckdb.md](references/integrations/duckdb.md), [python-endpoints.md](references/tutorials/python-endpoints.md) |
+| **Testing** | Custom pytest for endpoints | `mxcp test` with YAML tests | [testing.md](references/quality/testing.md) |
+| **Audit logging** | Custom logging code | Built-in `mxcp log` | [auditing.md](references/security/auditing.md) |
+| **Configuration** | Custom config files, hardcoded values | Profiles, `${ENV_VARS}` | [configuration.md](references/operations/configuration.md) |
 
 **Environment setup (required before any mxcp command):**
 ```bash
@@ -83,9 +110,17 @@ SELECT * FROM read_parquet('data/*.parquet');
 SELECT * FROM read_json_auto('https://api.example.com/data.json');
 ```
 
-**No data layer needed:**
-- Direct API calls → Python tools
-- External databases → SQL with connection
+**Connect to external databases via DuckDB:**
+```sql
+-- PostgreSQL (requires postgres extension)
+ATTACH 'postgresql://user:pass@host:5432/db' AS pg (TYPE postgres);
+SELECT * FROM pg.public.users;
+
+-- MySQL (requires mysql extension)
+ATTACH 'host=localhost user=root database=mydb' AS mysql (TYPE mysql);
+SELECT * FROM mysql.orders;
+```
+See [duckdb.md](references/integrations/duckdb.md) for S3, HTTP auth, and secret management.
 
 **After ingestion (if using dbt), verify:**
 ```bash
@@ -95,10 +130,20 @@ mxcp query "SELECT * FROM table LIMIT 5"  # Manual verification
 
 ### Step 2: Implementation
 
-**Create tools, resources, or prompts based on requirements:**
-- **Tools** → Actions the LLM can execute (SQL or Python)
-- **Resources** → Read-only data contexts
-- **Prompts** → Templated instructions
+**Choose endpoint type based on use case:**
+
+| Use Case | Endpoint Type | Example |
+|----------|---------------|---------|
+| Query data, perform actions | **Tool** | `get_customer`, `create_order` |
+| Access data by URI/path | **Resource** | `employee://{id}/profile` |
+| Reusable message templates | **Prompt** | `data_analysis` with Jinja2 |
+
+**Choose implementation language:**
+
+| Scenario | Language | Reference |
+|----------|----------|-----------|
+| Database queries, aggregations, file reading | SQL | [sql-endpoints.md](references/tutorials/sql-endpoints.md) |
+| Complex logic, external APIs, ML, file processing | Python | [python-endpoints.md](references/tutorials/python-endpoints.md) |
 
 **Development cycle for each endpoint:**
 ```bash
@@ -180,9 +225,12 @@ mxcp run tool NAME --param key=value \
 ### Step 8: Deployment (Only if Requested)
 
 Implement **only if the user explicitly asks** for deployment:
-```bash
-mxcp serve --transport streamable-http --port 8000
-```
+
+| Transport | Use Case | Command |
+|-----------|----------|---------|
+| `stdio` | Local dev, Claude Desktop | `mxcp serve` (default) |
+| `streamable-http` | Production, web clients | `mxcp serve --transport streamable-http --port 8000` |
+
 See [Deployment](references/operations/deployment.md) for Docker, systemd, production setup.
 
 ### Definition of Done
