@@ -277,6 +277,8 @@ Before implementing, always:
 
 **Valid types:** `string`, `number`, `integer`, `boolean`, `array`, `object`
 
+**SQL syntax:** Verify DuckDB-specific syntax in [duckdb.md](references/integrations/duckdb.md). See [common-mistakes.md](references/common-mistakes.md) for pitfalls.
+
 ## Project Structure
 
 ```

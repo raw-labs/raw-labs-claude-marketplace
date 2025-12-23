@@ -212,6 +212,71 @@ policies:
       action: deny
 ```
 
+## 13. Database-Specific SQL Syntax
+
+DuckDB has its own SQL dialect. Verify syntax in [DuckDB docs](https://duckdb.org/docs/sql/introduction). Common issues:
+
+```sql
+-- WRONG - syntax from other databases
+INSERT OR REPLACE INTO users VALUES (1, 'Alice');
+INSERT OR IGNORE INTO users VALUES (1, 'Alice');
+
+-- CORRECT - DuckDB syntax
+INSERT INTO users VALUES (1, 'Alice')
+ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name;
+
+-- OR use DELETE + INSERT
+DELETE FROM users WHERE id = 1;
+INSERT INTO users VALUES (1, 'Alice');
+```
+
+When in doubt, check [duckdb.md](duckdb.md) or the official DuckDB documentation.
+
+## 14. Testing Policy Denials in YAML
+
+Policy denial tests (where access is blocked) CANNOT be tested via YAML test assertions. Use CLI testing instead:
+
+```yaml
+# WRONG - no expect_error or similar assertion exists
+tests:
+  - name: guest_denied
+    user_context: {role: guest}
+    expect_error: true  # NOT VALID
+```
+
+```bash
+# CORRECT - test denials via CLI
+mxcp run tool my_tool --param id=1 --user-context '{"role": "guest"}'
+# Expect: "Policy enforcement failed: ..."
+```
+
+## 15. Enum with Optional Parameter
+
+When using enum with an optional parameter, either include `null` in enum or remove enum entirely:
+
+```yaml
+# WRONG - parameter is optional but null not in enum
+parameters:
+  - name: category
+    type: string
+    enum: [Electronics, Clothing, Food]
+    default: null
+
+# CORRECT Option 1 - include null in enum
+parameters:
+  - name: category
+    type: string
+    enum: [Electronics, Clothing, Food, null]
+    default: null
+
+# CORRECT Option 2 - remove enum, document in description
+parameters:
+  - name: category
+    type: string
+    description: "Filter by category. Valid: Electronics, Clothing, Food"
+    default: null
+```
+
 ## Quick Reference
 
 | Mistake | Fix |
@@ -225,7 +290,10 @@ policies:
 | Both `code:` and `file:` | Use only one |
 | `required: false` | Use `default: value` for optional params |
 | Missing `language: python` | Add for Python tools |
-| `default: null` with enum | Include `null` in enum list |
+| `default: null` with enum | Include `null` in enum list or remove enum |
 | `expect_error`, `result_count` | Use valid assertions only |
 | `SUM()` returns float | Cast: `CAST(SUM(x) AS INTEGER)` |
 | Custom API key auth | Use built-in OAuth + policies |
+| DB-specific SQL syntax | Verify in DuckDB docs, use `ON CONFLICT` |
+| Testing policy denials | Use CLI `--user-context`, not YAML tests |
+| Enum + optional param | Include `null` in enum or document in description |
