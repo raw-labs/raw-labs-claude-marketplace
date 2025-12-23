@@ -60,15 +60,34 @@ mxcp validate  # Verify setup
 - Is the data properly structured or does it need transformation?
 - What questions will users need answered? (Design schema accordingly)
 
-**Choose the right ingestion approach:**
+**Decision: Ingest or query directly?**
+
+| Data Characteristic | Approach | Why |
+|---------------------|----------|-----|
+| **Static/one-time** (loaded once) | Ingest with dbt | Data quality tests, transformations, persistence |
+| **Dynamic/changing** (files updated) | DuckDB direct read | Always reads latest data, no sync needed |
+
+**Ingestion approaches (for static data):**
 
 | Scenario | Approach |
 |----------|----------|
 | Simple CSV, static reference data | `mxcp dbt seed` |
-| Excel, complex transformations, API data | dbt Python models |
-| No ingestion needed, direct API calls | Python tools directly |
+| Excel, complex transformations | dbt Python models |
 
-**After ingestion, verify:**
+**Direct read approaches (for dynamic data):**
+
+```sql
+-- DuckDB reads files directly - always gets latest data
+SELECT * FROM read_csv_auto('data/sales.csv');
+SELECT * FROM read_parquet('data/*.parquet');
+SELECT * FROM read_json_auto('https://api.example.com/data.json');
+```
+
+**No data layer needed:**
+- Direct API calls → Python tools
+- External databases → SQL with connection
+
+**After ingestion (if using dbt), verify:**
 ```bash
 mxcp dbt test                    # Data quality tests
 mxcp query "SELECT * FROM table LIMIT 5"  # Manual verification
@@ -178,47 +197,11 @@ A project is complete when:
 
 ## Testing Requirements
 
-**MXCP endpoint tests must verify:**
-- ✓ Correct results for valid inputs
-- ✓ Edge cases (empty data, nulls, boundaries)
-- ✓ Error handling for invalid inputs
-- ✓ Query logic produces expected output
-
-**dbt data tests must verify:**
-- ✓ Required columns are `not_null`
-- ✓ Primary keys are `unique`
-- ✓ Foreign keys have valid `relationships`
-- ✓ Data values are within expected ranges (`accepted_values`)
-
-Example dbt schema tests:
-```yaml
-# models/schema.yml
-models:
-  - name: customers
-    columns:
-      - name: id
-        tests: [not_null, unique]
-      - name: email
-        tests: [not_null, unique]
-      - name: status
-        tests:
-          - accepted_values:
-              values: ['active', 'inactive', 'pending']
-```
-
-Example MXCP endpoint tests with edge cases:
-```yaml
-tests:
-  - name: valid_user
-    arguments: [{key: user_id, value: 1}]
-    result_contains: {id: 1}
-  - name: user_not_found
-    arguments: [{key: user_id, value: 99999}]
-    result: null
-  - name: handles_zero
-    arguments: [{key: user_id, value: 0}]
-    result: null
-```
+| Test Type | Must Verify | Reference |
+|-----------|-------------|-----------|
+| **MXCP endpoint** | Valid inputs, edge cases (nulls, boundaries), error handling | [testing.md](references/quality/testing.md) |
+| **dbt data** | `not_null`, `unique`, `relationships`, `accepted_values` | [dbt.md](references/integrations/dbt.md) |
+| **Python modules** | Unit tests with `pytest` | - |
 
 ## Critical: Use the Default Database
 
@@ -238,44 +221,6 @@ profile: default
 ```
 
 **Only configure `duckdb.path` if the user explicitly requests it** (e.g., shared database, specific location, read-only mode). Do not proactively add database configuration.
-
-## Critical: Prefer Python Models Over CSV Seeds
-
-**For Excel files and external data, use dbt Python models instead of converting to CSV seeds.**
-
-**WRONG approach:**
-```bash
-# Don't do this workflow:
-python convert_excel_to_csv.py  # Convert Excel to CSV
-# Then seed via dbt
-mxcp dbt seed
-```
-
-**CORRECT approach - Use dbt Python model:**
-```python
-# models/load_excel.py
-import pandas as pd
-
-def model(dbt, session):
-    df = pd.read_excel('data/sales.xlsx')
-    df = df.dropna(how='all')
-    df.columns = df.columns.str.lower().str.replace(' ', '_')
-    return df
-```
-
-Then run: `mxcp dbt run --select load_excel`
-
-**Why Python models are better:**
-- No manual conversion step
-- Handles Excel formatting, multiple sheets, type issues
-- Transformation logic is version-controlled
-- Runs as part of the dbt DAG
-- Data quality tests apply automatically
-
-**When CSV seeds ARE appropriate:**
-- Small, static reference data (country codes, config values)
-- Data that rarely changes and should be in version control
-- Simple tabular data without formatting issues
 
 ## Common Mistakes
 
