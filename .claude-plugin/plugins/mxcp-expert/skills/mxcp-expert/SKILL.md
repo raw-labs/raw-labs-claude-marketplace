@@ -7,58 +7,18 @@ description: Expert guidance for building production MCP servers using MXCP (Mod
 
 MXCP (Model Context Protocol eXtension Platform) is an enterprise-grade framework for building production-ready AI tools with SQL and Python.
 
-## Quick Navigation
+## Reference Documentation
 
-**New to MXCP?**
-- [Quickstart](references/getting-started/quickstart.md) - Get running in 5 minutes
-- [Hello World Tutorial](references/tutorials/hello-world.md) - Build your first tool
-- [Introduction](references/getting-started/introduction.md) - How MXCP works
-
-**Building Endpoints:**
-- [SQL Endpoints](references/tutorials/sql-endpoints.md) - Query databases with SQL
-- [Python Endpoints](references/tutorials/python-endpoints.md) - Complex logic and APIs
-- [Endpoints Concepts](references/concepts/endpoints.md) - Tools, resources, prompts
-
-**YAML Schema Reference:**
-- [Tool Schema](references/schemas/tool.md) - Complete tool YAML reference
-- [Resource Schema](references/schemas/resource.md) - Resource definitions
-- [Prompt Schema](references/schemas/prompt.md) - Prompt templates
-- [Site Config](references/schemas/site-config.md) - mxcp-site.yml reference
-- [User Config](references/schemas/user-config.md) - ~/.mxcp/config.yml reference
-
-**Quality & Testing:**
-- [Validation](references/quality/validation.md) - Check endpoint structure
-- [Testing](references/quality/testing.md) - Write and run tests
-- [Linting](references/quality/linting.md) - Improve LLM understanding
-- [Evals](references/quality/evals.md) - AI behavior testing
-
-**Security:**
-- [Authentication](references/security/authentication.md) - OAuth setup
-- [Policies](references/security/policies.md) - Access control with CEL
-- [Auditing](references/security/auditing.md) - Track operations
-
-**Operations:**
-- [Configuration](references/operations/configuration.md) - Profiles and environments
-- [Deployment](references/operations/deployment.md) - Docker, systemd, production
-- [Monitoring](references/operations/monitoring.md) - OpenTelemetry setup
-
-**Reference:**
-- [CLI Reference](references/reference/cli.md) - All commands
-- [Common Tasks](references/reference/common-tasks.md) - Quick how-to guide
-- [Python Runtime](references/reference/python.md) - Python API reference
-- [SQL Functions](references/reference/sql.md) - Built-in SQL functions
-- [Type System](references/concepts/type-system.md) - Parameter types
-
-**Integrations:**
-- [Claude Desktop](references/integrations/claude-desktop.md) - Client setup
-- [dbt](references/integrations/dbt.md) - Data transformation
-- [DuckDB](references/integrations/duckdb.md) - Extensions and features
-- [Excel](references/integrations/excel-integration.md) - Excel file processing
-
-**Examples:**
-- [Analytics](references/examples/analytics.md) - Analytics patterns
-- [Customer Service](references/examples/customer-service.md) - Support tools
-- [Data Management](references/examples/data-management.md) - Data operations
+| Category | Key References |
+|----------|----------------|
+| **Getting Started** | [quickstart](references/getting-started/quickstart.md), [hello-world](references/tutorials/hello-world.md) |
+| **Endpoints** | [sql-endpoints](references/tutorials/sql-endpoints.md), [python-endpoints](references/tutorials/python-endpoints.md) |
+| **Schemas** | [tool](references/schemas/tool.md), [resource](references/schemas/resource.md), [prompt](references/schemas/prompt.md) |
+| **Quality** | [testing](references/quality/testing.md), [validation](references/quality/validation.md), [linting](references/quality/linting.md) |
+| **Security** | [authentication](references/security/authentication.md), [policies](references/security/policies.md) |
+| **Operations** | [configuration](references/operations/configuration.md), [deployment](references/operations/deployment.md) |
+| **Reference** | [cli](references/reference/cli.md), [sql](references/reference/sql.md), [python](references/reference/python.md), [type-system](references/concepts/type-system.md) |
+| **Integrations** | [dbt](references/integrations/dbt.md), [duckdb](references/integrations/duckdb.md), [excel](references/integrations/excel-integration.md) |
 
 ## Core Principles
 
@@ -78,28 +38,143 @@ uv venv && source .venv/bin/activate
 uv pip install mxcp
 ```
 
-## Mandatory Workflow
+## Implementation Methodology
 
-**Follow this workflow for every MXCP project:**
+**Follow this methodology for every MXCP project. Run `mxcp validate` after EVERY file change.**
 
-1. **Create** → `mxcp validate` → Fix any errors
-2. **Implement** → `mxcp validate` → Fix any errors
-3. **Add tests** → `mxcp test` → All tests must pass
-4. **Check quality** → `mxcp lint` → Address warnings
-5. **Verify manually** → `mxcp run tool NAME` → Confirm expected output
+### Step 0: Project Setup
 
-**When using dbt, also run:**
-- `mxcp dbt test` → Verify data quality (not_null, unique, relationships)
-- Add schema tests in `models/schema.yml` for all models
+```bash
+mkdir my-project && cd my-project
+uv venv && source .venv/bin/activate
+uv pip install mxcp
+mxcp init --bootstrap
+mxcp validate  # Verify setup
+```
 
-**Definition of Done:** A project is complete ONLY when:
-- `mxcp validate` passes with no errors
-- `mxcp test` passes with all tests green
-- `mxcp dbt test` passes (if using dbt)
-- `mxcp lint` shows no critical issues
-- Manual verification confirms expected behavior
+### Step 1: Task Analysis & Data Ingestion
 
-**Never skip validation or testing steps.**
+**Analyze the task first:**
+- What is the user trying to accomplish?
+- Is data ingestion needed? What format (CSV, Excel, API, database)?
+- Is the data properly structured or does it need transformation?
+- What questions will users need answered? (Design schema accordingly)
+
+**Choose the right ingestion approach:**
+
+| Scenario | Approach |
+|----------|----------|
+| Simple CSV, static reference data | `mxcp dbt seed` |
+| Excel, complex transformations, API data | dbt Python models |
+| No ingestion needed, direct API calls | Python tools directly |
+
+**After ingestion, verify:**
+```bash
+mxcp dbt test                    # Data quality tests
+mxcp query "SELECT * FROM table LIMIT 5"  # Manual verification
+```
+
+### Step 2: Implementation
+
+**Create tools, resources, or prompts based on requirements:**
+- **Tools** → Actions the LLM can execute (SQL or Python)
+- **Resources** → Read-only data contexts
+- **Prompts** → Templated instructions
+
+**Development cycle for each endpoint:**
+```bash
+# 1. Create the YAML definition
+mxcp validate                    # Fix errors immediately
+
+# 2. Create the implementation (SQL or Python)
+mxcp validate                    # Validate again
+
+# 3. Manual verification
+mxcp run tool NAME --param key=value
+
+# 4. Add tests and run
+mxcp test
+```
+
+**Python code requirements:**
+- Modular, maintainable code
+- Each module independently testable
+- Use `pytest` for Python logic testing
+
+### Step 3: Metadata Quality
+
+**Tools will be used by LLMs. Ensure clear metadata:**
+- **name**: Descriptive, follows `snake_case`
+- **description**: Clear purpose, when to use, what it returns
+- **parameters**: Each has description, correct type, examples
+- **return**: Documented structure with property descriptions
+
+```yaml
+tool:
+  name: search_customers
+  description: |
+    Search customers by name or email. Returns matching customer records
+    with contact info and account status. Use for customer lookups.
+  parameters:
+    - name: query
+      type: string
+      description: Search term (matches name or email, case-insensitive)
+      examples: ["john", "smith@example.com"]
+```
+
+### Step 4: Validation
+
+Run after **every** file change:
+```bash
+mxcp validate
+mxcp validate --debug  # For detailed errors
+```
+
+### Step 5: Linting
+
+Check metadata quality for LLM consumption:
+```bash
+mxcp lint
+```
+Address all warnings about descriptions, examples, and documentation.
+
+### Step 6: Evals (Only if Requested)
+
+Create evals **only if the user explicitly asks**:
+```bash
+mxcp evals  # AI behavior testing
+```
+
+### Step 7: Security & Features (Only if Requested)
+
+Implement **only if the user requests** authentication, policies, or observability:
+- **Authentication**: Configure in `~/.mxcp/config.yml` (see Security Features section)
+- **Policies**: Add CEL expressions to tool definitions
+- **Observability**: Configure OpenTelemetry
+
+**Test security with simulated user context:**
+```bash
+mxcp run tool NAME --param key=value \
+  --user-context '{"role": "admin", "email": "test@example.com"}'
+```
+
+### Step 8: Deployment (Only if Requested)
+
+Implement **only if the user explicitly asks** for deployment:
+```bash
+mxcp serve --transport streamable-http --port 8000
+```
+See [Deployment](references/operations/deployment.md) for Docker, systemd, production setup.
+
+### Definition of Done
+
+A project is complete when:
+- [ ] `mxcp validate` passes with no errors
+- [ ] `mxcp test` passes with all tests green
+- [ ] `mxcp dbt test` passes (if using dbt)
+- [ ] `mxcp lint` shows no critical issues
+- [ ] Manual verification with `mxcp run` confirms expected behavior
+- [ ] Security tested with `--user-context` (if auth/policies configured)
 
 ## Testing Requirements
 
@@ -202,175 +277,21 @@ Then run: `mxcp dbt run --select load_excel`
 - Data that rarely changes and should be in version control
 - Simple tabular data without formatting issues
 
-## Critical: Common Mistakes to Avoid
+## Common Mistakes
 
-**Read this before creating any tools.** These mistakes cause validation errors:
+**These cause validation errors.** See [common-mistakes.md](references/common-mistakes.md) for detailed examples.
 
-### 1. Missing `tool:` Wrapper
+| Mistake | Fix |
+|---------|-----|
+| Missing `tool:` wrapper | Add `tool:` before name/description |
+| Missing parameter description | Add `description:` to every parameter |
+| `type: int` | Use `type: integer` |
+| `type: map` | Use `type: object` |
+| `format: datetime` | Use `format: date-time` |
+| `name: user-name` | Use `name: user_name` (no hyphens) |
+| Both `code:` and `file:` | Use only one |
 
-```yaml
-# WRONG
-mxcp: 1
-name: get_calendar
-description: ...
-
-# CORRECT
-mxcp: 1
-tool:
-  name: get_calendar
-  description: ...
-```
-
-### 2. Missing Parameter Description
-
-```yaml
-# WRONG - causes validation error
-parameters:
-  - name: user_id
-    type: string
-
-# CORRECT
-parameters:
-  - name: user_id
-    type: string
-    description: The unique user identifier
-```
-
-### 3. Invalid Type Names
-
-Valid types: `string`, `number`, `integer`, `boolean`, `array`, `object`
-
-```yaml
-# WRONG
-type: map      # Use 'object'
-type: strng    # Typo
-type: int      # Use 'integer'
-
-# CORRECT
-type: object
-type: string
-type: integer
-```
-
-### 4. Invalid Parameter Names
-
-Parameter names must match `^[a-zA-Z_][a-zA-Z0-9_]*$`
-
-```yaml
-# WRONG
-name: user-name    # Hyphens not allowed
-name: 1st_param    # Can't start with number
-
-# CORRECT
-name: user_name
-name: first_param
-```
-
-### 5. Invalid Format Values
-
-Valid formats: `email`, `uri`, `date`, `time`, `date-time`, `duration`, `timestamp`
-
-```yaml
-# WRONG
-format: datetime   # Missing hyphen
-
-# CORRECT
-format: date-time
-```
-
-### 6. Both `code` and `file` in Source
-
-Source must have exactly one of `code` or `file`:
-
-```yaml
-# WRONG
-source:
-  code: "SELECT 1"
-  file: "query.sql"  # Can't have both
-
-# CORRECT
-source:
-  code: "SELECT 1"
-# OR
-source:
-  file: ../sql/query.sql
-```
-
-## Essential Workflow
-
-### Initialize a New Project
-
-```bash
-mkdir my-mxcp-project && cd my-mxcp-project
-uv venv && source .venv/bin/activate
-uv pip install mxcp
-mxcp init --bootstrap
-```
-
-### Create a Tool
-
-1. Create tool definition in `tools/my_tool.yml`:
-
-```yaml
-mxcp: 1
-tool:
-  name: my_tool
-  description: What this tool does
-  parameters:
-    - name: param_name
-      type: string
-      description: Parameter description
-  return:
-    type: object
-    properties:
-      result:
-        type: string
-  source:
-    file: ../sql/my_tool.sql
-```
-
-2. Create implementation in `sql/my_tool.sql`:
-
-```sql
-SELECT $param_name as result
-```
-
-3. Validate immediately:
-
-```bash
-mxcp validate
-```
-
-### Validation-First Development
-
-**Always validate after each change:**
-
-```bash
-# 1. Create tool YAML
-mxcp validate  # Fix errors now
-
-# 2. Create implementation
-mxcp validate  # Validate again
-
-# 3. Add tests
-mxcp test      # Run tests
-
-# 4. Check metadata quality
-mxcp lint
-```
-
-### Run and Test
-
-```bash
-# Run a tool manually
-mxcp run tool my_tool --param param_name=value
-
-# Run all tests
-mxcp test
-
-# Start the server
-mxcp serve
-```
+**Valid types:** `string`, `number`, `integer`, `boolean`, `array`, `object`
 
 ## Project Structure
 
@@ -461,80 +382,17 @@ def analyze_data(dataset: str) -> dict:
 
 ## Security Features
 
-**CRITICAL: Use MXCP built-in security features. NEVER write custom Python authentication code.**
+**CRITICAL: Use MXCP built-in security. NEVER write custom authentication code.**
 
-### Authentication (Built-in OAuth)
+| Feature | Built-in Solution | Reference |
+|---------|-------------------|-----------|
+| Authentication | OAuth in `~/.mxcp/config.yml` | [authentication.md](references/security/authentication.md) |
+| Access Control | CEL policies in YAML | [policies.md](references/security/policies.md) |
+| User Context | SQL: `get_username()`, `get_user_email()` | [sql.md](references/reference/sql.md) |
+| External APIs | SQL: `get_user_external_token()` | [authentication.md](references/security/authentication.md) |
+| Audit Logs | Built-in logging | [auditing.md](references/security/auditing.md) |
 
-MXCP has built-in OAuth 2.0 support. Configure in `~/.mxcp/config.yml`, NOT in Python:
-
-```yaml
-# ~/.mxcp/config.yml - CORRECT way to add authentication
-mxcp: 1
-projects:
-  my-project:
-    profiles:
-      default:
-        auth:
-          provider: github  # or: google, atlassian, salesforce, keycloak
-          github:
-            client_id: "${GITHUB_CLIENT_ID}"
-            client_secret: "${GITHUB_CLIENT_SECRET}"
-            callback_path: /callback
-            auth_url: https://github.com/login/oauth/authorize
-            token_url: https://github.com/login/oauth/access_token
-            scope: "read:user user:email"
-```
-
-**Supported providers:** GitHub, Google, Atlassian (Jira/Confluence), Salesforce, Keycloak
-
-### Access Control (Built-in Policies)
-
-Use CEL policies in YAML, NOT Python if/else checks:
-
-```yaml
-# In tool definition - CORRECT way to control access
-policies:
-  input:
-    - condition: "!user.email.endsWith('@company.com')"
-      action: deny
-      reason: "Company email required"
-    - condition: "user.role != 'admin'"
-      action: deny
-      reason: "Admin role required"
-```
-
-### User Context (Built-in SQL Functions)
-
-Access user info in SQL, NOT by passing tokens manually:
-
-```sql
--- Built-in functions for user context
-SELECT get_username() as username;
-SELECT get_user_email() as email;
-SELECT get_user_provider() as provider;
-SELECT get_user_external_token() as oauth_token;
-```
-
-### External API Calls (Built-in Token Access)
-
-Call external APIs using the user's OAuth token in SQL:
-
-```sql
--- CORRECT: Use built-in token function for authenticated API calls
-SELECT * FROM read_json_auto(
-    'https://api.github.com/user/repos',
-    headers = MAP {
-        'Authorization': 'Bearer ' || get_user_external_token(),
-        'User-Agent': 'MXCP'
-    }
-);
-```
-
-### Reference Documentation
-
-- [Authentication](references/security/authentication.md) - Full OAuth setup guide
-- [Policies](references/security/policies.md) - CEL policy expressions
-- [Auditing](references/security/auditing.md) - Operation tracking
+**Supported OAuth providers:** GitHub, Google, Atlassian, Salesforce, Keycloak
 
 ## CLI Quick Reference
 
