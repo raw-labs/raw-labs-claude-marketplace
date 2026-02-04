@@ -130,6 +130,25 @@ tool:
     file: ../python/process.py
 ```
 
+## 8a. Python Function Name Must Match Tool Name
+
+The Python function name MUST exactly match the `tool.name`:
+
+```python
+# tools/analyze_data.yml has: name: analyze_data
+
+# WRONG - function name doesn't match
+def analyse_data(query: str) -> dict:  # British spelling
+    ...
+
+def analyzeData(query: str) -> dict:   # camelCase
+    ...
+
+# CORRECT - function name matches tool name exactly
+def analyze_data(query: str) -> dict:
+    ...
+```
+
 ## 9. Enum with Null Default
 
 If `default: null`, the enum MUST include `null`:
@@ -277,6 +296,49 @@ parameters:
     default: null
 ```
 
+## 16. Invalid `mxcp-site.yml` Properties
+
+`mxcp-site.yml` only accepts these top-level properties: `mxcp`, `project`, `profile`
+
+```yaml
+# WRONG - invalid top-level properties
+mxcp: 1
+name: my-project           # Wrong key! Use 'project'
+description: My project    # Not a valid property
+python:                    # Not a valid property
+  root: python
+secrets:                   # Not a valid property - secrets go in ~/.mxcp/config.yml
+  - name: api_key
+
+# CORRECT - minimal required config
+mxcp: 1
+project: my-project
+profile: default
+```
+
+Secrets, database paths, and other configuration go in `~/.mxcp/config.yml`, not in `mxcp-site.yml`.
+
+## 17. Using `returns:` Instead of `return:`
+
+The field is `return:` (singular), not `returns:`:
+
+```yaml
+# WRONG
+tool:
+  name: get_user
+  returns:              # Wrong! No 's'
+    type: object
+
+# CORRECT
+tool:
+  name: get_user
+  return:               # Correct - singular
+    type: object
+    properties:
+      id: {type: integer}
+      name: {type: string}
+```
+
 ## Quick Reference
 
 | Mistake | Fix |
@@ -290,6 +352,7 @@ parameters:
 | Both `code:` and `file:` | Use only one |
 | `required: false` | Use `default: value` for optional params |
 | Missing `language: python` | Add for Python tools |
+| Python func name mismatch | Function name must match `tool.name` exactly |
 | `default: null` with enum | Include `null` in enum list or remove enum |
 | `expect_error`, `result_count` | Use valid assertions only |
 | `SUM()` returns float | Cast: `CAST(SUM(x) AS INTEGER)` |
@@ -297,3 +360,6 @@ parameters:
 | DB-specific SQL syntax | Verify in DuckDB docs, use `ON CONFLICT` |
 | Testing policy denials | Use CLI `--user-context`, not YAML tests |
 | Enum + optional param | Include `null` in enum or document in description |
+| `name:` in mxcp-site.yml | Use `project:` not `name:` |
+| Extra mxcp-site.yml props | Only `mxcp`, `project`, `profile` allowed |
+| `returns:` in tool | Use `return:` (singular, no 's') |

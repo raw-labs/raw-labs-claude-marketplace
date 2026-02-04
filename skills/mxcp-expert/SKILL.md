@@ -1,6 +1,6 @@
 ---
 name: mxcp-expert
-description: "Expert guidance for building production MCP servers using MXCP (Model Context Protocol eXtension Platform), an enterprise framework with SQL and Python endpoints, security, testing, and deployment. Use when: (1) Creating or initializing MXCP projects or MCP servers, (2) Building MCP tools, resources, or prompts, (3) Configuring endpoints, authentication, or policies, (4) Testing, validating, or debugging MXCP applications, or any task involving MXCP or MCP server development."
+description: "This skill should be used when the user asks to \"create an MXCP project\", \"build an MCP server\", \"initialize mxcp\", \"add a tool endpoint\", \"create a resource\", \"configure authentication\", \"validate endpoints\", \"run mxcp validate\", \"mxcp-site.yml\", or mentions MXCP, MCP server development, SQL/Python endpoints, or DuckDB data access. Provides expert guidance for building production MCP servers using MXCP."
 ---
 
 # MXCP Expert Skill
@@ -9,11 +9,11 @@ MXCP is an enterprise framework for building production-ready AI tools with SQL 
 
 ## MXCP Mindset
 
-**Internalize these before implementing anything:**
+**Internalize these principles before implementing anything:**
 
-1. **MXCP is opinionated** - There's ONE right way to do most things. Don't invent patterns.
+1. **MXCP is opinionated** - There's ONE right way to do most things. Avoid inventing patterns.
 2. **If it's common, MXCP provides it** - Auth, testing, data access, policies. Check before building.
-3. **Schema docs are truth** - When unsure about syntax, read the schema doc. Don't guess.
+3. **Schema docs are truth** - When unsure about syntax, read the schema doc. Avoid guessing.
 4. **Validate constantly** - Run `mxcp validate` after every file change. Errors compound.
 5. **Read before writing** - 2 minutes reading docs saves 20 minutes debugging.
 
@@ -277,7 +277,11 @@ Before implementing, always:
 2. Check [common-mistakes.md](references/common-mistakes.md) for known pitfalls
 3. Run `mxcp validate` after every change
 
-**Valid types:** `string`, `number`, `integer`, `boolean`, `array`, `object`
+**Critical syntax reminders:**
+- **mxcp-site.yml**: Only accepts `mxcp`, `project`, `profile` as top-level keys (no `name`, `description`, `secrets`, `python`)
+- **Tool return type**: Use `return:` not `returns:` (singular, no 's')
+- **Python tools**: Must have `language: python` AND function name must match tool name exactly
+- **Valid types:** `string`, `number`, `integer`, `boolean`, `array`, `object`
 
 **SQL syntax:** Verify DuckDB-specific syntax in [duckdb.md](references/integrations/duckdb.md). See [common-mistakes.md](references/common-mistakes.md) for pitfalls.
 
