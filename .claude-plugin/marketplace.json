@@ -6,33 +6,18 @@
   },
   "metadata": {
     "description": "RAW Labs plugins for Claude Code including MXCP development tools",
-    "version": "1.1.0",
-    "pluginRoot": "."
+    "version": "1.2.0"
   },
   "plugins": [
     {
       "name": "mxcp-plugin",
       "description": "Expert guidance for building production MCP servers using MXCP, including document ingestion",
-      "source": ".",
-      "version": "1.0.0",
-      "strict": false,
-      "keywords": ["mxcp", "mcp-server", "duckdb", "sql", "python", "endpoints"],
-      "skills": [
-        "./skills/mxcp-expert"
-      ]
+      "source": "./plugins/mxcp-plugin"
     },
     {
       "name": "mxcp-data-pipeline",
       "description": "Automated Excel-to-MXCP data pipeline with self-validating investigation, dbt ingestion, and 6-layer verification",
-      "source": ".",
-      "version": "1.0.0",
-      "strict": false,
-      "keywords": ["excel", "data-pipeline", "dbt", "duckdb", "mxcp", "ingestion", "verification"],
-      "skills": [
-        "./skills/data-investigation",
-        "./skills/mxcp-dbt-ingest",
-        "./skills/data-pipeline"
-      ]
+      "source": "./plugins/mxcp-data-pipeline"
     }
   ]
 }

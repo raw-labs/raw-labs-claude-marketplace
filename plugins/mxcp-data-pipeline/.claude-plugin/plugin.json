@@ -1,0 +1,5 @@
+{
+  "name": "mxcp-data-pipeline",
+  "description": "Automated Excel-to-MXCP data pipeline with self-validating investigation, dbt ingestion, and 6-layer verification",
+  "author": { "name": "RAW Labs", "email": "support@raw-labs.com" }
+}

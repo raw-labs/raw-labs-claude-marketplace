@@ -1,0 +1,5 @@
+{
+  "name": "mxcp-plugin",
+  "description": "Expert guidance for building production MCP servers using MXCP, including document ingestion",
+  "author": { "name": "RAW Labs", "email": "support@raw-labs.com" }
+}

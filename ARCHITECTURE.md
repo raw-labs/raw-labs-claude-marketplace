@@ -7,14 +7,18 @@ This repository is a Claude Code plugin marketplace containing two plugins publi
 ```
 raw-labs-claude-marketplace/
 ├── .claude-plugin/
-│   └── marketplace.json          # Marketplace manifest — defines plugins and their skills
-├── agents/                       # Auto-discovered agent definitions
-│   └── data-pipeline.md          # Pipeline orchestrator agent
-├── skills/
-│   ├── mxcp-expert/              # Plugin 1: MXCP server development
-│   ├── data-investigation/       # Plugin 2: Excel profiling + hypothesis testing
-│   ├── mxcp-dbt-ingest/          # Plugin 2: dbt pipeline generation + verification
-│   └── data-pipeline/            # Plugin 2: Orchestrator skill (thin wrapper)
+│   └── marketplace.json          # Marketplace manifest — points to plugin directories
+├── plugins/
+│   ├── mxcp-plugin/              # Plugin 1: MXCP server development
+│   │   ├── .claude-plugin/plugin.json
+│   │   └── skills/mxcp-expert/
+│   └── mxcp-data-pipeline/       # Plugin 2: Excel-to-MXCP data pipeline
+│       ├── .claude-plugin/plugin.json
+│       ├── agents/data-pipeline.md
+│       └── skills/
+│           ├── data-investigation/
+│           ├── mxcp-dbt-ingest/
+│           └── data-pipeline/
 ├── CLAUDE.md                     # Project-level instructions for Claude
 ├── README.md                     # User-facing documentation
 ├── CHANGELOG.md                  # Version history
@@ -30,7 +34,7 @@ raw-labs-claude-marketplace/
 Expert guidance for building MXCP servers. Single skill, large reference library.
 
 ```
-skills/mxcp-expert/
+plugins/mxcp-plugin/skills/mxcp-expert/
 ├── SKILL.md                      # Skill definition + navigation table
 ├── references/                   # 50 docs organized by topic
 │   ├── concepts/                 # Endpoints, project structure, type system
@@ -56,7 +60,7 @@ skills/mxcp-expert/
 Automated Excel-to-MXCP pipeline with self-validating investigation, dbt ingestion, and 6-layer verification. Three skills + one agent.
 
 ```
-skills/data-investigation/        # Phase 1: Profile and investigate Excel
+plugins/mxcp-data-pipeline/skills/data-investigation/  # Phase 1: Profile and investigate Excel
 ├── SKILL.md
 ├── assets/scripts/
 │   ├── profile_excel.py          # ~800-line profiler (header detection, FK candidates, etc.)
@@ -66,7 +70,7 @@ skills/data-investigation/        # Phase 1: Profile and investigate Excel
     └── domains/                  # Domain pattern accelerators
         ├── finance.md, sales.md, hr.md, inventory.md, marketing.md
 
-skills/mxcp-dbt-ingest/           # Phase 2: Build and verify dbt pipeline
+plugins/mxcp-data-pipeline/skills/mxcp-dbt-ingest/    # Phase 2: Build and verify dbt pipeline
 ├── SKILL.md
 ├── assets/project-templates/
 │   └── excel-to-mxcp/           # Full project template
@@ -79,10 +83,10 @@ skills/mxcp-dbt-ingest/           # Phase 2: Build and verify dbt pipeline
     ├── merged-cells.md, transposition.md
     ├── drift-detection.md, validation-patterns.md
 
-skills/data-pipeline/             # Orchestrator skill (thin wrapper)
+plugins/mxcp-data-pipeline/skills/data-pipeline/      # Orchestrator skill (thin wrapper)
 └── SKILL.md                      # Delegates to investigation + ingest + expert skills
 
-agents/data-pipeline.md           # Autonomous orchestrator agent
+plugins/mxcp-data-pipeline/agents/data-pipeline.md    # Autonomous orchestrator agent
 ```
 
 ## Data Flow

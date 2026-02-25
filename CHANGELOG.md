@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.0] - 2026-02-25
+
+### Changed
+- Restructured to per-plugin directories: each plugin now lives in `plugins/{name}/` with its own `.claude-plugin/plugin.json`
+- `marketplace.json` updated to use `source: "./plugins/{name}"` instead of `source: "."`
+- Removed non-schema fields (`pluginRoot`, `keywords`, `skills` arrays) from marketplace.json
+- Moved `skills/mxcp-expert/` into `plugins/mxcp-plugin/skills/`
+- Moved `skills/data-investigation/`, `skills/mxcp-dbt-ingest/`, `skills/data-pipeline/` into `plugins/mxcp-data-pipeline/skills/`
+- Moved `agents/data-pipeline.md` into `plugins/mxcp-data-pipeline/agents/`
+- Updated all documentation paths (ARCHITECTURE.md, AGENTS.md, CLAUDE.md)
+
 ## [1.1.0] - 2025-02-25
 
 ### Added

@@ -6,7 +6,7 @@ This document describes the autonomous agents in this marketplace and how to mai
 
 ### data-pipeline-orchestrator
 
-**File:** `agents/data-pipeline.md`
+**File:** `plugins/mxcp-data-pipeline/agents/data-pipeline.md`
 **Plugin:** mxcp-data-pipeline
 **Color:** green
 **Model:** inherit
@@ -23,7 +23,7 @@ Triggers on requests like "build a data pipeline from Excel", "ingest this sprea
 
 ### Agent File Format
 
-Agents live in the `agents/` directory as `.md` files. They are auto-discovered by Claude Code — no manifest entry needed. Each agent file has:
+Agents live in each plugin's `agents/` directory as `.md` files (e.g., `plugins/mxcp-data-pipeline/agents/`). They are auto-discovered by Claude Code — no manifest entry needed. Each agent file has:
 
 - **YAML frontmatter:** `name`, `description` (with `<example>` blocks), `model`, `color`, `tools`
 - **Markdown body:** System prompt defining the agent's behavior
