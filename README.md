@@ -24,20 +24,58 @@ irm https://claude.ai/install.ps1 | iex
 /plugin marketplace add raw-labs/raw-labs-claude-marketplace
 ```
 
-## MXCP Plugin
+## Plugins
 
-The MXCP plugin helps you build Model Context Protocol (MCP) servers using the MXCP framework. It includes two skills:
+### mxcp-plugin
+
+Expert guidance for building production MCP servers using the MXCP framework.
 
 | Skill | Description |
 |-------|-------------|
-| **mxcp-expert** | Expert guidance for building MXCP servers with SQL and Python endpoints |
-| **document-to-mxcp** | Intelligent document ingestion (Excel, Word) into MXCP servers |
-
-### Installation
+| **mxcp-expert** | SQL/Python endpoint development, authentication, deployment, with 50 reference docs and 11 project templates |
 
 ```bash
 /plugin install mxcp-plugin@raw-labs-claude-marketplace
 ```
+
+**Example prompt:**
+```
+Create an MXCP server that connects to my PostgreSQL database and
+provides tools for querying customer orders.
+```
+
+The skill covers SQL and Python endpoints, OAuth authentication, testing and validation, deployment, and monitoring.
+
+### mxcp-data-pipeline
+
+Automated Excel-to-MXCP data pipeline with self-validating investigation, dbt ingestion, and 6-layer verification.
+
+| Component | Description |
+|-----------|-------------|
+| **data-investigation** skill | Profile Excel files, test hypotheses (PKs, FKs, calculated columns), produce a verified `data-model-spec.md` |
+| **mxcp-dbt-ingest** skill | Scaffold dbt project, generate staging/intermediate/mart models, run 6-layer verification |
+| **data-pipeline** skill | Orchestrates the full workflow across phases |
+| **data-pipeline-orchestrator** agent | Autonomous agent for end-to-end pipeline execution |
+
+```bash
+/plugin install mxcp-data-pipeline@raw-labs-claude-marketplace
+```
+
+**Example prompt:**
+```
+I have a sales report Excel file at ./data/sales.xlsx.
+Build a full data pipeline — profile it, create dbt models, and verify everything.
+```
+
+Claude will:
+1. Profile the Excel file (headers, types, merged cells, encoding issues)
+2. Test hypotheses about keys, relationships, and calculated columns
+3. Produce a verified data model spec and ask for your approval
+4. Scaffold a dbt project with Python + SQL models
+5. Run 6 layers of verification (build, schema tests, source-vs-target, schema types, lineage, drift)
+6. Optionally design MXCP endpoints from the mart tables
+
+### Installation
 
 Or use interactive mode:
 ```bash
@@ -48,50 +86,11 @@ Or use interactive mode:
 
 **Important:** Restart Claude Code after installing for changes to take effect.
 
-### Usage: Document Ingestion
-
-The `document-to-mxcp` skill automatically ingests Excel (.xlsx, .xls, .csv) and Word (.docx) files into MXCP servers. It analyzes content to determine whether data needs structured queries (DuckDB) or semantic search (RAG).
-
-**Example prompt:**
-```
-Ingest the Excel file at ./data/sales_report.xlsx into an MXCP server.
-I need to query total sales by region and search product descriptions.
-```
-
-Claude will:
-1. Analyze the file structure and content types
-2. Create dbt models for queryable data
-3. Generate RAG content for text-heavy data
-4. Build tools for the queries you need
-5. Run tests to validate everything works
-
-**For complex Excel files** with merged cells or unusual layouts, provide a screenshot - Claude can understand the visual structure better than parsing alone.
-
-**For Word documents:**
-```
-Ingest the Word document at ./docs/annual_report.docx into an MXCP server.
-```
-
-### Usage: Building MXCP Servers
-
-The `mxcp-expert` skill helps with general MXCP development:
-
-```
-Create an MXCP server that connects to my PostgreSQL database and
-provides tools for querying customer orders.
-```
-
-The skill covers:
-- SQL and Python endpoints
-- Authentication (OAuth with GitHub, Google, etc.)
-- Testing and validation
-- Deployment options
-
 ## Best Practices
 
 ### Be Specific
-- Point to files: "Use data.csv in ./data/" not "use the CSV file"
-- Explain the goal: "Create a REST API with authentication"
+- Point to files: "Use sales.xlsx in ./data/" not "use the Excel file"
+- Explain the goal: "I need to query total sales by region"
 - Provide context: Share schema, examples, or existing patterns
 
 ### Stay Engaged
@@ -111,9 +110,10 @@ Update marketplace:
 /plugin marketplace update raw-labs-claude-marketplace
 ```
 
-Update plugin:
+Update a plugin:
 ```bash
 /plugin update mxcp-plugin@raw-labs-claude-marketplace
+/plugin update mxcp-data-pipeline@raw-labs-claude-marketplace
 ```
 
 ## Resources
