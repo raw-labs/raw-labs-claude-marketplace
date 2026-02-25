@@ -1,8 +1,6 @@
 ---
 title: "Deployment"
 description: "Production deployment guide for MXCP. Docker, systemd, Kubernetes, serverless. Health checks, scaling, and operational patterns."
-sidebar:
-  order: 3
 ---
 
 ## Table of Contents
@@ -26,7 +24,7 @@ sidebar:
 - [Environment Variables Reference](#environment-variables-reference)
 - [Troubleshooting](#troubleshooting)
 
-> **Related Topics:** [Configuration](/operations/configuration) (profiles, secrets) | [Monitoring](/operations/monitoring) (observability) | [Admin Socket](/operations/admin-socket) (health checks)
+> **Related Topics:** [Configuration](../operations/configuration.md) (profiles, secrets) | [Monitoring](../operations/monitoring.md) (observability) | [Admin Socket](../operations/admin-socket.md) (health checks)
 
 This guide covers deploying MXCP to production environments.
 
@@ -942,7 +940,7 @@ curl --unix-socket /run/mxcp/mxcp.sock http://localhost/status
 # Response: {"status": "healthy", "uptime": 3600, "requests": 1000, ...}
 ```
 
-See [Admin Socket](/operations/admin-socket) for complete API reference.
+See [Admin Socket](../operations/admin-socket.md) for complete API reference.
 
 ## Scaling Considerations
 
@@ -1134,7 +1132,7 @@ Key environment variables for deployment:
 | `MXCP_DEBUG` | Debug logging | `false` |
 | `MXCP_AUDIT_ENABLED` | Override audit setting | from config |
 
-See [Configuration](/operations/configuration#environment-variables) for complete list.
+See [Configuration](../operations/configuration.md#environment-variables) for complete list.
 
 ## Troubleshooting
 
@@ -1262,7 +1260,7 @@ mxcp serve
 
 ## Next Steps
 
-- [Monitoring](/operations/monitoring) - Set up observability
-- [Admin Socket](/operations/admin-socket) - Health checks and management API
-- [Auditing](/security/auditing) - Configure audit logging
-- [Configuration](/operations/configuration) - Complete configuration reference
+- [Monitoring](../operations/monitoring.md) - Set up observability
+- [Admin Socket](../operations/admin-socket.md) - Health checks and management API
+- [Auditing](../security/auditing.md) - Configure audit logging
+- [Configuration](../operations/configuration.md) - Complete configuration reference

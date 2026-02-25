@@ -1,11 +1,19 @@
 ---
 title: "Quality Assurance"
 description: "MXCP quality tools: validation, testing, linting, and LLM evaluation. Ensure your endpoints are correct, complete, and AI-friendly."
-sidebar:
-  order: 1
 ---
 
-> **Related Topics:** [Quickstart](/getting-started/quickstart/) (getting started) | [CLI Reference](/reference/cli) (command options) | [Common Tasks](/reference/common-tasks#testing--quality) (quick how-to)
+> **Related Topics:** [Quickstart](../getting-started/quickstart.md) (getting started) | [CLI Reference](../reference/cli.md) (command options) | [Common Tasks](../reference/common-tasks.md#testing--quality) (quick how-to)
+
+## Table of Contents
+
+- [Quality Layers](#quality-layers)
+- [Quick Start](#quick-start)
+- [Topics](#topics)
+- [Workflow Integration](#workflow-integration)
+- [Best Practices](#best-practices)
+- [Command Reference](#command-reference)
+- [Next Steps](#next-steps)
 
 MXCP provides a comprehensive 4-layer quality framework to ensure your endpoints are production-ready. This section covers validation, testing, linting, and LLM evaluation.
 
@@ -44,28 +52,28 @@ mxcp evals
 
 ## Topics
 
-### [Validation](/quality/validation)
+### [Validation](../quality/validation.md)
 Verify endpoint structure and syntax:
 - YAML correctness
 - Required fields
 - Type definitions
 - File references
 
-### [Testing](/quality/testing)
+### [Testing](../quality/testing.md)
 Test endpoint functionality:
 - Test case definitions
 - Assertion types
 - Policy testing
 - CI/CD integration
 
-### [Linting](/quality/linting)
+### [Linting](../quality/linting.md)
 Improve AI comprehension:
 - Description quality
 - Example coverage
 - Best practice checks
 - Auto-suggestions
 
-### [Evals](/quality/evals)
+### [Evals](../quality/evals.md)
 Test AI behavior:
 - LLM tool usage
 - Safety verification
@@ -175,7 +183,7 @@ mxcp evals --model gpt-4o  # Use specific model
 
 ## Next Steps
 
-- [Validation](/quality/validation) - Structural checks
-- [Testing](/quality/testing) - Functional testing
-- [Linting](/quality/linting) - Metadata quality
-- [Evals](/quality/evals) - AI behavior testing
+- [Validation](../quality/validation.md) - Structural checks
+- [Testing](../quality/testing.md) - Functional testing
+- [Linting](../quality/linting.md) - Metadata quality
+- [Evals](../quality/evals.md) - AI behavior testing

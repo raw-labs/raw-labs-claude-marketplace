@@ -1,11 +1,26 @@
 ---
 title: "Site Configuration Schema"
 description: "Complete YAML schema reference for mxcp-site.yml. Project settings, profiles, DuckDB, dbt, extensions, and audit configuration."
-sidebar:
-  order: 5
 ---
 
-> **Related Topics:** [Configuration](/operations/configuration) (configuration guide) | [dbt Integration](/integrations/dbt) (dbt setup) | [Auditing](/security/auditing) (audit logs)
+> **Related Topics:** [Configuration](../operations/configuration.md) (configuration guide) | [dbt Integration](../integrations/dbt.md) (dbt setup) | [Auditing](../security/auditing.md) (audit logs)
+
+## Table of Contents
+
+- [Complete Example](#complete-example)
+- [Root Fields](#root-fields)
+- [Project and Profile](#project-and-profile)
+- [Secrets](#secrets)
+- [Plugins](#plugins)
+- [Extensions](#extensions)
+- [dbt Configuration](#dbt-configuration)
+- [SQL Tools Configuration](#sql-tools-configuration)
+- [Paths Configuration](#paths-configuration)
+- [Profiles](#profiles)
+- [Environment-Specific Examples](#environment-specific-examples)
+- [Environment Variables](#environment-variables)
+- [Validation](#validation)
+- [Next Steps](#next-steps)
 
 This reference documents the complete YAML schema for the `mxcp-site.yml` project configuration file.
 
@@ -127,7 +142,7 @@ if db_creds:
     password = db_creds.get("password")
 ```
 
-See [User Configuration Schema](/schemas/user-config) for defining secret values.
+See [User Configuration Schema](../schemas/user-config.md) for defining secret values.
 
 ## Plugins
 
@@ -149,7 +164,7 @@ plugin:
 | `module` | string | Yes | Python module path to the plugin. |
 | `config` | string | No | Optional path to plugin configuration file. |
 
-See [Plugin Reference](/reference/plugins) for complete plugin documentation.
+See [Plugin Reference](../reference/plugins.md) for complete plugin documentation.
 
 ## Extensions
 
@@ -234,7 +249,7 @@ dbt run
 mxcp serve
 ```
 
-See [dbt Integration](/integrations/dbt) for complete documentation.
+See [dbt Integration](../integrations/dbt.md) for complete documentation.
 
 ## SQL Tools Configuration
 
@@ -402,7 +417,7 @@ mxcp log --tool my_tool
 mxcp log --status error
 ```
 
-See [Auditing](/security/auditing) for complete documentation.
+See [Auditing](../security/auditing.md) for complete documentation.
 
 ## Environment-Specific Examples
 
@@ -540,7 +555,7 @@ Common validation errors:
 
 ## Next Steps
 
-- [User Configuration Schema](/schemas/user-config) - Configure secrets and authentication
-- [Configuration Guide](/operations/configuration) - Complete configuration documentation
-- [dbt Integration](/integrations/dbt) - Set up data transformation
-- [Auditing](/security/auditing) - Configure audit logging
+- [User Configuration Schema](../schemas/user-config.md) - Configure secrets and authentication
+- [Configuration Guide](../operations/configuration.md) - Complete configuration documentation
+- [dbt Integration](../integrations/dbt.md) - Set up data transformation
+- [Auditing](../security/auditing.md) - Configure audit logging

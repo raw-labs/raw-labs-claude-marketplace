@@ -1,11 +1,19 @@
 ---
 title: "Security"
 description: "Enterprise security features in MXCP: OAuth authentication, policy enforcement, and audit logging for compliance."
-sidebar:
-  order: 1
 ---
 
-> **Related Topics:** [Configuration](/operations/configuration) (secrets setup) | [Deployment](/operations/deployment) (production security) | [Common Tasks](/reference/common-tasks#security) (quick how-to)
+> **Related Topics:** [Configuration](../operations/configuration.md) (secrets setup) | [Deployment](../operations/deployment.md) (production security) | [Common Tasks](../reference/common-tasks.md#security) (quick how-to)
+
+## Table of Contents
+
+- [Security Features](#security-features)
+- [Security Model](#security-model)
+- [Quick Start](#quick-start)
+- [Best Practices](#best-practices)
+- [Compliance](#compliance)
+- [Security Considerations](#security-considerations)
+- [Next Steps](#next-steps)
 
 MXCP provides enterprise-grade security features for production AI applications. This section covers authentication, authorization, and audit capabilities.
 
@@ -17,7 +25,7 @@ Control who can access your MCP server:
 - **Session Management** - Secure token handling with persistence
 - **Stateless Mode** - For serverless deployments
 
-[Learn about authentication →](/security/authentication)
+[Learn about authentication →](../security/authentication.md)
 
 ### Policies
 Control what users can do and see:
@@ -25,7 +33,7 @@ Control what users can do and see:
 - **Output Policies** - Filter sensitive data
 - **CEL Expressions** - Flexible condition evaluation
 
-[Learn about policies →](/security/policies)
+[Learn about policies →](../security/policies.md)
 
 ### Audit Logging
 Track all operations for compliance:
@@ -33,7 +41,7 @@ Track all operations for compliance:
 - **User Attribution** - Who did what and when
 - **Query Interface** - Search and analyze logs
 
-[Learn about auditing →](/security/auditing)
+[Learn about auditing →](../security/auditing.md)
 
 ## Security Model
 
@@ -193,6 +201,6 @@ MXCP's security features support various compliance requirements:
 
 ## Next Steps
 
-- [Authentication](/security/authentication) - Configure OAuth providers
-- [Policies](/security/policies) - Implement access control
-- [Auditing](/security/auditing) - Set up audit logging
+- [Authentication](../security/authentication.md) - Configure OAuth providers
+- [Policies](../security/policies.md) - Implement access control
+- [Auditing](../security/auditing.md) - Set up audit logging

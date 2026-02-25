@@ -1,11 +1,22 @@
 ---
 title: "Linting"
 description: "Improve MXCP endpoint quality for LLM comprehension. Check descriptions, examples, and metadata best practices."
-sidebar:
-  order: 4
 ---
 
-> **Related Topics:** [Validation](/quality/validation) (structural checks) | [Testing](/quality/testing) (functional tests) | [Endpoints](/concepts/endpoints) (definition best practices) | [Common Tasks](/reference/common-tasks#how-do-i-check-for-linting-issues) (quick how-to)
+> **Related Topics:** [Validation](../quality/validation.md) (structural checks) | [Testing](../quality/testing.md) (functional tests) | [Endpoints](../concepts/endpoints.md) (definition best practices) | [Common Tasks](../reference/common-tasks.md#how-do-i-check-for-linting-issues) (quick how-to)
+
+## Table of Contents
+
+- [Running Linter](#running-linter)
+- [What Gets Checked](#what-gets-checked)
+- [Lint Output](#lint-output)
+- [Lint Rules](#lint-rules)
+- [Fixing Common Issues](#fixing-common-issues)
+- [Writing Good Descriptions](#writing-good-descriptions)
+- [Behavioral Annotations](#behavioral-annotations)
+- [CI/CD Integration](#cicd-integration)
+- [Best Practices](#best-practices)
+- [Next Steps](#next-steps)
 
 The MXCP linter checks your endpoint metadata quality, ensuring AI tools can understand and use your endpoints effectively.
 
@@ -501,6 +512,6 @@ Behavioral hints prevent AI from misusing tools.
 
 ## Next Steps
 
-- [Evals](/quality/evals) - Test AI behavior
-- [Testing](/quality/testing) - Functional testing
-- [Endpoints](/concepts/endpoints) - Endpoint structure
+- [Evals](../quality/evals.md) - Test AI behavior
+- [Testing](../quality/testing.md) - Functional testing
+- [Endpoints](../concepts/endpoints.md) - Endpoint structure

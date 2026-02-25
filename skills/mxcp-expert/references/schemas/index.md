@@ -1,11 +1,18 @@
 ---
 title: "YAML Schemas"
 description: "Overview of all MXCP YAML configuration files with links to detailed schema references for tools, resources, prompts, and configuration."
-sidebar:
-  order: 1
 ---
 
-> **Related Topics:** [Endpoints](/concepts/endpoints) (endpoint types) | [Type System](/concepts/type-system) (parameter types) | [Configuration](/operations/configuration) (runtime config) | [Validation](/quality/validation) (check syntax)
+> **Related Topics:** [Endpoints](../concepts/endpoints.md) (endpoint types) | [Type System](../concepts/type-system.md) (parameter types) | [Configuration](../operations/configuration.md) (runtime config) | [Validation](../quality/validation.md) (check syntax)
+
+## Table of Contents
+
+- [Schema References](#schema-references)
+- [File Types Overview](#file-types-overview)
+- [Common Schema Elements](#common-schema-elements)
+- [Validation](#validation)
+- [Quick Reference](#quick-reference)
+- [Next Steps](#next-steps)
 
 This page provides an overview of all YAML configuration files in MXCP. Click through to detailed schema references for complete documentation.
 
@@ -13,11 +20,11 @@ This page provides an overview of all YAML configuration files in MXCP. Click th
 
 | Schema | File Location | Description |
 |--------|---------------|-------------|
-| [Tool Schema](/schemas/tool) | `tools/*.yml` | Tool endpoint definitions |
-| [Resource Schema](/schemas/resource) | `resources/*.yml` | Resource endpoint definitions |
-| [Prompt Schema](/schemas/prompt) | `prompts/*.yml` | Prompt endpoint definitions |
-| [Site Configuration](/schemas/site-config) | `mxcp-site.yml` | Project configuration |
-| [User Configuration](/schemas/user-config) | `~/.mxcp/config.yml` | User-level settings and secrets |
+| [Tool Schema](../schemas/tool.md) | `tools/*.yml` | Tool endpoint definitions |
+| [Resource Schema](../schemas/resource.md) | `resources/*.yml` | Resource endpoint definitions |
+| [Prompt Schema](../schemas/prompt.md) | `prompts/*.yml` | Prompt endpoint definitions |
+| [Site Configuration](../schemas/site-config.md) | `mxcp-site.yml` | Project configuration |
+| [User Configuration](../schemas/user-config.md) | `~/.mxcp/config.yml` | User-level settings and secrets |
 
 ## File Types Overview
 
@@ -25,7 +32,7 @@ This page provides an overview of all YAML configuration files in MXCP. Click th
 
 Endpoints are the core building blocks of MXCP. Each type has its own schema:
 
-**[Tools](/schemas/tool)** - Callable functions that AI agents can invoke:
+**[Tools](../schemas/tool.md)** - Callable functions that AI agents can invoke:
 
 ```yaml
 mxcp: 1
@@ -39,7 +46,7 @@ tool:
     file: ../sql/get_user.sql
 ```
 
-**[Resources](/schemas/resource)** - Data accessible via URI patterns:
+**[Resources](../schemas/resource.md)** - Data accessible via URI patterns:
 
 ```yaml
 mxcp: 1
@@ -50,7 +57,7 @@ resource:
     file: ../sql/user_profile.sql
 ```
 
-**[Prompts](/schemas/prompt)** - Templated conversation starters:
+**[Prompts](../schemas/prompt.md)** - Templated conversation starters:
 
 ```yaml
 mxcp: 1
@@ -71,7 +78,7 @@ prompt:
 
 ### Configuration Files
 
-**[Site Configuration](/schemas/site-config)** (`mxcp-site.yml`) - Project-level settings:
+**[Site Configuration](../schemas/site-config.md)** (`mxcp-site.yml`) - Project-level settings:
 
 ```yaml
 mxcp: 1
@@ -90,7 +97,7 @@ profiles:
       enabled: true
 ```
 
-**[User Configuration](/schemas/user-config)** (`~/.mxcp/config.yml`) - User-level secrets and auth:
+**[User Configuration](../schemas/user-config.md)** (`~/.mxcp/config.yml`) - User-level secrets and auth:
 
 ```yaml
 mxcp: 1
@@ -134,7 +141,7 @@ User configuration supports dynamic value interpolation:
 | `op://vault/item/field` | 1Password | `op://Private/api/token` |
 | `file://path` | Local file | `file:///etc/ssl/cert.pem` |
 
-See [User Configuration](/schemas/user-config) for complete interpolation documentation.
+See [User Configuration](../schemas/user-config.md) for complete interpolation documentation.
 
 ### Parameters
 
@@ -149,7 +156,7 @@ parameters:
     minimum: 1             # Optional: validation constraint
 ```
 
-See [Type System](/concepts/type-system) for complete type documentation.
+See [Type System](../concepts/type-system.md) for complete type documentation.
 
 ### Source
 
@@ -180,7 +187,7 @@ tests:
       name: "Alice"
 ```
 
-See [Testing](/quality/testing) for complete documentation.
+See [Testing](../quality/testing.md) for complete documentation.
 
 ### Policies
 
@@ -198,7 +205,7 @@ policies:
       fields: ["salary", "ssn"]
 ```
 
-See [Policies](/security/policies) for complete documentation.
+See [Policies](../security/policies.md) for complete documentation.
 
 ## Validation
 
@@ -267,8 +274,8 @@ Tools and resources also support:
 
 ## Next Steps
 
-- [Tool Schema](/schemas/tool) - Complete tool reference
-- [Resource Schema](/schemas/resource) - Complete resource reference
-- [Prompt Schema](/schemas/prompt) - Complete prompt reference
-- [Site Configuration](/schemas/site-config) - Project configuration
-- [User Configuration](/schemas/user-config) - Secrets and authentication
+- [Tool Schema](../schemas/tool.md) - Complete tool reference
+- [Resource Schema](../schemas/resource.md) - Complete resource reference
+- [Prompt Schema](../schemas/prompt.md) - Complete prompt reference
+- [Site Configuration](../schemas/site-config.md) - Project configuration
+- [User Configuration](../schemas/user-config.md) - Secrets and authentication

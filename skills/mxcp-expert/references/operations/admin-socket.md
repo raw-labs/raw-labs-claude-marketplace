@@ -1,8 +1,6 @@
 ---
 title: "Admin Socket"
 description: "Local administration interface for MXCP. REST API over Unix socket for health checks, status monitoring, system metrics, and configuration reload."
-sidebar:
-  order: 6
 ---
 
 ## Table of Contents
@@ -20,7 +18,7 @@ sidebar:
 - [Security Considerations](#security-considerations)
 - [Troubleshooting](#troubleshooting)
 
-> **Related Topics:** [Monitoring](/operations/monitoring) (telemetry) | [Deployment](/operations/deployment) (production setup) | [Auditing](/security/auditing) (audit logs)
+> **Related Topics:** [Monitoring](../operations/monitoring.md) (telemetry) | [Deployment](../operations/deployment.md) (production setup) | [Auditing](../security/auditing.md) (audit logs)
 
 The Admin Socket provides a local REST API over Unix socket for server administration. It enables health checks, status monitoring, system metrics, and configuration reload without network exposure.
 
@@ -880,6 +878,6 @@ journalctl -u mxcp --since "5 minutes ago"
 
 ## Next Steps
 
-- [Monitoring](/operations/monitoring) - OpenTelemetry integration
-- [Deployment](/operations/deployment) - Production deployment
-- [Auditing](/security/auditing) - Audit log configuration
+- [Monitoring](../operations/monitoring.md) - OpenTelemetry integration
+- [Deployment](../operations/deployment.md) - Production deployment
+- [Auditing](../security/auditing.md) - Audit log configuration

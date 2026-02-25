@@ -1,11 +1,25 @@
 ---
 title: "Prompt Schema"
 description: "Complete YAML schema reference for MXCP prompt definitions. Messages, parameters, Jinja2 templates, and multi-turn conversations."
-sidebar:
-  order: 4
 ---
 
-> **Related Topics:** [Endpoints](/concepts/endpoints) (prompt concepts) | [Type System](/concepts/type-system) (parameter types)
+> **Related Topics:** [Endpoints](../concepts/endpoints.md) (prompt concepts) | [Type System](../concepts/type-system.md) (parameter types)
+
+## Table of Contents
+
+- [Complete Example](#complete-example)
+- [Root Fields](#root-fields)
+- [Prompt Object](#prompt-object)
+- [Messages Array](#messages-array)
+- [Jinja2 Templates](#jinja2-templates)
+- [Parameters Array](#parameters-array)
+- [Return Object](#return-object)
+- [Tests Array](#tests-array)
+- [Policies Object](#policies-object)
+- [Common Patterns](#common-patterns)
+- [Naming Conventions](#naming-conventions)
+- [Validation](#validation)
+- [Next Steps](#next-steps)
 
 This reference documents the complete YAML schema for prompt definitions in MXCP.
 
@@ -396,7 +410,7 @@ tests:
 | `result_contains_text` | string | Output must contain substring. |
 | `result_not_contains` | array | Field names that must NOT exist. |
 
-See [Testing](/quality/testing) for complete documentation.
+See [Testing](../quality/testing.md) for complete documentation.
 
 ## Policies Object
 
@@ -425,7 +439,7 @@ policies:
 | `reason` | string | No | Human-readable reason. |
 | `fields` | array | No | Fields to filter/mask (for `filter_fields`, `mask_fields`). |
 
-See [Policies](/security/policies) for complete documentation.
+See [Policies](../security/policies.md) for complete documentation.
 
 ## Common Patterns
 
@@ -554,6 +568,6 @@ mxcp validate prompts/my-prompt.yml
 
 ## Next Steps
 
-- [Endpoints](/concepts/endpoints) - Understand prompt concepts
-- [Type System](/concepts/type-system) - Detailed type documentation
-- [Testing](/quality/testing) - Write comprehensive tests
+- [Endpoints](../concepts/endpoints.md) - Understand prompt concepts
+- [Type System](../concepts/type-system.md) - Detailed type documentation
+- [Testing](../quality/testing.md) - Write comprehensive tests

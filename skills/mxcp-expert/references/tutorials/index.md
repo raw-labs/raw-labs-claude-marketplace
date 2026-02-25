@@ -1,30 +1,37 @@
 ---
 title: "Tutorials"
 description: "Hands-on MXCP tutorials: Hello World in 5 minutes, SQL data queries, Python with async and ML, combining SQL+Python. Copy-paste code included."
-sidebar:
-  order: 1
 ---
 
-> **Related Topics:** [Quickstart](/getting-started/quickstart) (project setup) | [Concepts](/concepts/) (understand MXCP) | [Common Tasks](/reference/common-tasks) (quick how-to)
+> **Related Topics:** [Quickstart](../getting-started/quickstart.md) (project setup) | [Concepts](../concepts/index.md) (understand MXCP) | [Common Tasks](../reference/common-tasks.md) (quick how-to)
+
+## Table of Contents
+
+- [Getting Started Tutorials](#getting-started-tutorials)
+- [Prerequisites](#prerequisites)
+- [Tutorial Format](#tutorial-format)
+- [Recommended Order](#recommended-order)
+- [Quick Reference](#quick-reference)
+- [Testing with AI Tools](#testing-with-ai-tools)
 
 This section contains step-by-step tutorials to help you build MXCP endpoints. Each tutorial focuses on a specific skill and builds on the concepts from the quickstart guide.
 
 ## Getting Started Tutorials
 
-### [Hello World](/tutorials/hello-world)
+### [Hello World](../tutorials/hello-world.md)
 Your first MXCP tool. Learn the basics of:
 - Creating a tool definition
 - Writing SQL implementation
 - Running and testing tools
 
-### [SQL Endpoints](/tutorials/sql-endpoints)
+### [SQL Endpoints](../tutorials/sql-endpoints.md)
 Build data query tools with SQL:
 - Parameter binding
 - Complex queries with joins
 - Aggregations and grouping
 - Working with DuckDB features
 
-### [Python Endpoints](/tutorials/python-endpoints)
+### [Python Endpoints](../tutorials/python-endpoints.md)
 Build complex logic with Python:
 - Accessing the runtime API
 - Database operations from Python
@@ -68,14 +75,14 @@ All code examples are tested and working. You can copy-paste them directly into 
 
 If you're new to MXCP, follow this learning path:
 
-1. **[Hello World](/tutorials/hello-world)** - Understand the basics
-2. **[SQL Endpoints](/tutorials/sql-endpoints)** - Master data queries
-3. **[Python Endpoints](/tutorials/python-endpoints)** - Build complex logic
+1. **[Hello World](../tutorials/hello-world.md)** - Understand the basics
+2. **[SQL Endpoints](../tutorials/sql-endpoints.md)** - Master data queries
+3. **[Python Endpoints](../tutorials/python-endpoints.md)** - Build complex logic
 
 After completing these tutorials, explore:
-- [Security section](/security/) - Add authentication and policies
-- [Quality section](/quality/) - Test and validate your endpoints
-- [Operations section](/operations/) - Deploy to production
+- [Security section](../security/index.md) - Add authentication and policies
+- [Quality section](../quality/index.md) - Test and validate your endpoints
+- [Operations section](../operations/index.md) - Deploy to production
 
 ## Quick Reference
 

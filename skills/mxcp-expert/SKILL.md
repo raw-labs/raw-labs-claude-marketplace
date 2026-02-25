@@ -62,6 +62,13 @@ Before writing ANY YAML or code:
 | Data transformation | [dbt.md](references/integrations/dbt.md) |
 | Python endpoints | [python.md](references/reference/python.md) |
 | SQL endpoints | [sql.md](references/reference/sql.md) |
+| Concepts/architecture | [endpoints.md](references/concepts/endpoints.md), [project-structure.md](references/concepts/project-structure.md) |
+| Examples/patterns | [examples/index.md](references/examples/index.md) |
+| Monitoring, drift | [monitoring.md](references/operations/monitoring.md), [drift-detection.md](references/operations/drift-detection.md) |
+| Deployment | [deployment.md](references/operations/deployment.md) |
+| Claude Desktop integration | [claude-desktop.md](references/integrations/claude-desktop.md) |
+| CLI commands | [cli.md](references/reference/cli.md) |
+| Common tasks (how-to) | [common-tasks.md](references/reference/common-tasks.md) |
 
 ## Implementation Methodology
 
@@ -270,20 +277,7 @@ profile: default
 
 ## Common Mistakes
 
-**Root cause of most errors: implementing without reading docs first.**
-
-Before implementing, always:
-1. Read the relevant schema doc ([tool.md](references/schemas/tool.md), [resource.md](references/schemas/resource.md), [prompt.md](references/schemas/prompt.md))
-2. Check [common-mistakes.md](references/common-mistakes.md) for known pitfalls
-3. Run `mxcp validate` after every change
-
-**Critical syntax reminders:**
-- **mxcp-site.yml**: Only accepts `mxcp`, `project`, `profile` as top-level keys (no `name`, `description`, `secrets`, `python`)
-- **Tool return type**: Use `return:` not `returns:` (singular, no 's')
-- **Python tools**: Must have `language: python` AND function name must match tool name exactly
-- **Valid types:** `string`, `number`, `integer`, `boolean`, `array`, `object`
-
-**SQL syntax:** Verify DuckDB-specific syntax in [duckdb.md](references/integrations/duckdb.md). See [common-mistakes.md](references/common-mistakes.md) for pitfalls.
+**Read [common-mistakes.md](references/common-mistakes.md) before implementing.** It covers YAML syntax errors, type mismatches, Python pitfalls, and SQL gotchas that cause 90% of debugging time. Also read the relevant schema doc ([tool.md](references/schemas/tool.md), [resource.md](references/schemas/resource.md), or [prompt.md](references/schemas/prompt.md)) and run `mxcp validate` after every change.
 
 ## Project Structure
 
@@ -396,14 +390,35 @@ Common issues: YAML syntax, missing required fields, invalid types, file paths.
 
 ## Project Templates
 
-Complete runnable examples in `assets/project-templates/`. Start with:
-- `python-demo` - Python endpoint patterns
-- `covid_owid` - Data workflow with dbt
+Complete runnable examples in `assets/project-templates/`. Copy and run:
 
 ```bash
-cp -r assets/project-templates/python-demo my-project
+cp -r assets/project-templates/<template> my-project
 cd my-project
 mxcp validate && mxcp test
 ```
+
+### Data & Analytics
+| Template | Description |
+|----------|-------------|
+| `covid_owid` | Data workflow with dbt models, seeds, and prompts |
+| `earthquakes` | API-style tool with profile configuration |
+
+### Integrations & OAuth
+| Template | Description |
+|----------|-------------|
+| `confluence` | Confluence integration via plugin with SQL tools |
+| `google-calendar` | Google Calendar with Python endpoints |
+| `jira` | Jira integration with secrets-based auth |
+| `jira-oauth` | Jira integration via OAuth plugin |
+| `keycloak` | Keycloak OAuth authentication demo |
+| `salesforce` | Salesforce with secrets-based auth and Python |
+| `salesforce-oauth` | Salesforce with OAuth flow and Python |
+
+### Plugin Development
+| Template | Description |
+|----------|-------------|
+| `plugin` | DuckDB plugin development example |
+| `python-demo` | Python endpoint patterns (good starting point) |
 
 See [Configuration](references/operations/configuration.md) for mxcp-site.yml and config.yml options.

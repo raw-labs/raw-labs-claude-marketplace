@@ -1,8 +1,6 @@
 ---
 title: "Policy Enforcement"
 description: "Fine-grained access control with CEL expressions. Input policies deny/warn, output policies filter/mask fields. Role-based and permission-based examples."
-sidebar:
-  order: 3
 ---
 
 ## Table of Contents
@@ -24,7 +22,7 @@ sidebar:
 - [Advanced Examples](#advanced-examples)
 - [Troubleshooting](#troubleshooting)
 
-> **Related Topics:** [Authentication](/security/authentication) (user context source) | [Auditing](/security/auditing) (log policy decisions) | [Testing](/quality/testing) (test policies) | [Common Tasks](/reference/common-tasks#how-do-i-restrict-access-to-a-tool) (quick how-to)
+> **Related Topics:** [Authentication](../security/authentication.md) (user context source) | [Auditing](../security/auditing.md) (log policy decisions) | [Testing](../quality/testing.md) (test policies) | [Common Tasks](../reference/common-tasks.md#how-do-i-restrict-access-to-a-tool) (quick how-to)
 
 MXCP's policy engine provides fine-grained access control for your endpoints. Policies can control who can call endpoints (input policies) and what data they can see (output policies).
 
@@ -333,7 +331,7 @@ input:
     reason: "Missing data.read permission"
 ```
 
-**Note:** For logging access without blocking, use audit logging instead of policies. See [Auditing](/security/auditing) for details on tracking all access events.
+**Note:** For logging access without blocking, use audit logging instead of policies. See [Auditing](../security/auditing.md) for details on tracking all access events.
 
 ## Output Policy Actions
 
@@ -849,6 +847,6 @@ Common issues:
 
 ## Next Steps
 
-- [Authentication](/security/authentication) - Configure user context source
-- [Auditing](/security/auditing) - Log policy decisions
-- [Testing](/quality/testing) - Test policies comprehensively
+- [Authentication](../security/authentication.md) - Configure user context source
+- [Auditing](../security/auditing.md) - Log policy decisions
+- [Testing](../quality/testing.md) - Test policies comprehensively

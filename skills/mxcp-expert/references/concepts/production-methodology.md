@@ -1,11 +1,18 @@
 ---
 title: "Production Methodology"
 description: "Structured approach to building reliable, production-ready MCP servers with MXCP"
-sidebar:
-  order: 5
 ---
 
-> **Related Topics:** [Endpoints](/concepts/endpoints) (defining tools and resources) | [Type System](/concepts/type-system) (parameter validation) | [Testing](/quality/testing) (quality assurance) | [Deployment](/operations/deployment) (production setup)
+> **Related Topics:** [Endpoints](../concepts/endpoints.md) (defining tools and resources) | [Type System](../concepts/type-system.md) (parameter validation) | [Testing](../quality/testing.md) (quality assurance) | [Deployment](../operations/deployment.md) (production setup)
+
+## Table of Contents
+
+- [Why Structure Matters](#why-structure-matters)
+- [The MXCP Methodology](#the-mxcp-methodology)
+- [Best Practices](#best-practices)
+- [Migration Path](#migration-path)
+- [Conclusion](#conclusion)
+- [Next Steps](#next-steps)
 
 MXCP provides a complete methodology for building production-ready AI tools. This guide explains the structured approach that separates hobbyist integrations from enterprise-grade systems.
 
@@ -57,7 +64,7 @@ flowchart TB
 
 ### Phase 1: Data Modeling & Quality
 
-Before writing MCP endpoints, establish your data foundation with [dbt integration](/integrations/dbt).
+Before writing MCP endpoints, establish your data foundation with [dbt integration](../integrations/dbt.md).
 
 #### 1.1 Design Your Data Model
 
@@ -137,11 +144,11 @@ models:
 
 ### Phase 2: Service Design
 
-Design your MCP interface with production requirements in mind. See [Project Structure](/concepts/project-structure) for file organization.
+Design your MCP interface with production requirements in mind. See [Project Structure](../concepts/project-structure.md) for file organization.
 
 #### 2.1 Define Clear Types
 
-Use the [MXCP type system](/concepts/type-system) for clear contracts:
+Use the [MXCP type system](../concepts/type-system.md) for clear contracts:
 
 ```yaml
 parameters:
@@ -165,7 +172,7 @@ return:
 
 #### 2.2 Design Security Policies
 
-Define [access control policies](/security/policies) upfront:
+Define [access control policies](../security/policies.md) upfront:
 
 ```yaml
 policies:
@@ -193,7 +200,7 @@ resources/
 
 ### Phase 3: Implementation
 
-Choose the right tool for each job. MXCP supports both [SQL](/reference/sql) and [Python](/reference/python) endpoints, backed by [DuckDB](/integrations/duckdb).
+Choose the right tool for each job. MXCP supports both [SQL](../reference/sql.md) and [Python](../reference/python.md) endpoints, backed by [DuckDB](../integrations/duckdb.md).
 
 #### 3.1 SQL for Data Operations
 
@@ -275,7 +282,7 @@ def predict_churn(customer_id: str) -> dict:
 
 ### Phase 4: Quality Assurance
 
-Ensure reliability before deployment with [validation](/quality/validation), [testing](/quality/testing), and [LLM evals](/quality/evals).
+Ensure reliability before deployment with [validation](../quality/validation.md), [testing](../quality/testing.md), and [LLM evals](../quality/evals.md).
 
 #### 4.1 Validation
 
@@ -328,7 +335,7 @@ tests:
 
 ### Phase 5: Production Operations
 
-Deploy with confidence using proper [configuration](/operations/configuration), [authentication](/security/authentication), [drift detection](/operations/monitoring), and [audit logging](/security/auditing).
+Deploy with confidence using proper [configuration](../operations/configuration.md), [authentication](../security/authentication.md), [drift detection](../operations/monitoring.md), and [audit logging](../security/auditing.md).
 
 #### 5.1 Environment Configuration
 
@@ -371,7 +378,7 @@ projects:
 
 #### 5.2 Monitoring & Drift Detection
 
-Use [drift detection](/operations/monitoring) to track schema and endpoint changes:
+Use [drift detection](../operations/monitoring.md) to track schema and endpoint changes:
 
 ```bash
 # Create baseline
@@ -387,33 +394,33 @@ mxcp log --since 1h --export-duckdb performance.db
 ## Best Practices
 
 ### 1. Start with Data
-- Model your data properly with [dbt](/integrations/dbt)
+- Model your data properly with [dbt](../integrations/dbt.md)
 - Create materialized views for performance
 - Test data quality at the source
 - Document your data model
 
 ### 2. Design Before Implementation
-- Define [types](/concepts/type-system) and contracts first
-- Plan [security policies](/security/policies) upfront
+- Define [types](../concepts/type-system.md) and contracts first
+- Plan [security policies](../security/policies.md) upfront
 - Consider performance implications
 - Design for testability
 
 ### 3. Choose Tools Wisely
-- [SQL](/reference/sql) for data queries and aggregations
-- [Python](/reference/python) for business logic and integrations
-- [dbt](/integrations/dbt) for data transformations
-- [DuckDB](/integrations/duckdb) for local caching
+- [SQL](../reference/sql.md) for data queries and aggregations
+- [Python](../reference/python.md) for business logic and integrations
+- [dbt](../integrations/dbt.md) for data transformations
+- [DuckDB](../integrations/duckdb.md) for local caching
 
 ### 4. Test Everything
-- [Unit tests](/quality/testing) for each endpoint
-- [Policy tests](/quality/testing#policy-testing) for security
+- [Unit tests](../quality/testing.md) for each endpoint
+- [Policy tests](../quality/testing.md#policy-testing) for security
 - Performance tests for scale
-- [LLM evals](/quality/evals) for AI safety
+- [LLM evals](../quality/evals.md) for AI safety
 
 ### 5. Monitor Production
-- Enable [audit logging](/security/auditing)
+- Enable [audit logging](../security/auditing.md)
 - Track performance metrics
-- Monitor [schema drift](/operations/monitoring)
+- Monitor [schema drift](../operations/monitoring.md)
 - Alert on errors
 
 ## Migration Path
@@ -454,7 +461,7 @@ The difference between a hobbyist MCP server and a production system isn't the l
 
 ## Next Steps
 
-- [Endpoints](/concepts/endpoints) - Learn endpoint types
-- [Type System](/concepts/type-system) - Understand MXCP types
-- [Testing](/quality/testing) - Write comprehensive tests
-- [Deployment](/operations/deployment) - Production deployment
+- [Endpoints](../concepts/endpoints.md) - Learn endpoint types
+- [Type System](../concepts/type-system.md) - Understand MXCP types
+- [Testing](../quality/testing.md) - Write comprehensive tests
+- [Deployment](../operations/deployment.md) - Production deployment

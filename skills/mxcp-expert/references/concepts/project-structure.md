@@ -1,11 +1,25 @@
 ---
 title: "Project Structure"
 description: "MXCP project directory structure, file organization, and naming conventions. How to organize tools, resources, prompts, and implementations."
-sidebar:
-  order: 4
 ---
 
-> **Related Topics:** [Configuration](/operations/configuration) (site and user config) | [Endpoints](/concepts/endpoints) (tool, resource, prompt files) | [Quickstart](/getting-started/quickstart) (`mxcp init` details)
+> **Related Topics:** [Configuration](../operations/configuration.md) (site and user config) | [Endpoints](../concepts/endpoints.md) (tool, resource, prompt files) | [Quickstart](../getting-started/quickstart.md) (`mxcp init` details)
+
+## Table of Contents
+
+- [Minimal Project](#minimal-project)
+- [Standard Structure](#standard-structure)
+- [Configuration File](#configuration-file)
+- [Endpoint Directories](#endpoint-directories)
+- [Implementation Directories](#implementation-directories)
+- [Auto-Generated Directories](#auto-generated-directories)
+- [dbt Integration](#dbt-integration)
+- [File Naming Conventions](#file-naming-conventions)
+- [Path References](#path-references)
+- [Environment-Specific Organization](#environment-specific-organization)
+- [Best Practices](#best-practices)
+- [Initializing a Project](#initializing-a-project)
+- [Next Steps](#next-steps)
 
 MXCP enforces an organized directory structure to improve project maintainability and enable auto-discovery of endpoints. This guide explains the structure and best practices for organizing your project.
 
@@ -439,6 +453,6 @@ The `--bootstrap` flag creates:
 
 ## Next Steps
 
-- [Configuration](/operations/configuration) - Detailed configuration options
-- [Endpoints](/concepts/endpoints) - Endpoint definition format
-- [dbt Integration](/integrations/dbt) - Using dbt with MXCP
+- [Configuration](../operations/configuration.md) - Detailed configuration options
+- [Endpoints](../concepts/endpoints.md) - Endpoint definition format
+- [dbt Integration](../integrations/dbt.md) - Using dbt with MXCP

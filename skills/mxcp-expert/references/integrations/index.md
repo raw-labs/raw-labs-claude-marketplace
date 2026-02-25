@@ -1,11 +1,21 @@
 ---
 title: "Integrations"
 description: "Connect MXCP with AI platforms, data tools, and external services. Claude Desktop, dbt, DuckDB, and custom integrations."
-sidebar:
-  order: 1
 ---
 
-> **Related Topics:** [Quickstart](/getting-started/quickstart) (first setup) | [Configuration](/operations/configuration) (dbt, extensions) | [SQL Endpoints](/tutorials/sql-endpoints) (use DuckDB)
+> **Related Topics:** [Quickstart](../getting-started/quickstart.md) (first setup) | [Configuration](../operations/configuration.md) (dbt, extensions) | [SQL Endpoints](../tutorials/sql-endpoints.md) (use DuckDB)
+
+## Table of Contents
+
+- [Integration Architecture](#integration-architecture)
+- [Integrations](#integrations)
+- [OpenAI Integration](#openai-integration)
+- [Built-in SQL Tools](#built-in-sql-tools)
+- [Quick Start](#quick-start)
+- [Transport Modes](#transport-modes)
+- [Custom Integrations](#custom-integrations)
+- [Debugging Integrations](#debugging-integrations)
+- [Next Steps](#next-steps)
 
 MXCP integrates with AI platforms, data transformation tools, and database systems to create production-ready AI applications.
 
@@ -47,21 +57,21 @@ flowchart TB
 
 ## Integrations
 
-### [Claude Desktop](/integrations/claude-desktop)
+### [Claude Desktop](../integrations/claude-desktop.md)
 Native MCP integration with Claude Desktop:
 - Zero-code connection
 - Stdio transport
 - Multi-server support
 - Developer console access
 
-### [dbt](/integrations/dbt)
+### [dbt](../integrations/dbt.md)
 Data transformation and quality layer:
 - Model preparation for AI
 - Data quality testing
 - Performance optimization
 - Documentation generation
 
-### [DuckDB](/integrations/duckdb)
+### [DuckDB](../integrations/duckdb.md)
 Powerful SQL execution engine:
 - Extension ecosystem
 - Multi-source connectivity
@@ -434,6 +444,6 @@ Access Claude Desktop's developer console to see:
 
 ## Next Steps
 
-- [Claude Desktop](/integrations/claude-desktop) - Detailed setup
-- [dbt](/integrations/dbt) - Data transformation
-- [DuckDB](/integrations/duckdb) - SQL engine and extensions
+- [Claude Desktop](../integrations/claude-desktop.md) - Detailed setup
+- [dbt](../integrations/dbt.md) - Data transformation
+- [DuckDB](../integrations/duckdb.md) - SQL engine and extensions

@@ -1,11 +1,28 @@
 ---
 title: "Hello World Tutorial"
 description: "Create your first MXCP tool. Learn the basics of tool definitions, SQL implementation, and running endpoints."
-sidebar:
-  order: 2
 ---
 
-> **Related Topics:** [Endpoints](/concepts/endpoints) (understand endpoint types) | [Type System](/concepts/type-system) (parameter types) | [Testing](/quality/testing) (test assertions) | [Quickstart](/getting-started/quickstart) (project setup)
+> **Related Topics:** [Endpoints](../concepts/endpoints.md) (understand endpoint types) | [Type System](../concepts/type-system.md) (parameter types) | [Testing](../quality/testing.md) (test assertions) | [Quickstart](../getting-started/quickstart.md) (project setup)
+
+## Table of Contents
+
+- [Goal](#goal)
+- [Prerequisites](#prerequisites)
+- [Step 1: Create a Project](#step-1-create-a-project)
+- [Step 2: Create the Tool Definition](#step-2-create-the-tool-definition)
+- [Step 3: Write the SQL Implementation](#step-3-write-the-sql-implementation)
+- [Step 4: Validate Your Tool](#step-4-validate-your-tool)
+- [Step 5: Run the Tool](#step-5-run-the-tool)
+- [Step 6: List Your Endpoints](#step-6-list-your-endpoints)
+- [Step 7: Add Tests](#step-7-add-tests)
+- [Step 8: Check for Issues](#step-8-check-for-issues)
+- [Verification](#verification)
+- [Understanding the Flow](#understanding-the-flow)
+- [Inline SQL Alternative](#inline-sql-alternative)
+- [Testing with AI Clients](#testing-with-ai-clients)
+- [Common Issues](#common-issues)
+- [Next Steps](#next-steps)
 
 In this tutorial, you'll create your first MXCP tool - a simple greeting function. You'll learn the fundamental concepts that apply to all MXCP endpoints.
 
@@ -319,6 +336,6 @@ The [MCP Inspector](https://modelcontextprotocol.io/docs/tools/inspector) lets y
 
 Now that you understand the basics:
 
-1. **[SQL Endpoints Tutorial](/tutorials/sql-endpoints)** - Build more complex queries
-2. **[Python Endpoints Tutorial](/tutorials/python-endpoints)** - Add Python logic
-3. **[Endpoints Concept](/concepts/endpoints)** - Deep dive into endpoint types
+1. **[SQL Endpoints Tutorial](../tutorials/sql-endpoints.md)** - Build more complex queries
+2. **[Python Endpoints Tutorial](../tutorials/python-endpoints.md)** - Add Python logic
+3. **[Endpoints Concept](../concepts/endpoints.md)** - Deep dive into endpoint types

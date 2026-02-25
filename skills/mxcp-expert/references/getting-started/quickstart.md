@@ -1,9 +1,17 @@
 ---
 title: "Quickstart"
 description: "Get started with MXCP in 5 minutes. Install, create a project, and connect to Claude Desktop."
-sidebar:
-  order: 2
 ---
+
+## Table of Contents
+
+- [Install MXCP](#install-mxcp)
+- [Create a Project](#create-a-project)
+- [Run the Tool](#run-the-tool)
+- [Start the Server](#start-the-server)
+- [Connect to Claude Desktop](#connect-to-claude-desktop)
+- [What's in the Project?](#whats-in-the-project)
+- [Next Steps](#next-steps)
 
 Get MXCP running and connected to Claude Desktop in under 5 minutes.
 
@@ -118,25 +126,25 @@ You have a working MXCP server connected to Claude Desktop. Here's where to go n
 
 | Tutorial | Description |
 |----------|-------------|
-| [SQL Endpoints](/tutorials/sql-endpoints/) | Query databases, aggregate data |
-| [Python Endpoints](/tutorials/python-endpoints/) | Complex logic, API calls, ML models |
-| [Hello World Deep Dive](/tutorials/hello-world/) | Step-by-step first tool walkthrough |
+| [SQL Endpoints](../tutorials/sql-endpoints.md) | Query databases, aggregate data |
+| [Python Endpoints](../tutorials/python-endpoints.md) | Complex logic, API calls, ML models |
+| [Hello World Deep Dive](../tutorials/hello-world.md) | Step-by-step first tool walkthrough |
 
 ### Add Enterprise Features
 
 | Feature | Description |
 |---------|-------------|
-| [Authentication](/security/authentication/) | OAuth with GitHub, Google, etc. |
-| [Policies](/security/policies/) | Fine-grained access control |
-| [Audit Logging](/security/auditing/) | Track all operations |
+| [Authentication](../security/authentication.md) | OAuth with GitHub, Google, etc. |
+| [Policies](../security/policies.md) | Fine-grained access control |
+| [Audit Logging](../security/auditing.md) | Track all operations |
 
 ### Ensure Quality
 
 | Tool | Description |
 |------|-------------|
-| [Validation](/quality/validation/) | Verify endpoint correctness |
-| [Testing](/quality/testing/) | Unit tests for your tools |
-| [Linting](/quality/linting/) | Improve AI understanding |
+| [Validation](../quality/validation.md) | Verify endpoint correctness |
+| [Testing](../quality/testing.md) | Unit tests for your tools |
+| [Linting](../quality/linting.md) | Improve AI understanding |
 
 ### Useful Commands
 
@@ -149,6 +157,6 @@ mxcp list      # Show all endpoints
 
 ### Learn More
 
-- [Introduction](/getting-started/introduction/) - How MXCP works
-- [Core Concepts](/concepts/) - Endpoints, types, project structure
-- [Configuration](/operations/configuration/) - Profiles, environments
+- [Introduction](../getting-started/introduction.md) - How MXCP works
+- [Core Concepts](../concepts/index.md) - Endpoints, types, project structure
+- [Configuration](../operations/configuration.md) - Profiles, environments

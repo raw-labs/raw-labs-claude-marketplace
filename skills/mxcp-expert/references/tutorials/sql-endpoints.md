@@ -1,11 +1,24 @@
 ---
 title: "SQL Endpoints Tutorial"
 description: "Build data query tools with SQL. Learn parameter binding, complex queries, aggregations, and DuckDB features."
-sidebar:
-  order: 3
 ---
 
-> **Related Topics:** [Type System](/concepts/type-system) (parameter types) | [DuckDB Integration](/integrations/duckdb) (extensions, features) | [dbt Integration](/integrations/dbt) (data modeling) | [SQL Reference](/reference/sql) (built-in functions)
+> **Related Topics:** [Type System](../concepts/type-system.md) (parameter types) | [DuckDB Integration](../integrations/duckdb.md) (extensions, features) | [dbt Integration](../integrations/dbt.md) (data modeling) | [SQL Reference](../reference/sql.md) (built-in functions)
+
+## Table of Contents
+
+- [Goal](#goal)
+- [Prerequisites](#prerequisites)
+- [Step 1: Simple Query with Parameters](#step-1-simple-query-with-parameters)
+- [Step 2: Filtering with Multiple Parameters](#step-2-filtering-with-multiple-parameters)
+- [Step 3: Aggregations](#step-3-aggregations)
+- [Step 4: Joins and Complex Queries](#step-4-joins-and-complex-queries)
+- [Step 5: Date Handling](#step-5-date-handling)
+- [Step 6: Reading External Data](#step-6-reading-external-data)
+- [Step 7: Window Functions](#step-7-window-functions)
+- [Verification](#verification)
+- [Best Practices](#best-practices)
+- [Next Steps](#next-steps)
 
 SQL endpoints are ideal for data queries and aggregations. In this tutorial, you'll learn to build increasingly complex SQL tools, from simple queries to sophisticated analytics.
 
@@ -19,7 +32,7 @@ Build SQL tools that:
 
 ## Prerequisites
 
-- Completed the [Hello World Tutorial](/tutorials/hello-world)
+- Completed the [Hello World Tutorial](../tutorials/hello-world.md)
 - Basic SQL knowledge
 - A project directory with `mxcp init`
 
@@ -543,6 +556,6 @@ LIMIT $limit
 
 ## Next Steps
 
-- [Python Endpoints Tutorial](/tutorials/python-endpoints) - Add Python logic
-- [dbt Integration](/integrations/dbt) - Use dbt for data modeling
-- [SQL Reference](/reference/sql) - Complete SQL features
+- [Python Endpoints Tutorial](../tutorials/python-endpoints.md) - Add Python logic
+- [dbt Integration](../integrations/dbt.md) - Use dbt for data modeling
+- [SQL Reference](../reference/sql.md) - Complete SQL features

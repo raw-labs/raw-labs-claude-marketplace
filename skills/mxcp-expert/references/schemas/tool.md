@@ -1,11 +1,24 @@
 ---
 title: "Tool Schema"
 description: "Complete YAML schema reference for MXCP tool definitions. Parameters, return types, source, tests, and policies."
-sidebar:
-  order: 2
 ---
 
-> **Related Topics:** [Endpoints](/concepts/endpoints) (tool concepts) | [SQL Endpoints](/tutorials/sql-endpoints) (tutorial) | [Python Endpoints](/tutorials/python-endpoints) (tutorial) | [Type System](/concepts/type-system) (parameter types)
+> **Related Topics:** [Endpoints](../concepts/endpoints.md) (tool concepts) | [SQL Endpoints](../tutorials/sql-endpoints.md) (tutorial) | [Python Endpoints](../tutorials/python-endpoints.md) (tutorial) | [Type System](../concepts/type-system.md) (parameter types)
+
+## Table of Contents
+
+- [Complete Example](#complete-example)
+- [Root Fields](#root-fields)
+- [Tool Object](#tool-object)
+- [Annotations Object](#annotations-object)
+- [Parameters Array](#parameters-array)
+- [Return Object](#return-object)
+- [Source Object](#source-object)
+- [Policies Object](#policies-object)
+- [Tests Array](#tests-array)
+- [Naming Conventions](#naming-conventions)
+- [Validation](#validation)
+- [Next Steps](#next-steps)
 
 This reference documents the complete YAML schema for tool definitions in MXCP.
 
@@ -326,7 +339,7 @@ policies:
 | `mask_fields` | output | Replace field values with masks. |
 | `filter_sensitive_fields` | output | Remove fields marked `sensitive: true`. |
 
-See [Policies](/security/policies) for complete documentation.
+See [Policies](../security/policies.md) for complete documentation.
 
 ## Tests Array
 
@@ -382,7 +395,7 @@ tests:
 | `result_length` | integer | For arrays - exact length required. |
 | `result_contains_text` | string | For strings - must contain substring. |
 
-See [Testing](/quality/testing) for complete documentation.
+See [Testing](../quality/testing.md) for complete documentation.
 
 ## Naming Conventions
 
@@ -401,7 +414,7 @@ mxcp validate tools/my-tool.yml
 
 ## Next Steps
 
-- [Endpoints](/concepts/endpoints) - Understand tool concepts
-- [SQL Endpoints Tutorial](/tutorials/sql-endpoints) - Build SQL tools
-- [Python Endpoints Tutorial](/tutorials/python-endpoints) - Build Python tools
-- [Testing](/quality/testing) - Write comprehensive tests
+- [Endpoints](../concepts/endpoints.md) - Understand tool concepts
+- [SQL Endpoints Tutorial](../tutorials/sql-endpoints.md) - Build SQL tools
+- [Python Endpoints Tutorial](../tutorials/python-endpoints.md) - Build Python tools
+- [Testing](../quality/testing.md) - Write comprehensive tests

@@ -1,8 +1,6 @@
 ---
 title: "DuckDB Integration"
 description: "MXCP's SQL execution engine. Extensions, data sources, secret management, and performance optimization."
-sidebar:
-  order: 4
 ---
 
 ## Table of Contents
@@ -18,7 +16,7 @@ sidebar:
 - [Configuration Reference](#configuration-reference)
 - [Best Practices](#best-practices)
 
-> **Related Topics:** [SQL Endpoints](/tutorials/sql-endpoints) (tutorial) | [SQL Reference](/reference/sql) (built-in functions) | [Configuration](/operations/configuration) (extensions setup) | [Common Tasks](/reference/common-tasks#how-do-i-use-duckdb-extensions) (quick how-to)
+> **Related Topics:** [SQL Endpoints](../tutorials/sql-endpoints.md) (tutorial) | [SQL Reference](../reference/sql.md) (built-in functions) | [Configuration](../operations/configuration.md) (extensions setup) | [Common Tasks](../reference/common-tasks.md#how-do-i-use-duckdb-extensions) (quick how-to)
 >
 > **Official Documentation:** [DuckDB Docs](https://duckdb.org/docs/stable/) | [Extensions](https://duckdb.org/docs/extensions/overview) | [SQL Reference](https://duckdb.org/docs/sql/introduction)
 
@@ -550,7 +548,7 @@ extensions:
 
 ### 2. Use Secrets for Credentials
 
-Never hardcode credentials. See [Configuration](/operations/configuration#secrets) for details.
+Never hardcode credentials. See [Configuration](../operations/configuration.md#secrets) for details.
 
 ```yaml
 # Good: Use secrets
@@ -603,10 +601,10 @@ mxcp drift-snapshot
 mxcp drift-check
 ```
 
-See [Drift Detection](/operations/drift-detection) for details.
+See [Drift Detection](../operations/drift-detection.md) for details.
 
 ## Next Steps
 
-- [dbt Integration](/integrations/dbt) - Data transformation
-- [Configuration](/operations/configuration) - Secrets management
-- [Monitoring](/operations/monitoring) - Performance tracking
+- [dbt Integration](../integrations/dbt.md) - Data transformation
+- [Configuration](../operations/configuration.md) - Secrets management
+- [Monitoring](../operations/monitoring.md) - Performance tracking

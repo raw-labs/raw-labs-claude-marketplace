@@ -1,11 +1,21 @@
 ---
 title: "Endpoints"
 description: "Learn about MXCP endpoint types: tools, resources, and prompts. How to define them, when to use each type, and best practices."
-sidebar:
-  order: 2
 ---
 
-> **Related Topics:** [Type System](/concepts/type-system) (parameter/return types) | [YAML Schemas](/schemas/) (complete field reference) | [SQL Endpoints](/tutorials/sql-endpoints) (SQL tutorial) | [Python Endpoints](/tutorials/python-endpoints) (Python tutorial)
+> **Related Topics:** [Type System](../concepts/type-system.md) (parameter/return types) | [YAML Schemas](../schemas/index.md) (complete field reference) | [SQL Endpoints](../tutorials/sql-endpoints.md) (SQL tutorial) | [Python Endpoints](../tutorials/python-endpoints.md) (Python tutorial)
+
+## Table of Contents
+
+- [Tools](#tools)
+- [Resources](#resources)
+- [Prompts](#prompts)
+- [Source Options](#source-options)
+- [Enabling/Disabling Endpoints](#enablingdisabling-endpoints)
+- [Tags](#tags)
+- [Policies](#policies)
+- [Best Practices](#best-practices)
+- [Next Steps](#next-steps)
 
 MXCP supports three types of MCP endpoints, each serving different purposes. Understanding when to use each type helps you design better AI integrations.
 
@@ -106,7 +116,7 @@ Annotations help LLMs understand tool behavior:
 
 ### Inline Tests
 
-The `tests` block defines test cases that run with `mxcp test`. See [Testing](/quality/testing) for details.
+The `tests` block defines test cases that run with `mxcp test`. See [Testing](../quality/testing.md) for details.
 
 ### SQL vs Python Tools
 
@@ -380,7 +390,7 @@ tools/list_users.yml:   tags: ["users", "read", "search"]
 
 ## Policies
 
-Endpoints can define access control policies. See [Policies](/security/policies) for details.
+Endpoints can define access control policies. See [Policies](../security/policies.md) for details.
 
 ```yaml
 tool:
@@ -426,8 +436,8 @@ tool:
 
 ## Next Steps
 
-- [Type System](/concepts/type-system) - Parameter and return type details
-- [Project Structure](/concepts/project-structure) - File organization
-- [Policies](/security/policies) - Access control and data filtering
-- [SQL Endpoints Tutorial](/tutorials/sql-endpoints) - Build SQL tools
-- [Python Endpoints Tutorial](/tutorials/python-endpoints) - Build Python tools
+- [Type System](../concepts/type-system.md) - Parameter and return type details
+- [Project Structure](../concepts/project-structure.md) - File organization
+- [Policies](../security/policies.md) - Access control and data filtering
+- [SQL Endpoints Tutorial](../tutorials/sql-endpoints.md) - Build SQL tools
+- [Python Endpoints Tutorial](../tutorials/python-endpoints.md) - Build Python tools

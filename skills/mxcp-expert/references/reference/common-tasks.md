@@ -1,9 +1,18 @@
 ---
 title: "Common Tasks"
 description: "Quick reference for common MXCP tasks. How to add authentication, filter data, write tests, configure production, and more."
-sidebar:
-  order: 2
 ---
+
+## Table of Contents
+
+- [Getting Started](#getting-started)
+- [Creating Endpoints](#creating-endpoints)
+- [Security](#security)
+- [Testing & Quality](#testing-quality)
+- [Configuration](#configuration)
+- [Operations](#operations)
+- [Database](#database)
+- [Troubleshooting](#troubleshooting)
 
 Quick answers to "How do I...?" questions. Each task links to full documentation.
 
@@ -16,7 +25,7 @@ mkdir my-project && cd my-project
 mxcp init --bootstrap  # Creates example endpoint
 ```
 
-[Full guide →](/getting-started/quickstart)
+[Full guide →](../getting-started/quickstart.md)
 
 ### How do I run my first tool?
 
@@ -24,7 +33,7 @@ mxcp init --bootstrap  # Creates example endpoint
 mxcp run tool hello_world --param name=Alice
 ```
 
-[Hello World tutorial →](/tutorials/hello-world)
+[Hello World tutorial →](../tutorials/hello-world.md)
 
 ### How do I connect to Claude Desktop?
 
@@ -42,7 +51,7 @@ Add to `~/Library/Application Support/Claude/claude_desktop_config.json`:
 }
 ```
 
-[Full guide →](/integrations/claude-desktop)
+[Full guide →](../integrations/claude-desktop.md)
 
 ## Creating Endpoints
 
@@ -63,7 +72,7 @@ tool:
     file: ../sql/my-tool.sql
 ```
 
-[SQL endpoints tutorial →](/tutorials/sql-endpoints)
+[SQL endpoints tutorial →](../tutorials/sql-endpoints.md)
 
 ### How do I create a Python tool?
 
@@ -91,7 +100,7 @@ def my_tool(param_name: str) -> dict:
     return {"data": results}
 ```
 
-[Python endpoints tutorial →](/tutorials/python-endpoints)
+[Python endpoints tutorial →](../tutorials/python-endpoints.md)
 
 ### How do I create a resource?
 
@@ -110,7 +119,7 @@ resource:
     code: "SELECT * FROM users WHERE id = $id"
 ```
 
-[Endpoints concept →](/concepts/endpoints)
+[Endpoints concept →](../concepts/endpoints.md)
 
 ## Security
 
@@ -130,7 +139,7 @@ projects:
             client_secret: your_client_secret
 ```
 
-[Authentication guide →](/security/authentication)
+[Authentication guide →](../security/authentication.md)
 
 ### How do I restrict access to a tool?
 
@@ -144,7 +153,7 @@ policies:
       reason: "Admin access required"
 ```
 
-[Policies guide →](/security/policies)
+[Policies guide →](../security/policies.md)
 
 ### How do I filter sensitive data?
 
@@ -170,7 +179,7 @@ return:
       sensitive: true
 ```
 
-[Policies guide →](/security/policies)
+[Policies guide →](../security/policies.md)
 
 ### How do I enable audit logging?
 
@@ -191,7 +200,7 @@ mxcp log --since 1h
 mxcp log --tool my_tool --status error
 ```
 
-[Auditing guide →](/security/auditing)
+[Auditing guide →](../security/auditing.md)
 
 ## Testing & Quality
 
@@ -215,7 +224,7 @@ Run tests:
 mxcp test
 ```
 
-[Testing guide →](/quality/testing)
+[Testing guide →](../quality/testing.md)
 
 ### How do I test with different user roles?
 
@@ -237,7 +246,7 @@ tests:
         value: 123
 ```
 
-[Policies guide →](/security/policies)
+[Policies guide →](../security/policies.md)
 
 ### How do I validate my endpoints?
 
@@ -247,7 +256,7 @@ mxcp validate tools/my_tool.yml      # Specific endpoint
 mxcp validate --debug                # Detailed output
 ```
 
-[Validation guide →](/quality/validation)
+[Validation guide →](../quality/validation.md)
 
 ### How do I check for linting issues?
 
@@ -255,7 +264,7 @@ mxcp validate --debug                # Detailed output
 mxcp lint
 ```
 
-[Linting guide →](/quality/linting)
+[Linting guide →](../quality/linting.md)
 
 ## Configuration
 
@@ -286,7 +295,7 @@ mxcp serve --profile production
 export MXCP_PROFILE=production
 ```
 
-[Configuration guide →](/operations/configuration)
+[Configuration guide →](../operations/configuration.md)
 
 ### How do I use secrets?
 
@@ -312,7 +321,7 @@ secret = config.get_secret("api_key")
 api_key = secret["value"] if secret else None
 ```
 
-[Configuration guide →](/operations/configuration)
+[Configuration guide →](../operations/configuration.md)
 
 ### How do I use Vault for secrets?
 
@@ -333,7 +342,7 @@ projects:
               password: "vault://secret/database#password"
 ```
 
-[Configuration guide →](/operations/configuration)
+[Configuration guide →](../operations/configuration.md)
 
 ## Operations
 
@@ -349,7 +358,7 @@ WORKDIR /app
 CMD ["mxcp", "serve", "--transport", "streamable-http", "--port", "8000"]
 ```
 
-[Deployment guide →](/operations/deployment)
+[Deployment guide →](../operations/deployment.md)
 
 ### How do I enable monitoring?
 
@@ -361,7 +370,7 @@ export OTEL_SERVICE_NAME=mxcp-prod
 export MXCP_TELEMETRY_ENABLED=true
 ```
 
-[Monitoring guide →](/operations/monitoring)
+[Monitoring guide →](../operations/monitoring.md)
 
 ### How do I reload configuration without restart?
 
@@ -373,7 +382,7 @@ kill -HUP $(pgrep -f "mxcp serve")
 curl --unix-socket /run/mxcp/mxcp.sock -X POST http://localhost/reload
 ```
 
-[Admin socket guide →](/operations/admin-socket)
+[Admin socket guide →](../operations/admin-socket.md)
 
 ### How do I check for drift?
 
@@ -385,7 +394,7 @@ mxcp drift-snapshot
 mxcp drift-check
 ```
 
-[Drift detection guide →](/operations/drift-detection)
+[Drift detection guide →](../operations/drift-detection.md)
 
 ## Database
 
@@ -405,7 +414,7 @@ for row in results:
     print(row["name"])
 ```
 
-[Python reference →](/reference/python)
+[Python reference →](../reference/python.md)
 
 ### How do I use DuckDB extensions?
 
@@ -419,7 +428,7 @@ extensions:
     repo: community
 ```
 
-[DuckDB integration →](/integrations/duckdb)
+[DuckDB integration →](../integrations/duckdb.md)
 
 ### How do I integrate with dbt?
 
@@ -437,7 +446,7 @@ Run dbt through MXCP:
 mxcp dbt run
 ```
 
-[dbt integration →](/integrations/dbt)
+[dbt integration →](../integrations/dbt.md)
 
 ## Troubleshooting
 
@@ -478,4 +487,4 @@ source .venv/bin/activate
 mxcp run tool my_tool --debug
 ```
 
-[Quickstart →](/getting-started/quickstart)
+[Quickstart →](../getting-started/quickstart.md)

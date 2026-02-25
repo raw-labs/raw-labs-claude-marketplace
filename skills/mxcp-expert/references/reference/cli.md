@@ -1,8 +1,6 @@
 ---
 title: "CLI Reference"
 description: "Complete command-line interface reference for MXCP. All commands, options, and usage examples."
-sidebar:
-  order: 2
 ---
 
 ## Table of Contents
@@ -18,7 +16,7 @@ sidebar:
 - [Environment Variables](#environment-variables)
 - [Error Handling](#error-handling)
 
-> **Related Topics:** [Quickstart](/getting-started/quickstart) (first commands) | [Common Tasks](/reference/common-tasks) (quick how-to) | [Quality](/quality/) (validation, testing, linting)
+> **Related Topics:** [Quickstart](../getting-started/quickstart.md) (first commands) | [Common Tasks](../reference/common-tasks.md) (quick how-to) | [Quality](../quality/index.md) (validation, testing, linting)
 
 Complete reference for all MXCP command-line interface commands.
 
@@ -251,7 +249,7 @@ mxcp query --file query.sql --param start=@dates.json
 
 ## Quality Commands
 
-> **See Also:** [Quality & Testing Guide](/quality/) for comprehensive testing best practices.
+> **See Also:** [Quality & Testing Guide](../quality/index.md) for comprehensive testing best practices.
 
 ### mxcp validate
 
@@ -449,7 +447,7 @@ Creates a snapshot of the current state of your MXCP repository for change detec
 - Validation results
 - Test results
 
-> **See Also:** [Drift Detection](/operations/drift-detection) for comprehensive guide.
+> **See Also:** [Drift Detection](../operations/drift-detection.md) for comprehensive guide.
 
 **Options:**
 - `--force`: Overwrite existing snapshot
@@ -506,7 +504,7 @@ mxcp log [OPTIONS]
 
 Queries the audit logs to show execution history for tools, resources, and prompts. Audit logging must be enabled in your profile configuration. Logs are stored in JSONL format for concurrent access while the server is running.
 
-> **See Also:** [Auditing Guide](/security/auditing) for comprehensive guide.
+> **See Also:** [Auditing Guide](../security/auditing.md) for comprehensive guide.
 
 **Options:**
 - `--tool`: Filter by tool name
@@ -572,7 +570,7 @@ mxcp log-cleanup --profile prod # Specific profile
 
 ## dbt Integration Commands
 
-> **See Also:** [dbt Integration](/integrations/dbt) for comprehensive guide.
+> **See Also:** [dbt Integration](../integrations/dbt.md) for comprehensive guide.
 
 ### mxcp dbt-config
 
@@ -702,6 +700,6 @@ Commands handle errors consistently:
 
 ## Next Steps
 
-- [SQL Reference](/reference/sql) - SQL capabilities
-- [Python Reference](/reference/python) - Runtime API
-- [Plugin Reference](/reference/plugins) - Plugin development
+- [SQL Reference](../reference/sql.md) - SQL capabilities
+- [Python Reference](../reference/python.md) - Runtime API
+- [Plugin Reference](../reference/plugins.md) - Plugin development

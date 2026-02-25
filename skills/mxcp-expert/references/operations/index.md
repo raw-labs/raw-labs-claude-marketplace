@@ -1,31 +1,38 @@
 ---
 title: "Operations"
 description: "Deploy and operate MXCP in production. Configuration, deployment patterns, monitoring, and operational best practices."
-sidebar:
-  order: 1
 ---
 
-> **Related Topics:** [Security](/security/) (authentication, policies) | [Quality](/quality/) (testing, validation) | [Common Tasks](/reference/common-tasks#operations) (quick how-to)
+> **Related Topics:** [Security](../security/index.md) (authentication, policies) | [Quality](../quality/index.md) (testing, validation) | [Common Tasks](../reference/common-tasks.md#operations) (quick how-to)
+
+## Table of Contents
+
+- [Topics](#topics)
+- [Quick Reference](#quick-reference)
+- [Deployment Checklist](#deployment-checklist)
+- [Architecture Patterns](#architecture-patterns)
+- [Common Operations](#common-operations)
+- [Next Steps](#next-steps)
 
 This section covers everything you need to deploy and operate MXCP in production environments.
 
 ## Topics
 
-### [Configuration](/operations/configuration)
+### [Configuration](../operations/configuration.md)
 Complete configuration reference:
 - Site configuration (`mxcp-site.yml`)
 - User configuration (`~/.mxcp/config.yml`)
 - Environment variables
 - Secret management (Vault, 1Password)
 
-### [Deployment](/operations/deployment)
+### [Deployment](../operations/deployment.md)
 Production deployment patterns:
 - Docker deployment
 - systemd service configuration
 - Kubernetes deployment
 - Signal handling and hot reload
 
-### [Monitoring](/operations/monitoring)
+### [Monitoring](../operations/monitoring.md)
 Observability and operational monitoring:
 - OpenTelemetry integration
 - Drift detection
@@ -190,6 +197,6 @@ du -h db.duckdb
 
 ## Next Steps
 
-- [Configuration](/operations/configuration) - Complete configuration guide
-- [Deployment](/operations/deployment) - Production deployment patterns
-- [Monitoring](/operations/monitoring) - Observability setup
+- [Configuration](../operations/configuration.md) - Complete configuration guide
+- [Deployment](../operations/deployment.md) - Production deployment patterns
+- [Monitoring](../operations/monitoring.md) - Observability setup

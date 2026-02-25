@@ -1,11 +1,20 @@
 ---
 title: "Introduction"
 description: "In-depth guide to MXCP architecture, request flow, and design patterns. Understand how MXCP works under the hood."
-sidebar:
-  order: 1
 ---
 
-This guide provides an in-depth look at how MXCP works. For a quick start, see the [Quickstart Guide](/getting-started/quickstart/). For terminology, see the [Glossary](/getting-started/glossary/).
+## Table of Contents
+
+- [What is MXCP?](#what-is-mxcp)
+- [What MXCP Adds](#what-mxcp-adds)
+- [How It Works](#how-it-works)
+- [Request Flow](#request-flow)
+- [Architecture Patterns](#architecture-patterns)
+- [Comparison with Other Approaches](#comparison-with-other-approaches)
+- [Summary](#summary)
+- [Next Steps](#next-steps)
+
+This guide provides an in-depth look at how MXCP works. For a quick start, see the [Quickstart Guide](../getting-started/quickstart.md). For terminology, see the [Glossary](../getting-started/glossary.md).
 
 ## What is MXCP?
 
@@ -162,7 +171,7 @@ tests:
 ```
 
 :::tip[Ready to build?]
-See the [Quickstart Guide](/getting-started/quickstart/) for a complete hands-on tutorial, or try `mxcp init --bootstrap` to generate a working example project.
+See the [Quickstart Guide](../getting-started/quickstart.md) for a complete hands-on tutorial, or try `mxcp init --bootstrap` to generate a working example project.
 :::
 
 ## Request Flow
@@ -262,7 +271,7 @@ MXCP provides:
 
 | Goal | Next Step |
 |------|-----------|
-| Understand terminology | [Glossary](/getting-started/glossary/) |
-| Build something now | [Quickstart](/getting-started/quickstart/) |
-| Learn step-by-step | [Hello World Tutorial](/tutorials/hello-world/) |
-| Deep dive into concepts | [Core Concepts](/concepts/) |
+| Understand terminology | [Glossary](../getting-started/glossary.md) |
+| Build something now | [Quickstart](../getting-started/quickstart.md) |
+| Learn step-by-step | [Hello World Tutorial](../tutorials/hello-world.md) |
+| Deep dive into concepts | [Core Concepts](../concepts/index.md) |

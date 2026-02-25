@@ -1,11 +1,29 @@
 ---
 title: "Audit Logging"
 description: "Track all operations with MXCP's enterprise-grade audit logging. JSONL format, query interface, and compliance features."
-sidebar:
-  order: 4
 ---
 
-> **Related Topics:** [Configuration](/operations/configuration) (enable auditing) | [Monitoring](/operations/monitoring) (observability) | [Policies](/security/policies) (access control) | [Common Tasks](/reference/common-tasks#how-do-i-enable-audit-logging) (quick setup)
+> **Related Topics:** [Configuration](../operations/configuration.md) (enable auditing) | [Monitoring](../operations/monitoring.md) (observability) | [Policies](../security/policies.md) (access control) | [Common Tasks](../reference/common-tasks.md#how-do-i-enable-audit-logging) (quick setup)
+
+## Table of Contents
+
+- [How It Works](#how-it-works)
+- [What Gets Logged](#what-gets-logged)
+- [Configuration](#configuration)
+- [Storage Format](#storage-format)
+- [Querying Logs](#querying-logs)
+- [Output Formats](#output-formats)
+- [DuckDB Analysis](#duckdb-analysis)
+- [Real-Time Monitoring](#real-time-monitoring)
+- [Sensitive Data Redaction](#sensitive-data-redaction)
+- [Log Rotation](#log-rotation)
+- [Integration with Log Analysis Tools](#integration-with-log-analysis-tools)
+- [Performance](#performance)
+- [Best Practices](#best-practices)
+- [Troubleshooting](#troubleshooting)
+- [Log Retention and Cleanup](#log-retention-and-cleanup)
+- [Security Considerations](#security-considerations)
+- [Next Steps](#next-steps)
 
 MXCP provides comprehensive audit logging to track all endpoint executions. Audit logs are essential for security, compliance, debugging, and understanding usage patterns.
 
@@ -598,6 +616,6 @@ Example JSON output:
 
 ## Next Steps
 
-- [Policies](/security/policies) - Control what gets logged
-- [Authentication](/security/authentication) - Track user identity
-- [Monitoring](/operations/monitoring) - Set up observability
+- [Policies](../security/policies.md) - Control what gets logged
+- [Authentication](../security/authentication.md) - Track user identity
+- [Monitoring](../operations/monitoring.md) - Set up observability

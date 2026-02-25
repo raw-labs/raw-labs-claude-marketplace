@@ -1,9 +1,24 @@
 ---
 title: "Customer Service Example"
 description: "Complete MXCP example for AI-powered customer service. Customer lookup, order tracking, ticket management, and policy-protected data."
-sidebar:
-  order: 2
 ---
+
+## Table of Contents
+
+- [The Problem](#the-problem)
+- [The Solution](#the-solution)
+- [What You'll Learn](#what-youll-learn)
+- [Prerequisites](#prerequisites)
+- [Project Structure](#project-structure)
+- [Configuration](#configuration)
+- [Schema Setup](#schema-setup)
+- [Tools](#tools)
+- [Python Implementation](#python-implementation)
+- [Resources](#resources)
+- [Prompts](#prompts)
+- [Safety Evaluations](#safety-evaluations)
+- [Running the Example](#running-the-example)
+- [Next Steps](#next-steps)
 
 Build an AI-powered customer service system that enables support agents to look up customers, track orders, and manage support tickets—all through natural language with AI assistants.
 
@@ -44,7 +59,7 @@ The key features demonstrated:
 - Python 3.10+
 - MXCP installed (`pip install mxcp`)
 - Basic understanding of SQL
-- Completed the [Quickstart guide](/quickstart/) (recommended)
+- Completed the [Quickstart guide](../quickstart.md) (recommended)
 
 ## Project Structure
 
@@ -685,6 +700,6 @@ mxcp serve --transport stdio
 
 ## Next Steps
 
-- [Analytics Example](/examples/analytics) - Business intelligence
-- [Data Management Example](/examples/data-management) - CRUD operations
-- [Security](/security) - Authentication and policies
+- [Analytics Example](../examples/analytics.md) - Business intelligence
+- [Data Management Example](../examples/data-management.md) - CRUD operations
+- [Security](../security/index.md) - Authentication and policies

@@ -1,8 +1,6 @@
 ---
 title: "dbt Integration"
 description: "Transform and prepare data for AI with dbt. Model data, test quality, and optimize performance for MXCP endpoints."
-sidebar:
-  order: 3
 ---
 
 ## Table of Contents
@@ -24,7 +22,7 @@ sidebar:
 - [Best Practices](#best-practices)
 - [Troubleshooting](#troubleshooting)
 
-> **Related Topics:** [Configuration](/operations/configuration) (enable dbt) | [SQL Endpoints](/tutorials/sql-endpoints) (query dbt models) | [DuckDB Integration](/integrations/duckdb) (database engine) | [Common Tasks](/reference/common-tasks#how-do-i-integrate-with-dbt) (quick how-to)
+> **Related Topics:** [Configuration](../operations/configuration.md) (enable dbt) | [SQL Endpoints](../tutorials/sql-endpoints.md) (query dbt models) | [DuckDB Integration](../integrations/duckdb.md) (database engine) | [Common Tasks](../reference/common-tasks.md#how-do-i-integrate-with-dbt) (quick how-to)
 >
 > **Official Documentation:** [dbt Docs](https://docs.getdbt.com) | [dbt-duckdb Adapter](https://docs.getdbt.com/docs/core/connect-data-platform/duckdb-setup)
 
@@ -799,6 +797,6 @@ mxcp dbt-config --embed-secrets --force
 
 ## Next Steps
 
-- [DuckDB Integration](/integrations/duckdb) - SQL engine
-- [Testing](/quality/testing) - MXCP tests
-- [Configuration](/operations/configuration) - Secrets management
+- [DuckDB Integration](../integrations/duckdb.md) - SQL engine
+- [Testing](../quality/testing.md) - MXCP tests
+- [Configuration](../operations/configuration.md) - Secrets management

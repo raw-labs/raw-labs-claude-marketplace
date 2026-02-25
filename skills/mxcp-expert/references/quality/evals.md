@@ -1,8 +1,6 @@
 ---
 title: "LLM Evaluation"
 description: "Test how AI models interact with your MXCP endpoints. Safety verification, correct tool usage, and multi-model testing."
-sidebar:
-  order: 5
 ---
 
 ## Table of Contents
@@ -23,7 +21,7 @@ sidebar:
 - [Troubleshooting](#troubleshooting)
 - [Supported Models](#supported-models)
 
-> **Related Topics:** [Testing](/quality/testing) (functional tests) | [Configuration](/operations/configuration#model-configuration) (model setup) | [Policies](/security/policies) (safety enforcement)
+> **Related Topics:** [Testing](../quality/testing.md) (functional tests) | [Configuration](../operations/configuration.md#model-configuration) (model setup) | [Policies](../security/policies.md) (safety enforcement)
 
 MXCP evals test how AI models interact with your endpoints. This ensures AI uses your tools correctly and safely in production.
 
@@ -614,6 +612,6 @@ AI behavior may vary. Consider:
 
 ## Next Steps
 
-- [Testing](/quality/testing) - Unit tests
-- [Linting](/quality/linting) - Metadata quality
-- [Policies](/security/policies) - Access control
+- [Testing](../quality/testing.md) - Unit tests
+- [Linting](../quality/linting.md) - Metadata quality
+- [Policies](../security/policies.md) - Access control

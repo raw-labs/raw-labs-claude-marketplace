@@ -1,8 +1,6 @@
 ---
 title: "Authentication"
 description: "OAuth 2.0 setup for MXCP: GitHub, Google, Atlassian, Salesforce, Keycloak. Client configuration, token handling, user context for policies."
-sidebar:
-  order: 2
 ---
 
 ## Table of Contents
@@ -25,7 +23,7 @@ sidebar:
 - [Advanced Features](#advanced-features)
 - [Production Checklist](#production-checklist)
 
-> **Related Topics:** [Policies](/security/policies) (use user context for access control) | [Configuration](/operations/configuration) (secrets management) | [Common Tasks](/reference/common-tasks#how-do-i-add-authentication) (quick setup)
+> **Related Topics:** [Policies](../security/policies.md) (use user context for access control) | [Configuration](../operations/configuration.md) (secrets management) | [Common Tasks](../reference/common-tasks.md#how-do-i-add-authentication) (quick setup)
 
 MXCP supports OAuth 2.0 authentication to control who can access your MCP server. This guide covers configuring various OAuth providers.
 
@@ -722,6 +720,6 @@ auth:
 
 ## Next Steps
 
-- [Policies](/security/policies) - Configure access control
-- [Auditing](/security/auditing) - Track authentication events
-- [Configuration](/operations/configuration) - More configuration options
+- [Policies](../security/policies.md) - Configure access control
+- [Auditing](../security/auditing.md) - Track authentication events
+- [Configuration](../operations/configuration.md) - More configuration options

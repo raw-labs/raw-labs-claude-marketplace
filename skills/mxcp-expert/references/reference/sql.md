@@ -1,11 +1,20 @@
 ---
 title: "SQL Reference"
 description: "SQL capabilities in MXCP. DuckDB syntax, built-in authentication functions, and parameter binding."
-sidebar:
-  order: 3
 ---
 
-> **Related Topics:** [SQL Endpoints Tutorial](/tutorials/sql-endpoints) (step-by-step guide) | [DuckDB Integration](/integrations/duckdb) (extensions, data sources) | [Authentication](/security/authentication) (user functions)
+> **Related Topics:** [SQL Endpoints Tutorial](../tutorials/sql-endpoints.md) (step-by-step guide) | [DuckDB Integration](../integrations/duckdb.md) (extensions, data sources) | [Authentication](../security/authentication.md) (user functions)
+
+## Table of Contents
+
+- [DuckDB SQL](#duckdb-sql)
+- [Built-in Functions](#built-in-functions)
+- [Parameter Binding](#parameter-binding)
+- [Common Extensions](#common-extensions)
+- [Analytical Features](#analytical-features)
+- [Type System](#type-system)
+- [Best Practices](#best-practices)
+- [Next Steps](#next-steps)
 
 MXCP uses DuckDB SQL syntax with additional built-in functions for authentication and access control.
 
@@ -406,6 +415,6 @@ SELECT * FROM users WHERE id = $user_id;
 
 ## Next Steps
 
-- [Python Reference](/reference/python) - Runtime API
+- [Python Reference](../reference/python.md) - Runtime API
 - [DuckDB Documentation](https://duckdb.org/docs/sql/introduction) - Full SQL reference
-- [Tutorials](/tutorials) - SQL endpoint examples
+- [Tutorials](../tutorials/index.md) - SQL endpoint examples

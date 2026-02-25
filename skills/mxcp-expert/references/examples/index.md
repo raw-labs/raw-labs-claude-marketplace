@@ -1,9 +1,16 @@
 ---
 title: "Examples"
 description: "Complete MXCP examples for common use cases. Customer service, analytics, data management, and enterprise patterns."
-sidebar:
-  order: 1
 ---
+
+## Table of Contents
+
+- [Getting Started with Examples](#getting-started-with-examples)
+- [Example Projects](#example-projects)
+- [Quick Examples](#quick-examples)
+- [Common Patterns](#common-patterns)
+- [Project Structure Example](#project-structure-example)
+- [Next Steps](#next-steps)
 
 Learn MXCP through complete, working examples that demonstrate real-world patterns and best practices. Each example is a fully functional project you can run locally or use as a starting point for your own applications.
 
@@ -34,25 +41,25 @@ Before running any example, ensure you have:
 - MXCP installed (`pip install mxcp`)
 - An AI client that supports MCP (Claude Code, Claude Desktop, or any MCP-compatible application)
 
-New to MXCP? Start with the [Quickstart guide](/quickstart/) to get up and running in minutes.
+New to MXCP? Start with the [Quickstart guide](../quickstart.md) to get up and running in minutes.
 
 ## Example Projects
 
-### [Customer Service](/examples/customer-service)
+### [Customer Service](../examples/customer-service.md)
 AI-powered customer support tools:
 - Customer lookup and search
 - Order history and tracking
 - Ticket management
 - Policy-protected sensitive data
 
-### [Analytics Dashboard](/examples/analytics)
+### [Analytics Dashboard](../examples/analytics.md)
 Business intelligence endpoints:
 - Sales reports and metrics
 - Time-series analysis
 - Aggregations and rollups
 - Real-time dashboards
 
-### [Data Management](/examples/data-management)
+### [Data Management](../examples/data-management.md)
 CRUD operations and data handling:
 - User management
 - Document storage
@@ -599,7 +606,7 @@ my-mxcp-project/
 
 ## Next Steps
 
-- [Customer Service Example](/examples/customer-service)
-- [Analytics Example](/examples/analytics)
-- [Data Management Example](/examples/data-management)
-- [Tutorials](/tutorials) - Step-by-step guides
+- [Customer Service Example](../examples/customer-service.md)
+- [Analytics Example](../examples/analytics.md)
+- [Data Management Example](../examples/data-management.md)
+- [Tutorials](../tutorials/index.md) - Step-by-step guides

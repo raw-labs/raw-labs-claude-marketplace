@@ -1,9 +1,19 @@
 ---
 title: "Audit Log Cleanup"
 description: "Manage audit log retention in MXCP. Retention policies, manual cleanup, and automated maintenance."
-sidebar:
-  order: 7
 ---
+
+## Table of Contents
+
+- [Default Retention](#default-retention)
+- [Manual Cleanup](#manual-cleanup)
+- [Automated Cleanup](#automated-cleanup)
+- [Log Rotation](#log-rotation)
+- [Archiving Strategies](#archiving-strategies)
+- [Compliance Considerations](#compliance-considerations)
+- [Best Practices](#best-practices)
+- [Troubleshooting](#troubleshooting)
+- [Next Steps](#next-steps)
 
 MXCP audit logs can grow over time. This guide covers retention policies, manual cleanup, and automated maintenance strategies.
 
@@ -402,6 +412,6 @@ df -h /var/log/mxcp
 
 ## Next Steps
 
-- [Auditing](/security/auditing) - Audit log configuration
-- [Monitoring](/operations/monitoring) - Log analysis
-- [Deployment](/operations/deployment) - Production setup
+- [Auditing](../security/auditing.md) - Audit log configuration
+- [Monitoring](../operations/monitoring.md) - Log analysis
+- [Deployment](../operations/deployment.md) - Production setup

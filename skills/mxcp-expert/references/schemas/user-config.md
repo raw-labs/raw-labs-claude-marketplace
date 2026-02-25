@@ -1,8 +1,6 @@
 ---
 title: "User Configuration Schema"
 description: "Complete YAML schema reference for ~/.mxcp/config.yml. Secrets, authentication providers, Vault integration, and user-level settings."
-sidebar:
-  order: 6
 ---
 
 ## Table of Contents
@@ -24,7 +22,7 @@ sidebar:
 - [Validation](#validation)
 - [Security Best Practices](#security-best-practices)
 
-> **Related Topics:** [Configuration](/operations/configuration) (configuration guide) | [Authentication](/security/authentication) (OAuth setup) | [Site Configuration](/schemas/site-config) (project config)
+> **Related Topics:** [Configuration](../operations/configuration.md) (configuration guide) | [Authentication](../security/authentication.md) (OAuth setup) | [Site Configuration](../schemas/site-config.md) (project config)
 
 This reference documents the complete YAML schema for the user configuration file at `~/.mxcp/config.yml`.
 
@@ -811,6 +809,6 @@ mxcp serve --profile production
 
 ## Next Steps
 
-- [Site Configuration Schema](/schemas/site-config) - Project configuration
-- [Authentication](/security/authentication) - OAuth setup guide
-- [Configuration Guide](/operations/configuration) - Complete configuration documentation
+- [Site Configuration Schema](../schemas/site-config.md) - Project configuration
+- [Authentication](../security/authentication.md) - OAuth setup guide
+- [Configuration Guide](../operations/configuration.md) - Complete configuration documentation

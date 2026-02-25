@@ -1,11 +1,24 @@
 ---
 title: "Python Reference"
 description: "Python runtime API reference for MXCP. Database access, configuration, plugins, and lifecycle hooks."
-sidebar:
-  order: 4
 ---
 
-> **Related Topics:** [Python Endpoints Tutorial](/tutorials/python-endpoints) (step-by-step guide) | [Plugins](/reference/plugins) (custom UDFs) | [Configuration](/operations/configuration) (secrets access) | [Type System](/concepts/type-system) (parameter types)
+> **Related Topics:** [Python Endpoints Tutorial](../tutorials/python-endpoints.md) (step-by-step guide) | [Plugins](../reference/plugins.md) (custom UDFs) | [Configuration](../operations/configuration.md) (secrets access) | [Type System](../concepts/type-system.md) (parameter types)
+
+## Table of Contents
+
+- [Quick Example](#quick-example)
+- [Database Access](#database-access)
+- [Configuration & Secrets](#configuration-secrets)
+- [Plugin Access](#plugin-access)
+- [MCP Logging & Progress](#mcp-logging-progress)
+- [Lifecycle Hooks](#lifecycle-hooks)
+- [Reload Management](#reload-management)
+- [Type Compatibility](#type-compatibility)
+- [Context Availability](#context-availability)
+- [Error Handling](#error-handling)
+- [Complete Example](#complete-example)
+- [Next Steps](#next-steps)
 
 Python endpoints have access to the `mxcp.runtime` module, which provides database access, configuration, secrets, and lifecycle management.
 
@@ -488,6 +501,6 @@ async def analyze_data(department: str, limit: int = 10) -> dict:
 
 ## Next Steps
 
-- [Plugin Reference](/reference/plugins) - Plugin development
-- [Tutorials](/tutorials/python-endpoints) - Python examples
-- [Type System](/concepts/type-system) - Type mapping
+- [Plugin Reference](../reference/plugins.md) - Plugin development
+- [Tutorials](../tutorials/python-endpoints.md) - Python examples
+- [Type System](../concepts/type-system.md) - Type mapping

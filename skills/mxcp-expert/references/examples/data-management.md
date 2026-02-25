@@ -1,9 +1,24 @@
 ---
 title: "Data Management Example"
 description: "Build a user management system with MXCP. CRUD operations, pagination, policies, and data resources."
-sidebar:
-  order: 4
 ---
+
+## Table of Contents
+
+- [The Problem](#the-problem)
+- [The Solution](#the-solution)
+- [What You'll Learn](#what-youll-learn)
+- [Prerequisites](#prerequisites)
+- [Project Structure](#project-structure)
+- [Configuration](#configuration)
+- [Schema Setup](#schema-setup)
+- [CRUD Pattern Overview](#crud-pattern-overview)
+- [Tools](#tools)
+- [Resources](#resources)
+- [Prompt](#prompt)
+- [Running the Example](#running-the-example)
+- [Policy Testing](#policy-testing)
+- [Next Steps](#next-steps)
 
 Build a user management system that lets AI assistants create, read, update, and delete users through natural language—with proper authorization controls at every step.
 
@@ -45,7 +60,7 @@ Key architectural decisions:
 - Python 3.10+
 - MXCP installed (`pip install mxcp`)
 - Basic understanding of SQL and CRUD patterns
-- Completed the [Quickstart guide](/quickstart/) (recommended)
+- Completed the [Quickstart guide](../quickstart.md) (recommended)
 
 ## Project Structure
 
@@ -601,6 +616,6 @@ mxcp run tool update_user \
 
 ## Next Steps
 
-- [Customer Service Example](/examples/customer-service) - Complex policies
-- [Analytics Example](/examples/analytics) - Reporting and dashboards
-- [Policies](/security/policies) - Access control patterns
+- [Customer Service Example](../examples/customer-service.md) - Complex policies
+- [Analytics Example](../examples/analytics.md) - Reporting and dashboards
+- [Policies](../security/policies.md) - Access control patterns

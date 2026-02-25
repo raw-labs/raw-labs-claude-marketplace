@@ -1,11 +1,20 @@
 ---
 title: "Claude Desktop"
 description: "Connect MXCP to Claude Desktop with native MCP support. Configuration, virtual environments, and troubleshooting."
-sidebar:
-  order: 2
 ---
 
-> **Related Topics:** [Quickstart](/getting-started/quickstart#connect-to-claude-desktop) (first connection) | [Deployment](/operations/deployment) (production setup) | [Common Tasks](/reference/common-tasks#how-do-i-connect-to-claude-desktop) (quick how-to)
+> **Related Topics:** [Quickstart](../getting-started/quickstart.md#connect-to-claude-desktop) (first connection) | [Deployment](../operations/deployment.md) (production setup) | [Common Tasks](../reference/common-tasks.md#how-do-i-connect-to-claude-desktop) (quick how-to)
+
+## Table of Contents
+
+- [Configuration](#configuration)
+- [Activation](#activation)
+- [Usage](#usage)
+- [Configuration Options](#configuration-options)
+- [Troubleshooting](#troubleshooting)
+- [Best Practices](#best-practices)
+- [Example Configuration](#example-configuration)
+- [Next Steps](#next-steps)
 
 Claude Desktop has native Model Context Protocol (MCP) support, making it the easiest way to connect your MXCP endpoints to an AI assistant.
 
@@ -408,6 +417,6 @@ Complete example with multiple projects:
 
 ## Next Steps
 
-- [dbt Integration](/integrations/dbt) - Data transformation
-- [DuckDB Integration](/integrations/duckdb) - SQL engine
-- [Operations](/operations) - Production deployment
+- [dbt Integration](../integrations/dbt.md) - Data transformation
+- [DuckDB Integration](../integrations/duckdb.md) - SQL engine
+- [Operations](../operations/index.md) - Production deployment

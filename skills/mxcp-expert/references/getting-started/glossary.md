@@ -1,19 +1,31 @@
 ---
 title: "Glossary"
 description: "Key terms and concepts in MXCP. Quick reference for understanding MCP endpoints, policies, CEL expressions, and other terminology."
-sidebar:
-  order: 3
 ---
+
+## Table of Contents
+
+- [Core Concepts](#core-concepts)
+- [Endpoint Metadata](#endpoint-metadata)
+- [Security Terms](#security-terms)
+- [Configuration Terms](#configuration-terms)
+- [Data Terms](#data-terms)
+- [Quality Terms](#quality-terms)
+- [Operations Terms](#operations-terms)
+- [Runtime Terms](#runtime-terms)
+- [File Types](#file-types)
+- [Common Abbreviations](#common-abbreviations)
+- [Next Steps](#next-steps)
 
 Quick reference for key terms used throughout MXCP documentation.
 
 ## Core Concepts
 
 ### MCP (Model Context Protocol)
-An open standard that enables AI assistants to interact with external tools and data. MXCP implements and extends this protocol. See [Introduction](/getting-started/introduction/).
+An open standard that enables AI assistants to interact with external tools and data. MXCP implements and extends this protocol. See [Introduction](../getting-started/introduction.md).
 
 ### Endpoint
-A function or data source exposed to AI clients. MXCP supports three types: [tools](#tool), [resources](#resource), and [prompts](#prompt). See [Endpoints](/concepts/endpoints/).
+A function or data source exposed to AI clients. MXCP supports three types: [tools](#tool), [resources](#resource), and [prompts](#prompt). See [Endpoints](../concepts/endpoints.md).
 
 ### Tool
 An endpoint that performs actions. Tools have parameters (inputs) and return values (outputs). AI can call tools to query data, perform calculations, or execute operations.
@@ -77,7 +89,7 @@ parameters:
 ## Security Terms
 
 ### CEL (Common Expression Language)
-A simple expression language used for writing [policy](#policy) conditions. CEL expressions evaluate to true or false. See [Policies](/security/policies/).
+A simple expression language used for writing [policy](#policy) conditions. CEL expressions evaluate to true or false. See [Policies](../security/policies.md).
 
 ```yaml
 # CEL expression examples
@@ -125,7 +137,7 @@ return:
 ```
 
 ### User Context
-Information about the authenticated user, available in policies and SQL. See [Authentication](/security/authentication/).
+Information about the authenticated user, available in policies and SQL. See [Authentication](../security/authentication.md).
 - `user.role` - User's role
 - `user.permissions` - Array of permissions
 - `user.email` - User's email
@@ -134,7 +146,7 @@ Information about the authenticated user, available in policies and SQL. See [Au
 ## Configuration Terms
 
 ### Site Configuration (`mxcp-site.yml`)
-Project-specific settings stored in your repository. Defines project name, profiles, extensions, and audit settings. See [Configuration](/operations/configuration/).
+Project-specific settings stored in your repository. Defines project name, profiles, extensions, and audit settings. See [Configuration](../operations/configuration.md).
 
 ### User Configuration (`~/.mxcp/config.yml`)
 User-specific settings stored outside the repository. Contains secrets, OAuth credentials, and per-project configurations.
@@ -143,15 +155,15 @@ User-specific settings stored outside the repository. Contains secrets, OAuth cr
 A named configuration set for different environments (development, staging, production). Select with `--profile` flag.
 
 ### Secret
-Sensitive configuration values like API keys and passwords. Stored in user configuration or secret managers (Vault, 1Password), never in version control. See [Configuration](/operations/configuration/#secret-types).
+Sensitive configuration values like API keys and passwords. Stored in user configuration or secret managers (Vault, 1Password), never in version control. See [Configuration](../operations/configuration.md#secret-types).
 
 ## Data Terms
 
 ### DuckDB
-The analytical SQL database engine that MXCP uses for SQL endpoints. Supports PostgreSQL syntax with analytical extensions. See [DuckDB Integration](/integrations/duckdb/).
+The analytical SQL database engine that MXCP uses for SQL endpoints. Supports PostgreSQL syntax with analytical extensions. See [DuckDB Integration](../integrations/duckdb.md).
 
 ### dbt (data build tool)
-A transformation framework that MXCP integrates with. Run dbt to create tables and views that endpoints can query. See [dbt Integration](/integrations/dbt/).
+A transformation framework that MXCP integrates with. Run dbt to create tables and views that endpoints can query. See [dbt Integration](../integrations/dbt.md).
 
 ### Parameter Binding
 How endpoint parameters are passed to SQL queries. Use `$parameter_name` syntax:
@@ -161,15 +173,15 @@ SELECT * FROM users WHERE id = $user_id
 ```
 
 ### Return Type
-The schema that defines what an endpoint outputs. MXCP validates responses against this schema. See [Type System](/concepts/type-system/).
+The schema that defines what an endpoint outputs. MXCP validates responses against this schema. See [Type System](../concepts/type-system.md).
 
 ## Quality Terms
 
 ### Validation
-Checking that endpoints are correctly defined (YAML syntax, required fields, type schemas). Run with `mxcp validate`. See [Validation](/quality/validation/).
+Checking that endpoints are correctly defined (YAML syntax, required fields, type schemas). Run with `mxcp validate`. See [Validation](../quality/validation.md).
 
 ### Testing
-Running assertions against endpoint outputs. Tests are defined in endpoint YAML files. Run with `mxcp test`. See [Testing](/quality/testing/).
+Running assertions against endpoint outputs. Tests are defined in endpoint YAML files. Run with `mxcp test`. See [Testing](../quality/testing.md).
 
 ### Test Assertion
 A condition that verifies endpoint behavior. Common assertions:
@@ -182,10 +194,10 @@ A condition that verifies endpoint behavior. Common assertions:
 - `result_contains_text` - String contains substring
 
 ### Linting
-Checking metadata quality for better AI comprehension (descriptions, examples, annotations). Run with `mxcp lint`. See [Linting](/quality/linting/).
+Checking metadata quality for better AI comprehension (descriptions, examples, annotations). Run with `mxcp lint`. See [Linting](../quality/linting.md).
 
 ### Evals (Evaluations)
-Testing how AI models interact with your endpoints. Ensures AI uses tools correctly and safely. See [Evals](/quality/evals/).
+Testing how AI models interact with your endpoints. Ensures AI uses tools correctly and safely. See [Evals](../quality/evals.md).
 
 ### Drift Detection
 Monitoring for changes in endpoint schemas between environments. Helps catch unintended changes. Run with `mxcp drift-snapshot` and `mxcp drift-check`.
@@ -198,21 +210,21 @@ How MXCP communicates with clients:
 - `streamable-http` - HTTP with streaming support
 - `sse` - Server-sent events
 
-See [CLI Reference](/reference/cli/#mxcp-serve).
+See [CLI Reference](../reference/cli.md#mxcp-serve).
 
 ### Audit Logging
-Recording every endpoint execution for compliance and debugging. Can be stored as JSONL files or in a database. See [Auditing](/security/auditing/).
+Recording every endpoint execution for compliance and debugging. Can be stored as JSONL files or in a database. See [Auditing](../security/auditing.md).
 
 ### Hot Reload
 Updating configuration without restarting the server. Triggered by SIGHUP signal or via [Admin Socket](#admin-socket).
 
 ### Admin Socket
-A Unix socket for server management (health checks, status, configuration reloads). See [Admin Socket](/operations/admin-socket/).
+A Unix socket for server management (health checks, status, configuration reloads). See [Admin Socket](../operations/admin-socket.md).
 
 ## Runtime Terms
 
 ### Runtime API
-Python functions available in Python endpoints. See [Python Reference](/reference/python/).
+Python functions available in Python endpoints. See [Python Reference](../reference/python.md).
 - `db` - Database access
 - `config` - Configuration access
 - `plugins` - Plugin access
@@ -231,10 +243,10 @@ Function to request an asynchronous system reload. The reload sequence:
 
 **When to use:** Only use `reload_duckdb()` when external tools need exclusive access to the database file (e.g., replacing the file). For normal database operations, use the `db` proxy directly.
 
-See [Python Reference](/reference/python/#reload_duckdb).
+See [Python Reference](../reference/python.md#reload_duckdb).
 
 ### UDF (User Defined Function)
-A custom SQL function implemented in Python via plugins. See [Plugins](/reference/plugins/).
+A custom SQL function implemented in Python via plugins. See [Plugins](../reference/plugins.md).
 
 ## File Types
 
@@ -263,6 +275,6 @@ A custom SQL function implemented in Python via plugins. See [Plugins](/referenc
 
 ## Next Steps
 
-- [Introduction](/getting-started/introduction/) - Full MXCP overview
-- [Quickstart](/getting-started/quickstart/) - Start building
-- [Concepts](/concepts/) - Deep dive into concepts
+- [Introduction](../getting-started/introduction.md) - Full MXCP overview
+- [Quickstart](../getting-started/quickstart.md) - Start building
+- [Concepts](../concepts/index.md) - Deep dive into concepts

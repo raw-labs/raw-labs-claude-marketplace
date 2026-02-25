@@ -1,8 +1,6 @@
 ---
 title: "Testing"
 description: "MXCP test framework: YAML test definitions, result assertions, policy testing with user_context, error handling, CI/CD integration."
-sidebar:
-  order: 3
 ---
 
 ## Table of Contents
@@ -22,7 +20,7 @@ sidebar:
 - [Best Practices](#best-practices)
 - [Complete Example](#complete-example)
 
-> **Related Topics:** [Validation](/quality/validation) (check syntax before testing) | [Policies](/security/policies) (test access control) | [Evals](/quality/evals) (AI behavior testing) | [Common Tasks](/reference/common-tasks#how-do-i-add-tests-to-an-endpoint) (quick how-to)
+> **Related Topics:** [Validation](../quality/validation.md) (check syntax before testing) | [Policies](../security/policies.md) (test access control) | [Evals](../quality/evals.md) (AI behavior testing) | [Common Tasks](../reference/common-tasks.md#how-do-i-add-tests-to-an-endpoint) (quick how-to)
 
 MXCP provides built-in testing capabilities to verify endpoint functionality. Tests are defined directly in endpoint YAML files and run with `mxcp test`.
 
@@ -738,6 +736,6 @@ tool:
 
 ## Next Steps
 
-- [Linting](/quality/linting) - Metadata quality
-- [Evals](/quality/evals) - LLM behavior testing
-- [Policies](/security/policies) - Policy configuration
+- [Linting](../quality/linting.md) - Metadata quality
+- [Evals](../quality/evals.md) - LLM behavior testing
+- [Policies](../security/policies.md) - Policy configuration

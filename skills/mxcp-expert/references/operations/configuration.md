@@ -1,11 +1,25 @@
 ---
 title: "Configuration"
 description: "Complete MXCP configuration reference. Site config, user config, profiles, secrets, and environment variables."
-sidebar:
-  order: 2
 ---
 
-> **Related Topics:** [Deployment](/operations/deployment) (production setup) | [Authentication](/security/authentication) (OAuth setup) | [Project Structure](/concepts/project-structure) (file locations)
+> **Related Topics:** [Deployment](../operations/deployment.md) (production setup) | [Authentication](../security/authentication.md) (OAuth setup) | [Project Structure](../concepts/project-structure.md) (file locations)
+
+## Table of Contents
+
+- [Quick Start](#quick-start)
+- [Site Configuration](#site-configuration)
+- [User Configuration](#user-configuration)
+- [Secrets](#secrets)
+- [Dynamic Values](#dynamic-values)
+- [Transport Configuration](#transport-configuration)
+- [Model Configuration](#model-configuration)
+- [Environment Variables](#environment-variables)
+- [Configuration Reload](#configuration-reload)
+- [Validation](#validation)
+- [Best Practices](#best-practices)
+- [Troubleshooting](#troubleshooting)
+- [Next Steps](#next-steps)
 
 MXCP uses **two configuration files** with distinct purposes:
 
@@ -98,7 +112,7 @@ Each profile can configure:
 **Note:** The `duckdb.path` setting is optional. If not specified, MXCP automatically uses `data/db-{profile}.duckdb`. Only configure this if explicitly requested by the user.
 
 **Drift Detection:**
-The `drift.path` specifies where to store the drift snapshot file. This is used by `mxcp drift-snapshot` to create a baseline and `mxcp drift-check` to detect schema changes. Use separate paths per profile to avoid conflicts. See [Validation](/quality/validation) for details.
+The `drift.path` specifies where to store the drift snapshot file. This is used by `mxcp drift-snapshot` to create a baseline and `mxcp drift-check` to detect schema changes. Use separate paths per profile to avoid conflicts. See [Validation](../quality/validation.md) for details.
 
 ### DuckDB Extensions
 
@@ -131,7 +145,7 @@ dbt:
   test_paths: ["tests"]
 ```
 
-See [dbt Integration](/integrations/dbt) for details.
+See [dbt Integration](../integrations/dbt.md) for details.
 
 ### SQL Tools
 
@@ -245,7 +259,7 @@ def call_external_api(query: str) -> dict:
     return {"result": "..."}
 ```
 
-**For DuckDB extensions** (httpfs, postgres_scanner), secrets are automatically applied based on type. See [DuckDB Integration](/integrations/duckdb) for details.
+**For DuckDB extensions** (httpfs, postgres_scanner), secrets are automatically applied based on type. See [DuckDB Integration](../integrations/duckdb.md) for details.
 
 ### Secret Types
 
@@ -406,7 +420,7 @@ models:
 | `timeout` | Request timeout in seconds |
 | `max_retries` | Number of retries on failure |
 
-See [Evals](/quality/evals) for using models in evaluation tests.
+See [Evals](../quality/evals.md) for using models in evaluation tests.
 
 ## Environment Variables
 
@@ -460,7 +474,7 @@ curl --unix-socket /run/mxcp/mxcp.sock -X POST http://localhost/reload
 - Server host/port
 - Endpoint definitions
 
-See [Admin Socket](/operations/admin-socket) for details.
+See [Admin Socket](../operations/admin-socket.md) for details.
 
 ## Validation
 
@@ -552,6 +566,6 @@ export MXCP_CONFIG=/path/to/config.yml
 
 ## Next Steps
 
-- [Deployment](/operations/deployment) - Production deployment patterns
-- [Authentication](/security/authentication) - OAuth configuration
-- [Admin Socket](/operations/admin-socket) - Health checks and hot reload
+- [Deployment](../operations/deployment.md) - Production deployment patterns
+- [Authentication](../security/authentication.md) - OAuth configuration
+- [Admin Socket](../operations/admin-socket.md) - Health checks and hot reload

@@ -1,11 +1,25 @@
 ---
 title: "Plugin Reference"
 description: "Extend MXCP with custom DuckDB plugins. User Defined Functions, type mapping, authentication integration, and lifecycle management."
-sidebar:
-  order: 5
 ---
 
-> **Related Topics:** [Python Reference](/reference/python) (runtime API) | [DuckDB Integration](/integrations/duckdb) (extensions) | [Type System](/concepts/type-system) (type mapping)
+> **Related Topics:** [Python Reference](../reference/python.md) (runtime API) | [DuckDB Integration](../integrations/duckdb.md) (extensions) | [Type System](../concepts/type-system.md) (type mapping)
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Quick Start](#quick-start)
+- [Configuration](#configuration)
+- [Plugin Structure](#plugin-structure)
+- [Type Mapping](#type-mapping)
+- [Authentication Integration](#authentication-integration)
+- [Lifecycle Management](#lifecycle-management)
+- [Advanced Examples](#advanced-examples)
+- [SQL Usage Patterns](#sql-usage-patterns)
+- [Best Practices](#best-practices)
+- [Project Structure](#project-structure)
+- [Troubleshooting](#troubleshooting)
+- [Next Steps](#next-steps)
 
 MXCP plugins extend DuckDB with custom User Defined Functions (UDFs) written in Python. Plugins provide domain-specific functionality, API integrations, and custom data processing.
 
@@ -563,6 +577,6 @@ WHERE function_name LIKE '%_pluginname';
 
 ## Next Steps
 
-- [Python Reference](/reference/python) - Runtime API
-- [SQL Reference](/reference/sql) - SQL capabilities
-- [Authentication](/security/authentication) - User context
+- [Python Reference](../reference/python.md) - Runtime API
+- [SQL Reference](../reference/sql.md) - SQL capabilities
+- [Authentication](../security/authentication.md) - User context

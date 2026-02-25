@@ -1,3 +1,25 @@
+## Table of Contents
+
+- [1. Missing `tool:` Wrapper](#1-missing-tool-wrapper)
+- [2. Missing Parameter Description](#2-missing-parameter-description)
+- [3. Invalid Type Names](#3-invalid-type-names)
+- [4. Invalid Parameter Names](#4-invalid-parameter-names)
+- [5. Invalid Format Values](#5-invalid-format-values)
+- [6. Both `code` and `file` in Source](#6-both-code-and-file-in-source)
+- [7. Using `required: false` for Optional Parameters](#7-using-required-false-for-optional-parameters)
+- [8. Missing `language: python` for Python Tools](#8-missing-language-python-for-python-tools)
+- [8a. Python Function Name Must Match Tool Name](#8a-python-function-name-must-match-tool-name)
+- [9. Enum with Null Default](#9-enum-with-null-default)
+- [10. Invalid Test Assertions](#10-invalid-test-assertions)
+- [11. Type Mismatch with SQL Aggregates](#11-type-mismatch-with-sql-aggregates)
+- [12. Custom Authentication Instead of Built-in](#12-custom-authentication-instead-of-built-in)
+- [13. Database-Specific SQL Syntax](#13-database-specific-sql-syntax)
+- [14. Testing Policy Denials in YAML](#14-testing-policy-denials-in-yaml)
+- [15. Enum with Optional Parameter](#15-enum-with-optional-parameter)
+- [16. Invalid `mxcp-site.yml` Properties](#16-invalid-mxcp-siteyml-properties)
+- [17. Using `returns:` Instead of `return:`](#17-using-returns-instead-of-return)
+- [Quick Reference](#quick-reference)
+
 # Common Mistakes to Avoid
 
 **Read this before creating any tools.** These mistakes cause validation errors.

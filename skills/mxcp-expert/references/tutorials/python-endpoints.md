@@ -1,8 +1,6 @@
 ---
 title: "Python Endpoints Tutorial"
 description: "Build complex AI tools with Python. Learn the runtime API, database access, async operations, and lifecycle hooks."
-sidebar:
-  order: 4
 ---
 
 ## Table of Contents
@@ -24,7 +22,7 @@ sidebar:
 - [Performance Considerations](#performance-considerations)
 - [Migration from SQL](#migration-from-sql)
 
-> **Related Topics:** [Python Runtime Reference](/reference/python) (API details) | [Type System](/concepts/type-system) (parameter types) | [Plugins](/reference/plugins) (custom UDFs) | [SQL Endpoints](/tutorials/sql-endpoints) (when to use SQL instead)
+> **Related Topics:** [Python Runtime Reference](../reference/python.md) (API details) | [Type System](../concepts/type-system.md) (parameter types) | [Plugins](../reference/plugins.md) (custom UDFs) | [SQL Endpoints](../tutorials/sql-endpoints.md) (when to use SQL instead)
 
 Python endpoints let you build tools with complex logic, API integrations, and ML models. In this tutorial, you'll learn to use MXCP's Python runtime features effectively.
 
@@ -39,7 +37,7 @@ Build Python tools that:
 
 ## Prerequisites
 
-- Completed the [Hello World Tutorial](/tutorials/hello-world)
+- Completed the [Hello World Tutorial](../tutorials/hello-world.md)
 - Basic Python knowledge
 - A project directory with `mxcp init`
 
@@ -391,7 +389,7 @@ Lifecycle hooks:
 - `@on_init` - Called once when server starts
 - `@on_shutdown` - Called when server stops
 
-For reloading the database during runtime, use `reload_duckdb()`. See [Python Reference](/reference/python/#reload_duckdb).
+For reloading the database during runtime, use `reload_duckdb()`. See [Python Reference](../reference/python.md#reload_duckdb).
 
 ## Step 6: Combining SQL and Python
 
@@ -792,7 +790,7 @@ def get_total() -> dict:
 
 ## Next Steps
 
-- [Policies](/security/policies) - Add access control
-- [Testing](/quality/testing) - Test Python tools
-- [Python Reference](/reference/python) - Complete API reference
-- [Plugins](/reference/plugins) - Create DuckDB extensions
+- [Policies](../security/policies.md) - Add access control
+- [Testing](../quality/testing.md) - Test Python tools
+- [Python Reference](../reference/python.md) - Complete API reference
+- [Plugins](../reference/plugins.md) - Create DuckDB extensions

@@ -1,11 +1,18 @@
 ---
 title: "Core Concepts"
 description: "MXCP fundamentals: tools vs resources vs prompts, type system basics, project structure, and execution flow. Essential reading before building."
-sidebar:
-  order: 1
 ---
 
-> **Related Topics:** [Glossary](/getting-started/glossary) (term definitions) | [Quickstart](/getting-started/quickstart) (hands-on setup) | [Tutorials](/tutorials/) (step-by-step guides)
+> **Related Topics:** [Glossary](../getting-started/glossary.md) (term definitions) | [Quickstart](../getting-started/quickstart.md) (hands-on setup) | [Tutorials](../tutorials/index.md) (step-by-step guides)
+
+## Table of Contents
+
+- [Endpoints](#endpoints)
+- [Type System](#type-system)
+- [Project Structure](#project-structure)
+- [Configuration](#configuration)
+- [Execution Flow](#execution-flow)
+- [Next Steps](#next-steps)
 
 MXCP is built around a few core concepts that work together to provide a complete framework for building production AI tools. Understanding these concepts will help you design better endpoints and take full advantage of MXCP's features.
 
@@ -61,7 +68,7 @@ prompt:
       prompt: "Analyze this data: {{ data }}"
 ```
 
-[Learn more about endpoints →](/concepts/endpoints)
+[Learn more about endpoints →](../concepts/endpoints.md)
 
 ## Type System
 
@@ -98,7 +105,7 @@ Mark fields as `sensitive: true` to:
 - Filter with policies
 - Protect in responses
 
-[Learn more about the type system →](/concepts/type-system)
+[Learn more about the type system →](../concepts/type-system.md)
 
 ## Project Structure
 
@@ -123,7 +130,7 @@ This structure enables:
 - **Separation of concerns** - Clear organization
 - **Version control** - Easy diffs and reviews
 
-[Learn more about project structure →](/concepts/project-structure)
+[Learn more about project structure →](../concepts/project-structure.md)
 
 ## Configuration
 
@@ -142,7 +149,7 @@ User-specific settings for secrets and authentication:
 - OAuth provider settings
 - Vault/1Password integration
 
-[Learn more about configuration →](/operations/configuration)
+[Learn more about configuration →](../operations/configuration.md)
 
 ## Execution Flow
 
@@ -162,6 +169,6 @@ This consistent flow ensures:
 
 ## Next Steps
 
-- [Endpoints](/concepts/endpoints) - Deep dive into tools, resources, and prompts
-- [Type System](/concepts/type-system) - Complete type reference
-- [Project Structure](/concepts/project-structure) - Directory organization
+- [Endpoints](../concepts/endpoints.md) - Deep dive into tools, resources, and prompts
+- [Type System](../concepts/type-system.md) - Complete type reference
+- [Project Structure](../concepts/project-structure.md) - Directory organization

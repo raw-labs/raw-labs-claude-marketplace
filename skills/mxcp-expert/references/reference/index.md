@@ -1,49 +1,56 @@
 ---
 title: "Reference"
 description: "Complete MXCP reference: CLI commands, SQL functions, Python runtime API, plugins, and common task how-tos."
-sidebar:
-  order: 1
 ---
 
-> **Related Topics:** [Concepts](/concepts/) (understand MXCP) | [Tutorials](/tutorials/) (learn by doing) | [YAML Schemas](/schemas/) (configuration files) | [Quality](/quality/) (testing, validation)
+> **Related Topics:** [Concepts](../concepts/index.md) (understand MXCP) | [Tutorials](../tutorials/index.md) (learn by doing) | [YAML Schemas](../schemas/index.md) (configuration files) | [Quality](../quality/index.md) (testing, validation)
+
+## Table of Contents
+
+- [Quick Start](#quick-start)
+- [Reference Topics](#reference-topics)
+- [Quick Reference](#quick-reference)
+- [Environment Variables](#environment-variables)
+- [Project Structure](#project-structure)
+- [Next Steps](#next-steps)
 
 This section provides comprehensive reference documentation for all MXCP components.
 
 ## Quick Start
 
-**Looking for how to do something?** See [Common Tasks](/reference/common-tasks) - quick answers to "How do I...?" questions.
+**Looking for how to do something?** See [Common Tasks](../reference/common-tasks.md) - quick answers to "How do I...?" questions.
 
 ## Reference Topics
 
-### [Common Tasks](/reference/common-tasks)
+### [Common Tasks](../reference/common-tasks.md)
 Quick how-to reference for frequent tasks:
 - Adding authentication
 - Filtering sensitive data
 - Writing tests
 - Configuring production
 
-### [CLI Reference](/reference/cli)
+### [CLI Reference](../reference/cli.md)
 Complete command-line interface documentation:
 - All commands and options
 - Output formats
 - Environment variables
 - Error handling
 
-### [SQL Reference](/reference/sql)
+### [SQL Reference](../reference/sql.md)
 SQL capabilities in MXCP:
 - DuckDB SQL syntax
 - Built-in authentication functions
 - Parameter binding
 - Common extensions
 
-### [Python Reference](/reference/python)
+### [Python Reference](../reference/python.md)
 Python runtime API:
 - Database access (`db`)
 - Configuration (`config`)
 - Plugin access (`plugins`)
 - Lifecycle hooks
 
-### [Plugin Reference](/reference/plugins)
+### [Plugin Reference](../reference/plugins.md)
 Plugin development guide:
 - Plugin structure
 - UDF definition
@@ -141,7 +148,7 @@ SELECT * FROM users WHERE id = $user_id;
 | `array` | `list` | Array |
 | `object` | `dict` | STRUCT/JSON |
 
-See [Type System](/concepts/type-system) for format annotations, constraints, and sensitive data marking.
+See [Type System](../concepts/type-system.md) for format annotations, constraints, and sensitive data marking.
 
 ## Environment Variables
 
@@ -191,8 +198,8 @@ my-project/
 
 ## Next Steps
 
-- [CLI Reference](/reference/cli) - Full command documentation
-- [SQL Reference](/reference/sql) - SQL capabilities
-- [Python Reference](/reference/python) - Runtime API
-- [Plugin Reference](/reference/plugins) - Plugin development
-- [YAML Schemas](/schemas/) - Configuration file schemas
+- [CLI Reference](../reference/cli.md) - Full command documentation
+- [SQL Reference](../reference/sql.md) - SQL capabilities
+- [Python Reference](../reference/python.md) - Runtime API
+- [Plugin Reference](../reference/plugins.md) - Plugin development
+- [YAML Schemas](../schemas/index.md) - Configuration file schemas

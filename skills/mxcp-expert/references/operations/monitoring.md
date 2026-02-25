@@ -1,11 +1,25 @@
 ---
 title: "Monitoring"
 description: "Monitor MXCP in production. OpenTelemetry tracing, metrics via spanmetrics, and audit log analysis."
-sidebar:
-  order: 4
 ---
 
-> **Related Topics:** [Deployment](/operations/deployment) (production setup) | [Admin Socket](/operations/admin-socket) (health checks) | [Auditing](/security/auditing) (operation logs) | [Drift Detection](/operations/drift-detection) (schema changes)
+> **Related Topics:** [Deployment](../operations/deployment.md) (production setup) | [Admin Socket](../operations/admin-socket.md) (health checks) | [Auditing](../security/auditing.md) (operation logs) | [Drift Detection](../operations/drift-detection.md) (schema changes)
+
+## Table of Contents
+
+- [Observability Signals](#observability-signals)
+- [OpenTelemetry Integration](#opentelemetry-integration)
+- [What Gets Traced](#what-gets-traced)
+- [Metrics](#metrics)
+- [Privacy: What MXCP Doesn't Send](#privacy-what-mxcp-doesnt-send)
+- [Correlation with Audit Logs](#correlation-with-audit-logs)
+- [Production Backends](#production-backends)
+- [Health Checks](#health-checks)
+- [Audit Log Analysis](#audit-log-analysis)
+- [Alerting](#alerting)
+- [Monitoring Scripts](#monitoring-scripts)
+- [Troubleshooting](#troubleshooting)
+- [Next Steps](#next-steps)
 
 This guide covers monitoring and observability for MXCP deployments, including tracing, metrics, and audit log analysis.
 
@@ -318,7 +332,7 @@ export OTEL_EXPORTER_OTLP_HEADERS="api-key=YOUR_LICENSE_KEY"
 
 ## Health Checks
 
-Health checks are available via the admin socket. See [Admin Socket](/operations/admin-socket) for details.
+Health checks are available via the admin socket. See [Admin Socket](../operations/admin-socket.md) for details.
 
 ```bash
 # Enable admin socket
@@ -516,7 +530,7 @@ if __name__ == '__main__':
 
 ## Next Steps
 
-- [Admin Socket](/operations/admin-socket) - Health checks and status API
-- [Auditing](/security/auditing) - Audit log configuration
-- [Deployment](/operations/deployment) - Production deployment
-- [Drift Detection](/operations/drift-detection) - Schema change tracking
+- [Admin Socket](../operations/admin-socket.md) - Health checks and status API
+- [Auditing](../security/auditing.md) - Audit log configuration
+- [Deployment](../operations/deployment.md) - Production deployment
+- [Drift Detection](../operations/drift-detection.md) - Schema change tracking

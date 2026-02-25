@@ -1,11 +1,24 @@
 ---
 title: "Type System"
 description: "Complete guide to MXCP's type system for defining and validating data structures. JSON Schema compatible with DuckDB type mapping."
-sidebar:
-  order: 3
 ---
 
-> **Related Topics:** [Endpoints](/concepts/endpoints) (use types in definitions) | [Policies](/security/policies) (filter by type) | [YAML Schemas](/schemas/) (complete field reference) | [Testing](/quality/testing) (validate types)
+> **Related Topics:** [Endpoints](../concepts/endpoints.md) (use types in definitions) | [Policies](../security/policies.md) (filter by type) | [YAML Schemas](../schemas/index.md) (complete field reference) | [Testing](../quality/testing.md) (validate types)
+
+## Table of Contents
+
+- [Base Types](#base-types)
+- [String Format Annotations](#string-format-annotations)
+- [Type Annotations](#type-annotations)
+- [Nested Types](#nested-types)
+- [Sensitive Data](#sensitive-data)
+- [Using Types in SQL](#using-types-in-sql)
+- [Type Conversion](#type-conversion)
+- [Complete Example](#complete-example)
+- [Limitations](#limitations)
+- [Validation Errors](#validation-errors)
+- [Best Practices](#best-practices)
+- [Next Steps](#next-steps)
 
 MXCP's type system provides robust data validation for endpoint parameters and return values. It combines JSON Schema compatibility with DuckDB type mapping, ensuring type safety across your entire application.
 
@@ -534,6 +547,6 @@ return:
 
 ## Next Steps
 
-- [Endpoints](/concepts/endpoints) - Use types in endpoint definitions
-- [Policies](/security/policies) - Filter based on types
-- [Testing](/quality/testing) - Test type validation
+- [Endpoints](../concepts/endpoints.md) - Use types in endpoint definitions
+- [Policies](../security/policies.md) - Filter based on types
+- [Testing](../quality/testing.md) - Test type validation

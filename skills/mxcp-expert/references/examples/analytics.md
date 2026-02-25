@@ -1,9 +1,23 @@
 ---
 title: "Analytics Example"
 description: "Build a sales analytics system with MXCP. Reports, dashboards, KPIs, and AI-assisted analysis."
-sidebar:
-  order: 3
 ---
+
+## Table of Contents
+
+- [The Problem](#the-problem)
+- [The Solution](#the-solution)
+- [What You'll Learn](#what-youll-learn)
+- [Prerequisites](#prerequisites)
+- [Project Structure](#project-structure)
+- [Configuration](#configuration)
+- [Schema Setup](#schema-setup)
+- [Tools vs Resources for Analytics](#tools-vs-resources-for-analytics)
+- [Tools](#tools)
+- [Resources](#resources)
+- [Prompt](#prompt)
+- [Running the Example](#running-the-example)
+- [Next Steps](#next-steps)
 
 Build a sales analytics system that lets AI assistants generate reports, analyze product performance, and access real-time dashboards through natural language queries.
 
@@ -43,7 +57,7 @@ The key design patterns:
 - Python 3.10+
 - MXCP installed (`pip install mxcp`)
 - Basic understanding of SQL aggregations
-- Completed the [Quickstart guide](/quickstart/) (recommended)
+- Completed the [Quickstart guide](../quickstart.md) (recommended)
 
 ## Project Structure
 
@@ -502,6 +516,6 @@ mxcp serve
 
 ## Next Steps
 
-- [Customer Service Example](/examples/customer-service) - Policies and access control
-- [Data Management Example](/examples/data-management) - CRUD operations
-- [dbt Integration](/integrations/dbt) - Add data transformations to this project
+- [Customer Service Example](../examples/customer-service.md) - Policies and access control
+- [Data Management Example](../examples/data-management.md) - CRUD operations
+- [dbt Integration](../integrations/dbt.md) - Add data transformations to this project

@@ -1,11 +1,22 @@
 ---
 title: "Excel Integration"
 description: "Work with Excel files (.xlsx, .xls) in MXCP servers. Load spreadsheets into DuckDB, process multi-sheet workbooks, and build analytics tools."
-sidebar:
-  order: 5
 ---
 
-> **Related Topics:** [DuckDB Integration](/integrations/duckdb) (database engine) | [Python Endpoints](/tutorials/python-endpoints) (Python tools) | [dbt Integration](/integrations/dbt) (seeds and models)
+> **Related Topics:** [DuckDB Integration](../integrations/duckdb.md) (database engine) | [Python Endpoints](../tutorials/python-endpoints.md) (Python tools) | [dbt Integration](../integrations/dbt.md) (seeds and models)
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Recommended: dbt Python Models](#recommended-dbt-python-models)
+- [Alternative: Direct SQL Reading](#alternative-direct-sql-reading)
+- [Common Patterns](#common-patterns)
+- [Data Cleaning](#data-cleaning)
+- [Dependencies](#dependencies)
+- [When to Use Each Approach](#when-to-use-each-approach)
+- [Troubleshooting](#troubleshooting)
+- [Best Practices](#best-practices)
+- [Next Steps](#next-steps)
 
 Guide for working with Excel files (.xlsx, .xls) in MXCP servers.
 
@@ -410,6 +421,6 @@ df.to_csv('large.csv', index=False)
 
 ## Next Steps
 
-- [DuckDB Integration](/integrations/duckdb) - SQL engine features
-- [Python Endpoints](/tutorials/python-endpoints) - Build Python tools
-- [dbt Integration](/integrations/dbt) - Data transformation
+- [DuckDB Integration](../integrations/duckdb.md) - SQL engine features
+- [Python Endpoints](../tutorials/python-endpoints.md) - Build Python tools
+- [dbt Integration](../integrations/dbt.md) - Data transformation

@@ -1,11 +1,26 @@
 ---
 title: "Drift Detection"
 description: "Track schema and endpoint changes across environments. Generate snapshots, detect drift, and integrate with CI/CD."
-sidebar:
-  order: 5
 ---
 
-> **Related Topics:** [Testing](/quality/testing) (endpoint tests) | [Configuration](/operations/configuration) (profiles) | [Deployment](/operations/deployment) (CI/CD)
+> **Related Topics:** [Testing](../quality/testing.md) (endpoint tests) | [Configuration](../operations/configuration.md) (profiles) | [Deployment](../operations/deployment.md) (CI/CD)
+
+## Table of Contents
+
+- [What is Drift Detection?](#what-is-drift-detection)
+- [Why Use Drift Detection?](#why-use-drift-detection)
+- [Configuration](#configuration)
+- [Create Baseline](#create-baseline)
+- [Check for Drift](#check-for-drift)
+- [Snapshot Structure](#snapshot-structure)
+- [Drift Report Structure](#drift-report-structure)
+- [CI/CD Integration](#cicd-integration)
+- [Use Cases](#use-cases)
+- [JSON Output for Automation](#json-output-for-automation)
+- [CLI Reference](#cli-reference)
+- [Security Considerations](#security-considerations)
+- [Performance Considerations](#performance-considerations)
+- [Next Steps](#next-steps)
 
 MXCP's drift detection system helps you track changes to your database schema and endpoint definitions across different environments and over time. This is crucial for maintaining consistency, catching unintended changes, and ensuring your AI applications work reliably across development, staging, and production environments.
 
@@ -367,6 +382,6 @@ Options:
 
 ## Next Steps
 
-- [Testing](/quality/testing) - Endpoint testing
-- [Deployment](/operations/deployment) - Production deployment with CI/CD
-- [Configuration](/operations/configuration) - Profile configuration
+- [Testing](../quality/testing.md) - Endpoint testing
+- [Deployment](../operations/deployment.md) - Production deployment with CI/CD
+- [Configuration](../operations/configuration.md) - Profile configuration
