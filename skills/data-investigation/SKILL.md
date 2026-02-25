@@ -26,6 +26,14 @@ cp <skill-assets>/scripts/canonical.py ./canonical.py
 python profile_excel.py <excel_file> --output data-profile-report.md
 ```
 
+The profiler script (`assets/scripts/profile_excel.py`, ~800 lines) can be searched with these patterns:
+- Header detection: grep `detect_header_row`
+- Type inference: grep `infer_column_type`
+- FK candidates: grep `find_fk_candidates`
+- Merged cells: grep `detect_merged_cells`
+- Transposition: grep `detect_transposition`
+- Calculated columns: grep `detect_calculated_columns`
+
 The profiler produces `data-profile-report.md` with:
 - File metadata (size, MD5, sheet count)
 - Per-sheet column profiles (type, nulls, empty strings, unique count, min/max, samples)

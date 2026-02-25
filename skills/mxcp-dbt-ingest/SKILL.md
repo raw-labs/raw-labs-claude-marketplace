@@ -130,7 +130,9 @@ python scripts/generate_dbt_tests.py --spec data-model-spec.md
 
 This produces a schema.yml with not_null, unique, accepted_values, relationships, range checks (`dbt_utils.expression_is_true`), and composite key tests (`dbt_utils.unique_combination_of_columns`). **Review the generated YAML before running.**
 
-## Deriving Table Mappings
+## Running and Verifying (6 Layers)
+
+### Deriving Table Mappings
 
 Before running validation, derive `--tables` from `data-model-spec.md`. Extract each sheet's `**Target table:**` value:
 
@@ -141,44 +143,36 @@ Before running validation, derive `--tables` from `data-model-spec.md`. Extract 
 # Result: --tables "Orders:stg_orders,Products:stg_products"
 ```
 
-## Running and Verifying (6 Layers)
-
-Execute the full verification sequence:
+### Verification Sequence
 
 ```bash
-# 1. Generate dbt tests from spec
-python scripts/generate_dbt_tests.py --spec data-model-spec.md
-
-# 2. Install dbt packages (required for dbt_utils tests)
+# Layer 1: Build — install packages and compile models
 mxcp dbt deps
-
-# 3. Build all models
 mxcp dbt run
 
-# 4. Run dbt tests (layer 3: schema tests)
+# Layer 2: Schema tests — not_null, unique, relationships, accepted_values
 mxcp dbt test
 
-# 5. Source-vs-target validation (layers 4-6: row count, checksum, sample)
-#    Use the derived table mappings from data-model-spec.md
+# Layer 3: Source-vs-target — row count, checksum, sample comparison
 python scripts/validate_post_ingest.py <excel_file> \
     --db data/db-default.duckdb \
     --tables "Orders:stg_orders,Products:stg_products"
 
-# 6. Schema type validation
+# Layer 4: Schema types — DuckDB actual types vs data-model-spec expected types
 python scripts/validate_schema_types.py \
     --db data/db-default.duckdb \
     --spec data-model-spec.md
 ```
 
-**IMPORTANT:** Write `project-manifest.md` NOW (see below), BEFORE running lineage validation.
+**STOP HERE — write `project-manifest.md` now (see below). Lineage validation requires it.**
 
 ```bash
-# 7. Row count lineage validation (requires manifest — run AFTER writing project-manifest.md)
+# Layer 5: Row count lineage — staging → intermediate → mart consistency
 python scripts/validate_lineage.py \
     --db data/db-default.duckdb \
     --manifest project-manifest.md
 
-# 8. Create drift baseline
+# Layer 6: Drift baseline — snapshot for future change detection
 mxcp drift-snapshot
 ```
 
@@ -200,7 +194,7 @@ Every SQL model with a WHERE clause MUST document it in `project-manifest.md`:
 
 ## Writing project-manifest.md
 
-Write `project-manifest.md` after layers 1-6 pass but **BEFORE** running lineage validation (`validate_lineage.py`). Include:
+Write after layers 1-4 pass, **BEFORE** layer 5 (lineage validation). Include:
 - Source file metadata (path, size, MD5, sheet-to-table mappings)
 - Cleaning decisions made and rationale
 - Expected schema per table
