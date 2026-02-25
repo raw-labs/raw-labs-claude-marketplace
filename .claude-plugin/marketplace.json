@@ -15,8 +15,7 @@
       "source": "./",
       "strict": false,
       "skills": [
-        "./skills/mxcp-expert",
-        "./skills/document-to-mxcp"
+        "./skills/mxcp-expert"
       ]
     }
   ]
