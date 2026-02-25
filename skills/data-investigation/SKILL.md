@@ -99,11 +99,13 @@ Output follows the format in `references/data-model-spec-format.md`. Every asser
 | Multi-row headers | Auto-flattened to "Category_Detail" format — verify column names make sense |
 | Transposition detected | Data likely needs `pandas.melt()` unpivoting before loading |
 
-## Using xlsx/pdf/docx Skills
+## Optional External Skills
 
-For visual spot-checks and documentation:
-- **xlsx skill:** Open the Excel file to visually verify merged cell regions, check formatting, see what the profiler can't capture (colors, conditional formatting)
-- **pdf/docx skills:** If the user provides data documentation (data dictionaries, ERD diagrams), read them to inform hypothesis generation
+If installed, these external skills can assist with visual spot-checks:
+- **xlsx skill** (optional): Open the Excel file to visually verify merged cell regions, check formatting, see what the profiler can't capture (colors, conditional formatting)
+- **pdf/docx skills** (optional): If the user provides data documentation (data dictionaries, ERD diagrams), read them to inform hypothesis generation
+
+These are not bundled with this plugin — the investigation works fully without them.
 
 ## Self-Validation Principles
 

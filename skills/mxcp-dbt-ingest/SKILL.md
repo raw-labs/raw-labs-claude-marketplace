@@ -1,6 +1,6 @@
 ---
 name: mxcp-dbt-ingest
-description: "This skill should be used when the user asks to 'ingest data with dbt', 'create dbt models for Excel', 'build a data pipeline', 'load Excel into DuckDB', 'create staging models', 'set up dbt transformations', or mentions dbt ingestion, data pipeline, staging/marts layers, or Excel-to-DuckDB workflows. Provides a verified methodology for building dbt pipelines from a data-model-spec."
+description: "This skill should be used when the user asks to 'ingest data with dbt', 'create dbt models for Excel', 'load Excel into DuckDB', 'create staging models', 'set up dbt transformations', or mentions dbt ingestion, staging/marts layers, or Excel-to-DuckDB workflows. Requires an existing data-model-spec.md (produced by the data-investigation skill). For end-to-end pipeline requests, use the data-pipeline-workflow skill instead."
 ---
 
 # MXCP dbt Ingest
@@ -25,7 +25,13 @@ cp -R <skill-assets>/project-templates/excel-to-mxcp/. ./
 - `dbt_project.yml`: update `name:` and `profile:` fields
 - `mxcp-config.yml`: update the `projects: mxcp-template:` key to match
 
-3. Copy your Excel file into `source_files/`
+3. Verify all required scripts exist after template copy:
+   - `scripts/profile_excel.py`, `scripts/canonical.py`
+   - `scripts/generate_dbt_tests.py`
+   - `scripts/validate_post_ingest.py`, `scripts/validate_pre_ingest.py`
+   - `scripts/validate_schema_types.py`, `scripts/validate_lineage.py`
+
+4. Copy your Excel file into `source_files/`
 
 ## Pipeline Layers
 
@@ -124,6 +130,17 @@ python scripts/generate_dbt_tests.py --spec data-model-spec.md
 
 This produces a schema.yml with not_null, unique, accepted_values, relationships, range checks (`dbt_utils.expression_is_true`), and composite key tests (`dbt_utils.unique_combination_of_columns`). **Review the generated YAML before running.**
 
+## Deriving Table Mappings
+
+Before running validation, derive `--tables` from `data-model-spec.md`. Extract each sheet's `**Target table:**` value:
+
+```
+# Example: data-model-spec.md contains:
+#   ## Sheet: Orders  →  **Target table:** stg_orders
+#   ## Sheet: Products →  **Target table:** stg_products
+# Result: --tables "Orders:stg_orders,Products:stg_products"
+```
+
 ## Running and Verifying (6 Layers)
 
 Execute the full verification sequence:
@@ -142,16 +159,21 @@ mxcp dbt run
 mxcp dbt test
 
 # 5. Source-vs-target validation (layers 4-6: row count, checksum, sample)
+#    Use the derived table mappings from data-model-spec.md
 python scripts/validate_post_ingest.py <excel_file> \
     --db data/db-default.duckdb \
-    --tables "Sheet1:stg_sheet1,Sheet2:stg_sheet2"
+    --tables "Orders:stg_orders,Products:stg_products"
 
 # 6. Schema type validation
 python scripts/validate_schema_types.py \
     --db data/db-default.duckdb \
     --spec data-model-spec.md
+```
 
-# 7. Row count lineage validation (staging → intermediate → mart)
+**IMPORTANT:** Write `project-manifest.md` NOW (see below), BEFORE running lineage validation.
+
+```bash
+# 7. Row count lineage validation (requires manifest — run AFTER writing project-manifest.md)
 python scripts/validate_lineage.py \
     --db data/db-default.duckdb \
     --manifest project-manifest.md
@@ -178,7 +200,7 @@ Every SQL model with a WHERE clause MUST document it in `project-manifest.md`:
 
 ## Writing project-manifest.md
 
-After successful verification, write `project-manifest.md` with:
+Write `project-manifest.md` after layers 1-6 pass but **BEFORE** running lineage validation (`validate_lineage.py`). Include:
 - Source file metadata (path, size, MD5, sheet-to-table mappings)
 - Cleaning decisions made and rationale
 - Expected schema per table
