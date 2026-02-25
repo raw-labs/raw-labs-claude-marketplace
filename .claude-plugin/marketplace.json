@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "RAW Labs plugins for Claude Code including MXCP development tools",
-    "version": "1.0.13"
+    "version": "1.1.0"
   },
   "plugins": [
     {
@@ -16,6 +16,17 @@
       "strict": false,
       "skills": [
         "./skills/mxcp-expert"
+      ]
+    },
+    {
+      "name": "mxcp-data-pipeline",
+      "description": "Automated Excel-to-MXCP data pipeline with self-validating investigation, dbt ingestion, and 6-layer verification",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/data-investigation",
+        "./skills/mxcp-dbt-ingest",
+        "./skills/data-pipeline"
       ]
     }
   ]
