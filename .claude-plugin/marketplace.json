@@ -13,11 +13,6 @@
       "name": "mxcp-plugin",
       "description": "Expert guidance for building production MCP servers using MXCP, including document ingestion",
       "source": "./plugins/mxcp-plugin"
-    },
-    {
-      "name": "mxcp-data-pipeline",
-      "description": "Automated Excel-to-MXCP data pipeline with self-validating investigation, dbt ingestion, and 6-layer verification",
-      "source": "./plugins/mxcp-data-pipeline"
     }
   ]
 }

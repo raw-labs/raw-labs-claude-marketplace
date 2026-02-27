@@ -1,7 +1,0 @@
-mxcp: 1
-profile: default
-project: mxcp-template
-
-dbt:
-  enabled: true
-  model_paths: ["models"]

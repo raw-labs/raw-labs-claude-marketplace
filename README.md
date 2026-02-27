@@ -46,37 +46,6 @@ provides tools for querying customer orders.
 
 The skill covers SQL and Python endpoints, OAuth authentication, testing and validation, deployment, and monitoring.
 
-### mxcp-data-pipeline
-
-Automated Excel-to-MXCP data pipeline with self-validating investigation, dbt ingestion, and 6-layer verification.
-
-| Component | Description |
-|-----------|-------------|
-| **data-investigation** skill | Profile Excel files, test hypotheses (PKs, FKs, calculated columns), produce a verified `data-model-spec.md` |
-| **mxcp-dbt-ingest** skill | Scaffold dbt project, generate staging/intermediate/mart models, run 6-layer verification |
-| **data-pipeline** skill | Orchestrates the full workflow across phases |
-| **data-pipeline-orchestrator** agent | Autonomous agent for end-to-end pipeline execution |
-
-```bash
-/plugin install mxcp-data-pipeline@raw-labs-claude-marketplace
-```
-
-**Example prompt:**
-```
-I have a sales report Excel file at ./data/sales.xlsx.
-Build a full data pipeline — profile it, create dbt models, and verify everything.
-```
-
-Claude will:
-1. Profile the Excel file (headers, types, merged cells, encoding issues)
-2. Test hypotheses about keys, relationships, and calculated columns
-3. Produce a verified data model spec and ask for your approval
-4. Scaffold a dbt project with Python + SQL models
-5. Run 6 layers of verification (build, schema tests, source-vs-target, schema types, lineage, drift)
-6. Optionally design MXCP endpoints from the mart tables
-
-### Installation
-
 Or use interactive mode:
 ```bash
 /plugin
@@ -113,7 +82,6 @@ Update marketplace:
 Update a plugin:
 ```bash
 /plugin update mxcp-plugin@raw-labs-claude-marketplace
-/plugin update mxcp-data-pipeline@raw-labs-claude-marketplace
 ```
 
 ## Resources

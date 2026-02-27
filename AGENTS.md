@@ -4,26 +4,13 @@ This document describes the autonomous agents in this marketplace and how to mai
 
 ## Current Agents
 
-### data-pipeline-orchestrator
-
-**File:** `plugins/mxcp-data-pipeline/agents/data-pipeline.md`
-**Plugin:** mxcp-data-pipeline
-**Color:** green
-**Model:** inherit
-
-Orchestrates end-to-end Excel-to-MXCP data pipelines by coordinating three skills in sequence:
-
-1. `data-investigation` — profile Excel, test hypotheses, produce `data-model-spec.md`
-2. `mxcp-dbt-ingest` — scaffold dbt project, build models, run 6-layer verification
-3. `mxcp-expert` — (optional) design SQL/Python endpoints from mart tables
-
-Triggers on requests like "build a data pipeline from Excel", "ingest this spreadsheet into MXCP", or "re-run the pipeline after schema changes" (recovery mode).
+_No agents currently registered._
 
 ## Maintenance Guide
 
 ### Agent File Format
 
-Agents live in each plugin's `agents/` directory as `.md` files (e.g., `plugins/mxcp-data-pipeline/agents/`). They are auto-discovered by Claude Code — no manifest entry needed. Each agent file has:
+Agents live in each plugin's `agents/` directory as `.md` files (e.g., `plugins/mxcp-plugin/agents/`). They are auto-discovered by Claude Code — no manifest entry needed. Each agent file has:
 
 - **YAML frontmatter:** `name`, `description` (with `<example>` blocks), `model`, `color`, `tools`
 - **Markdown body:** System prompt defining the agent's behavior
@@ -53,7 +40,7 @@ Agents live in each plugin's `agents/` directory as `.md` files (e.g., `plugins/
 ### Adding a New Agent
 
 1. Create `agents/<agent-name>.md` with frontmatter + system prompt.
-2. Follow the format of `data-pipeline.md` as a reference.
+2. Follow the `plugin-dev:agent-development` skill guidelines for format.
 3. Test triggering by using similar phrasing to the description examples.
 4. Review against `plugin-dev:agent-development` skill guidelines.
 5. No manifest changes needed — auto-discovery handles registration.
