@@ -18,6 +18,7 @@
 - [15. Enum with Optional Parameter](#15-enum-with-optional-parameter)
 - [16. Invalid `mxcp-site.yml` Properties](#16-invalid-mxcp-siteyml-properties)
 - [17. Using `returns:` Instead of `return:`](#17-using-returns-instead-of-return)
+- [18. Declaring a Parameter the Source Never Uses](#18-declaring-a-parameter-the-source-never-uses)
 - [Quick Reference](#quick-reference)
 
 # Common Mistakes to Avoid
@@ -116,10 +117,12 @@ source:
 
 ## 7. Using `required: false` for Optional Parameters
 
-MXCP uses `default` to make parameters optional, NOT `required: false`:
+MXCP uses `default` to make parameters optional, NOT `required: false`. A
+parameter is optional when it has a `default`; otherwise it is required.
 
 ```yaml
-# WRONG - required field doesn't exist
+# WRONG - `required` is not a per-parameter boolean.
+# Validation fails with: "required: Input should be a valid list"
 parameters:
   - name: limit
     type: integer
@@ -132,6 +135,10 @@ parameters:
     description: Max results to return
     default: 10
 ```
+
+(`required` *is* a valid key, but only on an `object`-typed parameter, where it
+lists which nested properties are required — e.g. `required: [host]`. It is never
+a boolean on a top-level parameter.)
 
 ## 8. Missing `language: python` for Python Tools
 
@@ -271,7 +278,7 @@ DELETE FROM users WHERE id = 1;
 INSERT INTO users VALUES (1, 'Alice');
 ```
 
-When in doubt, check [duckdb.md](duckdb.md) or the official DuckDB documentation.
+When in doubt, check [duckdb.md](integrations/duckdb.md) or the official DuckDB documentation.
 
 ## 14. Testing Policy Denials in YAML
 
@@ -320,25 +327,39 @@ parameters:
 
 ## 16. Invalid `mxcp-site.yml` Properties
 
-`mxcp-site.yml` only accepts these top-level properties: `mxcp`, `project`, `profile`
+`mxcp-site.yml` **requires** `mxcp`, `project`, `profile`. Beyond those, it accepts
+a fixed set of optional top-level keys — and **rejects any key not in the schema**
+(`extra_forbidden`). The allowed optional keys are: `secrets`, `sql_tools`,
+`extensions`, `paths`, `plugin`, `dbt`, `profiles`.
 
 ```yaml
-# WRONG - invalid top-level properties
+# WRONG - keys that are not in the schema fail validation:
+#   "Site config validation error ... extra_forbidden"
 mxcp: 1
 name: my-project           # Wrong key! Use 'project'
-description: My project    # Not a valid property
-python:                    # Not a valid property
+description: My project    # Not a valid key
+python:                    # Not a valid key (set the dir via paths.python)
   root: python
-secrets:                   # Not a valid property - secrets go in ~/.mxcp/config.yml
-  - name: api_key
 
 # CORRECT - minimal required config
 mxcp: 1
 project: my-project
 profile: default
+
+# ALSO VALID - optional keys from the schema
+sql_tools:
+  enabled: true
+secrets:                   # secret NAMES used by this repo
+  - api_key                # the VALUE is resolved from ~/.mxcp/config.yml
+paths:
+  python: python           # customize component directories
+extensions:
+  - httpfs
 ```
 
-Secrets, database paths, and other configuration go in `~/.mxcp/config.yml`, not in `mxcp-site.yml`.
+Note the split: secret *names* are declared in `mxcp-site.yml`, but their *values*
+(and the database path) live in `~/.mxcp/config.yml`. See
+[site-config.md](schemas/site-config.md) for every key.
 
 ## 17. Using `returns:` Instead of `return:`
 
@@ -360,6 +381,30 @@ tool:
       id: {type: integer}
       name: {type: string}
 ```
+
+## 18. Declaring a Parameter the Source Never Uses
+
+Every declared parameter must be referenced by the implementation. For SQL, that
+means a `$param` reference; otherwise validation fails with
+`Parameter mismatch: ... extra={'<name>'}`.
+
+```yaml
+# tool declares two parameters
+parameters:
+  - {name: customer_id, type: integer, description: ID}
+  - {name: region, type: string, description: Region}   # declared but unused below
+```
+
+```sql
+-- WRONG - 'region' is declared but never referenced -> validation fails
+SELECT * FROM customers WHERE id = $customer_id
+
+-- CORRECT - reference every declared parameter
+SELECT * FROM customers WHERE id = $customer_id AND region = $region
+```
+
+If a value is genuinely optional, drop the parameter or actually use it (e.g.
+`WHERE ($region IS NULL OR region = $region)`).
 
 ## Quick Reference
 
@@ -383,5 +428,7 @@ tool:
 | Testing policy denials | Use CLI `--user-context`, not YAML tests |
 | Enum + optional param | Include `null` in enum or document in description |
 | `name:` in mxcp-site.yml | Use `project:` not `name:` |
-| Extra mxcp-site.yml props | Only `mxcp`, `project`, `profile` allowed |
+| Unknown mxcp-site.yml key | Only schema keys allowed (req: `mxcp`/`project`/`profile`; opt: `secrets`/`sql_tools`/`extensions`/`paths`/`plugin`/`dbt`/`profiles`) |
 | `returns:` in tool | Use `return:` (singular, no 's') |
+| `result: null` for not-found on `type: object` | Object returns raise "No results returned"; use `type: array` or test via CLI |
+| Declared param unused in source | Reference every param (`$name` in SQL) or remove it |

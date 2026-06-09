@@ -378,13 +378,6 @@ tests:
       id: 1
       title: "Welcome"
 
-  - name: get_document_not_found
-    description: Returns null for non-existent document
-    arguments:
-      - key: document_id
-        value: 99999
-    result: null
-
   - name: admin_sees_internal_fields
     description: Admin can see internal fields
     arguments:
@@ -395,6 +388,8 @@ tests:
     result_contains:
       internal_notes: "Review scheduled"
 ```
+
+> A resource declaring `return.type: object` raises `Error: No results returned` (it does **not** return `null`) when the query matches zero rows, so a `result: null` not-found test will fail. Declare `return.type: array` to make absence testable (`result: []` / `result_length: 0`), or verify the error case via `mxcp run resource "<uri-template>"` rather than a YAML assertion.
 
 ### Test Fields
 

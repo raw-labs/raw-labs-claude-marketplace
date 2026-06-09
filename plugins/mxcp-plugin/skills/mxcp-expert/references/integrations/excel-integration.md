@@ -9,6 +9,7 @@ description: "Work with Excel files (.xlsx, .xls) in MXCP servers. Load spreadsh
 
 - [Overview](#overview)
 - [Recommended: dbt Python Models](#recommended-dbt-python-models)
+  - [Test the ingestion (required)](#3-test-the-ingestion-required)
 - [Alternative: Direct SQL Reading](#alternative-direct-sql-reading)
 - [Common Patterns](#common-patterns)
 - [Data Cleaning](#data-cleaning)
@@ -34,34 +35,105 @@ Excel files are common data sources that can be integrated into MXCP servers.
 
 ## Recommended: dbt Python Models
 
-**This is the preferred approach for Excel files.**
+**This is the preferred approach for Excel files**, and the default unless the user
+asks for something else. The recipe below is verified end-to-end on mxcp 0.12.3 +
+dbt-duckdb 1.10.1.
+
+### 1. Enable dbt
+
+```yaml
+# mxcp-site.yml
+mxcp: 1
+project: my-project
+profile: default
+dbt:
+  enabled: true
+  model_paths: ["models"]
+```
+
+```bash
+mxcp dbt-config        # Writes dbt_project.yml (project) + profiles.yml (~/.dbt/)
+mkdir -p models        # dbt-config does not create models/ — make it yourself
+```
+
+The generated profile points dbt at MXCP's own database (`data/db-{profile}.duckdb`),
+so models you build are immediately queryable from MXCP endpoints.
+
+### 2. Write the ingestion model
 
 ```python
-# models/load_sales_data.py
+# models/stg_sales.py
 import pandas as pd
 
 def model(dbt, session):
-    """Load and clean Excel file."""
-    df = pd.read_excel('data/sales.xlsx', sheet_name='Sales')
+    dbt.config(materialized="table")  # persist a real table for endpoints to query
 
-    # Clean data
-    df = df.dropna(how='all')
-    df.columns = df.columns.str.lower().str.replace(' ', '_')
+    # Path is relative to the dbt project root (where mxcp-site.yml lives).
+    df = pd.read_excel("data/sales.xlsx", sheet_name="Sales")
 
-    # Transform
-    df['sale_date'] = pd.to_datetime(df['sale_date'])
+    # Clean: drop fully-empty rows/cols, normalize headers to snake_case.
+    df = df.dropna(how="all").dropna(axis=1, how="all")
+    df.columns = df.columns.str.strip().str.lower().str.replace(" ", "_")
+
+    # Enforce types — Excel's inferred types are unreliable.
+    df["order_id"] = df["order_id"].astype(int)
+    df["sale_date"] = pd.to_datetime(df["sale_date"]).dt.date
+    df["amount"] = df["amount"].astype(float)
 
     return df
 ```
 
-Run with: `mxcp dbt run --select load_sales_data`
+**Why Python models beat CSV seeds:** no manual Excel → CSV step; multiple sheets,
+dates, and dirty headers are handled in code; the transformation is version-controlled
+and testable; it runs as part of the dbt DAG.
 
-**Why Python models are better than CSV seeds:**
-- No manual Excel → CSV conversion step
-- Handles multiple sheets, formatting, dates automatically
-- Transformation logic is version-controlled
-- Data quality tests apply automatically
-- Runs as part of the dbt DAG
+### 3. Test the ingestion (required)
+
+Ingestion is where data silently breaks — rows get dropped, types drift, headers
+shift. **Never ship an ingested model without tests.** Add data-quality tests in
+`models/schema.yml`:
+
+```yaml
+# models/schema.yml
+version: 2
+
+models:
+  - name: stg_sales
+    description: Sales records ingested and cleaned from data/sales.xlsx.
+    columns:
+      - name: order_id
+        description: Unique order identifier.
+        data_tests: [unique, not_null]
+      - name: sale_date
+        description: Date the sale occurred.
+        data_tests: [not_null]
+      - name: region
+        description: Sales region.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:                       # dbt 1.10+ nests test args here
+                values: ["North", "South", "East", "West"]
+      - name: amount
+        description: Sale amount in USD.
+        data_tests: [not_null]
+```
+
+Then run, test, and **verify the data actually landed correctly** — schema tests
+prove constraints hold; the correctness check proves the right rows/values arrived:
+
+```bash
+mxcp dbt run                     # Materialize stg_sales (PASS=1)
+mxcp dbt test                    # All schema tests MUST pass (e.g. PASS=7)
+
+# Correctness check against what you expect from the spreadsheet:
+mxcp query "SELECT count(*) AS rows, count(DISTINCT order_id) AS ids, sum(amount) AS total FROM stg_sales"
+mxcp query "SELECT * FROM stg_sales LIMIT 5"   # eyeball types and values
+```
+
+If the row count, distinct keys, or totals don't match the source spreadsheet, fix
+the model before building any endpoints on top of it. Only once `mxcp dbt test`
+passes and the counts match should you write tools/resources against `stg_sales`.
 
 ## Alternative: Direct SQL Reading
 

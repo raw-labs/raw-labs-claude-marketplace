@@ -356,13 +356,6 @@ tests:
       id: 1
       name: "Alice"
 
-  - name: get_user_not_found
-    description: Returns null for non-existent user
-    arguments:
-      - key: user_id
-        value: 99999
-    result: null
-
   - name: admin_sees_all_fields
     description: Admin can see sensitive fields
     arguments:
@@ -373,6 +366,8 @@ tests:
     result_contains:
       salary: 75000
 ```
+
+> A tool declaring `return.type: object` raises `Error: No results returned` (it does **not** return `null`) when the query matches zero rows. Do not write a not-found test as `result: null` for such a tool — it will fail. Either declare `return.type: array` (zero matches yield `[]`, testable with `result: []` / `result_length: 0`), or verify the error case via `mxcp run` rather than a YAML assertion.
 
 ### Test Fields
 

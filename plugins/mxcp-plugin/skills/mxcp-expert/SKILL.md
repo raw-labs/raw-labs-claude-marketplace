@@ -106,6 +106,16 @@ mxcp validate  # Verify setup
 | Simple CSV, static reference data | `mxcp dbt seed` |
 | Excel, complex transformations | dbt Python models |
 
+**Excel/spreadsheet sources → default to dbt Python models.** Unless the user
+asks for something else, ingest `.xlsx`/`.xls` into DuckDB with a **dbt Python
+model** (`pd.read_excel(...)` → cleaned DataFrame, materialized as a table). This
+beats converting to CSV + `dbt seed`: no manual conversion step, and it handles
+multiple sheets, dates, and dirty headers in version-controlled, testable code.
+See [excel-integration.md](references/integrations/excel-integration.md) for the
+full runnable recipe and [dbt.md](references/integrations/dbt.md) for Python-model
+mechanics. Do **not** read the spreadsheet live at request time — ingest once, then
+serve endpoints from the materialized table.
+
 **Direct read approaches (for dynamic data):**
 
 ```sql
@@ -127,11 +137,20 @@ SELECT * FROM mysql.orders;
 ```
 See [duckdb.md](references/integrations/duckdb.md) for S3, HTTP auth, and secret management.
 
-**After ingestion (if using dbt), verify:**
+**Test the ingestion — don't trust it blind.** Ingestion is where data silently
+goes wrong (dropped rows, bad types, shifted headers). Every dbt-ingested model
+must ship with data-quality tests AND a correctness check:
 ```bash
-mxcp dbt test                    # Data quality tests
-mxcp query "SELECT * FROM table LIMIT 5"  # Manual verification
+mxcp dbt run                     # Materialize the model(s)
+mxcp dbt test                    # Schema tests in models/schema.yml MUST pass
+# Correctness check: confirm the data actually landed as expected
+mxcp query "SELECT count(*) AS rows, count(DISTINCT <key>) AS keys FROM <table>"
+mxcp query "SELECT * FROM <table> LIMIT 5"   # eyeball types and values
 ```
+Add `not_null`/`unique` on key columns and `accepted_values` on categoricals in
+`models/schema.yml`, and assert known totals/row counts against the source. If the
+counts or types don't match the spreadsheet, fix the model before building
+endpoints. See [dbt.md](references/integrations/dbt.md#data-quality-tests).
 
 ### Step 2: Implementation
 
@@ -282,7 +301,7 @@ profile: default
 ## Project Structure
 
 ```
-mxcp-project/
+mxcp-project/                 # `mxcp init` scaffolds all of this
 ├── mxcp-site.yml       # Project configuration (required)
 ├── tools/              # Tool definitions (.yml)
 ├── resources/          # Resource definitions (.yml)
@@ -290,6 +309,9 @@ mxcp-project/
 ├── sql/                # SQL implementations
 ├── python/             # Python implementations
 ├── evals/              # LLM evaluation tests
+├── plugins/            # DuckDB/Python plugin definitions
+├── drift/              # Drift snapshots (drift-snapshot)
+├── audit/              # Audit logs (when enabled)
 └── data/               # Database files (db-default.duckdb)
 ```
 
@@ -314,6 +336,7 @@ tool:
     - name: customer_id
       type: integer
       description: The customer's unique identifier
+      examples: [1]
   return:
     type: object
     properties:
@@ -324,17 +347,20 @@ tool:
     file: ../sql/get_customer.sql
   tests:
     - name: existing_customer
+      description: Looking up a known ID returns that customer's profile
       arguments: [{key: customer_id, value: 1}]
       result_contains: {id: 1}
-    - name: not_found
-      arguments: [{key: customer_id, value: 99999}]
-      result: null
+    # A `type: object` tool raises "No results returned" (not null) when zero rows
+    # match, so verify the not-found case via CLI rather than a YAML `result: null`:
+    #   mxcp run tool get_customer --param customer_id=99999  # -> Error: No results returned
 ```
 
 ```sql
 -- sql/get_customer.sql
 SELECT id, name, email FROM customers WHERE id = $customer_id
 ```
+
+> **Empty-result behavior (verified):** a tool/resource declaring `return.type: object` (a single record) raises `Error: No results returned` when the query matches zero rows — it does **not** return `null`. To represent "maybe absent," use `return.type: array` (an empty match yields `[]`, testable with `result: []` or `result_length: 0`). Test genuine not-found/error cases with `mxcp run`, not YAML assertions.
 
 **SQL vs Python:** Use SQL for queries/aggregations. Use Python (`language: python`) for complex logic, APIs, ML.
 

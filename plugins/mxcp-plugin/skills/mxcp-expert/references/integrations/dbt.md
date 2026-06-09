@@ -385,8 +385,12 @@ models:
       - name: customer_tier
         data_tests:
           - accepted_values:
-              values: ['high_value', 'medium_value', 'low_value']
+              arguments:
+                values: ['high_value', 'medium_value', 'low_value']
 ```
+
+**Note**: As of dbt 1.10+, test arguments (like `values`) must be nested under an
+`arguments:` property. The old inline form still runs but emits a deprecation warning.
 
 ### Custom Tests
 
@@ -596,7 +600,8 @@ models:
       - name: segment
         data_tests:
           - accepted_values:
-              values: ['champion', 'loyal', 'potential', 'new']
+              arguments:
+                values: ['champion', 'loyal', 'potential', 'new']
 ```
 
 ### When to Use Python Models

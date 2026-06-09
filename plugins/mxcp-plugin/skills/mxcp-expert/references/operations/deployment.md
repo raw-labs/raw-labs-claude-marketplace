@@ -172,8 +172,8 @@ ghcr.io/raw-labs/mxcp:latest
 **Available tags:**
 
 - `latest` - Latest stable release
-- `0.10.0`, `0.9.0`, etc. - Specific stable versions
-- `0.10.0-rc12`, etc. - Pre-release versions
+- `0.12.3`, `0.11.0`, etc. - Specific stable versions
+- `0.12.3-rc1`, etc. - Pre-release versions
 
 ### Using the Official Image (Recommended)
 
