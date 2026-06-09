@@ -7,6 +7,7 @@ description: "Build complex AI tools with Python. Learn the runtime API, databas
 
 - [Goal](#goal)
 - [Prerequisites](#prerequisites)
+- [Dependencies](#dependencies)
 - [Step 1: Basic Python Tool](#step-1-basic-python-tool)
 - [Step 2: Database Access](#step-2-database-access)
 - [Step 3: Configuration and Secrets](#step-3-configuration-and-secrets)
@@ -40,6 +41,30 @@ Build Python tools that:
 - Completed the [Hello World Tutorial](../tutorials/hello-world.md)
 - Basic Python knowledge
 - A project directory with `mxcp init`
+
+## Dependencies
+
+Python endpoints run **in the same Python environment as `mxcp` itself** — MXCP
+imports your module in-process. Any third-party library your endpoint imports
+(`requests`, `pandas`, an API SDK, …) must be installed in that environment:
+
+```bash
+# In the same venv/env where mxcp is installed:
+uv pip install requests pandas      # or: pip install requests pandas
+```
+
+**`mxcp validate` does NOT catch missing imports** (verified) — it checks schema
+and structure only and will report "passed" for an endpoint whose imports are not
+installed. A missing dependency surfaces only when the code actually executes:
+
+```text
+mxcp run tool fetch_status
+# ModuleNotFoundError: No module named 'requests'
+```
+
+So always exercise Python endpoints with `mxcp run` / `mxcp test` (not just
+`mxcp validate`), and record their libraries in a `requirements.txt` so the same
+environment can be reproduced in deployment.
 
 ## Step 1: Basic Python Tool
 

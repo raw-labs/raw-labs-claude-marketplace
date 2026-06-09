@@ -84,6 +84,15 @@ mxcp init --bootstrap
 mxcp validate  # Verify setup
 ```
 
+**Two `init` gotchas to expect:**
+- It prompts `Would you like to generate a Claude Desktop configuration file? [y/N]`.
+  Answer `n` unless the user wants the Claude Desktop config (answering `n` skips it
+  and init still completes). In a non-interactive shell, pipe a default: `printf 'n\n' | mxcp init --bootstrap`.
+- `init` reads and validates the global user config at `~/.mxcp/config.yml`. If that
+  file exists and is invalid for the installed mxcp version, init aborts with
+  `Invalid user config: ...` — fix or move that file before retrying (it is **not**
+  part of your project).
+
 ### Step 1: Task Analysis & Data Ingestion
 
 **Analyze the task first:**
@@ -188,6 +197,11 @@ mxcp test
 - Modular, maintainable code
 - Each module independently testable
 - Use `pytest` for Python logic testing
+- **Install any third-party imports in the same env as `mxcp`** (`uv pip install <pkg>`).
+  Python endpoints run in-process, and `mxcp validate` does NOT catch missing
+  imports — a `ModuleNotFoundError` only appears at `mxcp run`/`test`/`serve`, so
+  always exercise Python endpoints with `mxcp run`, not just `validate`. See
+  [python-endpoints.md](references/tutorials/python-endpoints.md#dependencies).
 
 ### Step 3: Metadata Quality
 

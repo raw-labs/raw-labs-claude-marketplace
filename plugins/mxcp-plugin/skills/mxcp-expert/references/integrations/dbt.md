@@ -91,10 +91,19 @@ mxcp dbt-config --dry-run
 mxcp dbt-config --embed-secrets --force
 ```
 
-This creates:
-- `dbt_project.yml` - Project configuration
-- `profiles.yml` - Connection profiles
-- `models/` - Model directory structure
+This creates/updates (verified on dbt-duckdb 1.10.1):
+- `dbt_project.yml` — written to your **project root**.
+- `profiles.yml` — written to **`~/.dbt/profiles.yml`** (a profile named
+  `<project>_<profile>`), **not** into the project. It points dbt at MXCP's own
+  DuckDB (`data/db-{profile}.duckdb`), so models you build are immediately
+  queryable from MXCP endpoints.
+
+It does **not** create the `models/` directory. Create it yourself before adding
+models:
+
+```bash
+mkdir -p models
+```
 
 ## Commands
 
